@@ -27,7 +27,7 @@
         <!-- Name -->
         <div class="mb-6">
             <x-input-label for="name" :value="__('Name (optional)')" />
-            <x-text-input id="name" class="block mt-2 w-full" type="text" name="name" placeholder="Name..." :value="old('name')" required autofocus autocomplete="name" />
+            <x-text-input id="name" class="block mt-2 w-full" type="text" name="name" placeholder="Name..." :value="old('name')" autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
