@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('belongsTo');
             $table->dateTime('created_at');
-            $table->timestamps();
         });
     }
 

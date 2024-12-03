@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('belongsTo');
             $table->integer('quiz_result');
             $table->dateTime('created_at');
-            $table->timestamps();
         });
     }
 

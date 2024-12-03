@@ -17,10 +17,9 @@ return new class extends Migration
             $table->text('description');
             $table->integer('location_id');
             $table->string('location');
-            $table->text('image');
+            $table->string('image');
             $table->string('video');
             $table->dateTime('created_at');
-            $table->timestamps();
         });
     }
 

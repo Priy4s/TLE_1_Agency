@@ -19,3 +19,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::resource('job_listings', App\Http\Controllers\job_listingController::class)->only(['index', 'create']);
+Route::get('/joblistings', [App\Http\Controllers\job_listingController::class, 'index'])->name('job_listings.index');

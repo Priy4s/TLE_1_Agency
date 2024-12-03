@@ -21,7 +21,6 @@ return new class extends Migration
             $table->boolean('standing');
             $table->boolean('talking');
             $table->dateTime('created_at');
-            $table->timestamps();
         });
     }
 

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('status');
             $table->dateTime('created_at');
-            $table->timestamps();
         });
     }
 

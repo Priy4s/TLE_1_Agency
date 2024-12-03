@@ -15,6 +15,7 @@ class JobListing extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'position',
         'description',
         'length',
@@ -37,7 +38,7 @@ class JobListing extends Model
      * @var array
      */
     protected $casts = [
-        'salary' => 'decimal',
+        'salary' => 'decimal:2',
         'needed' => 'boolean',
         'created_at' => 'datetime',
     ];

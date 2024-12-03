@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('company');
             $table->boolean('needed');
             $table->dateTime('created_at');
-            $table->timestamps();
+            $table->dateTime('updated_at');
         });
     }
 

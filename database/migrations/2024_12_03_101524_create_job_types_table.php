@@ -15,7 +15,6 @@ return new class extends Migration
             $table->integer('id');
             $table->string('type');
             $table->dateTime('created_at');
-            $table->timestamps();
         });
     }
 
