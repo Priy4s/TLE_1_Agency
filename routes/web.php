@@ -18,3 +18,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::resource('job_listings', App\Http\Controllers\job_listingController::class)->only('index');
