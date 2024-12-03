@@ -58,4 +58,6 @@
             </div>
         </div>
     </body>
+<x-navbar-layout></x-navbar-layout>
 </html>
+
