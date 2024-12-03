@@ -7,6 +7,7 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+
     ],
 
     theme: {
@@ -20,7 +21,7 @@ export default {
             'mossdark' : '#2E342A',
             'green': '#313D29',
             'white' : '#FFFFFF',
-            'cream' : 'FBFCF6',
+            'cream' : '#FBFCF6',
             'strokethin' : '#DFDFDF'
         }
         },
