@@ -55,4 +55,12 @@ rounded-br-none pt-8">
         <img src="{{ asset('images/logo with slogan.png') }}" alt="Open hiring logo"
         class="w-24 h-24 mr-8 ml-auto">
     </div>
+
+
+
+    <div class="flex justify-center pb-8">
+        <a href="{{ route('quiz.show', ['questionIndex' => 0]) }}" class="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition-all">
+            Start the Quiz
+        </a>
+    </div>
 </footer>
