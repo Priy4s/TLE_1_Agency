@@ -15,13 +15,15 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
+            'violet' : '#AA0160',
             'mossmedium' : '#92AA83',
             'mosslight' : '#E2ECC8',
             'mossdark' : '#2E342A',
             'green': '#313D29',
             'white' : '#FFFFFF',
-            'cream' : 'FBFCF6',
-            'strokethin' : '#DFDFDF'
+            'cream' : '#FBFCF6',
+            'strokethin' : '#DFDFDF',
+                'lightgray' : '#EBEBEB'
         }
         },
         },
