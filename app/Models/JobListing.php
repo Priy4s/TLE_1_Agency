@@ -38,7 +38,6 @@ class JobListing extends Model
      */
     protected $casts = [
         'salary' => 'decimal:2',
-        'needed' => 'boolean',
         'created_at' => 'datetime',
     ];
 

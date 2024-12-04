@@ -42,13 +42,12 @@ class JobListingController extends Controller
             'salary' => 'required|numeric',
             'type' => 'required|string',
             'location_id' => 'required|integer',
-            'image' => 'required|string',
-            'video' => 'required|string',
+            'image' => 'string',
+            'video' => 'string',
             'company_id' => 'required|integer',
-            'needed' => 'nullable|boolean',
-            'driverslicense' => 'nullable|boolean',
+            'needed' => 'required|integer',
+            'driverslicense' => 'required|boolean',
         ]);
-        // dd($validatedData);
         JobListing::create($validatedData);
 
         return redirect()->route('job_listings.index')->with('success', 'Job listing created successfully.');
