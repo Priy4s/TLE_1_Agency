@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('job_listings', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->string('position');
             $table->text('description');
             $table->integer('length');
             $table->integer('hours');
-            $table->integer('minutes');
             $table->decimal('salary');
             $table->string('type');
             $table->integer('location_id');
@@ -26,7 +25,8 @@ return new class extends Migration
             $table->string('video');
             $table->integer('company_id');
             $table->string('company');
-            $table->boolean('needed');
+            $table->boolean('needed')->default(false);
+            $table->boolean('driverslicense')->default(false);
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });
