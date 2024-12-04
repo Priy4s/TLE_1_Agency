@@ -22,7 +22,7 @@ require __DIR__ . '/auth.php';
 
 // Use only one Route::resource definition for job_listings
 Route::resource('joblistings', JobListingController::class)->names([
-    'index' => 'joblistings.index',
-    'create' => 'joblistings.create',
-    'store' => 'joblistings.store',
+    'index' => 'job_listings.index',
+    'create' => 'job_listings.create',
+    'store' => 'job_listings.store',
 ]);

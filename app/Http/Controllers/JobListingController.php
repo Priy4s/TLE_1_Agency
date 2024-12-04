@@ -30,11 +30,9 @@ class JobListingController extends Controller
             'salary' => 'required|numeric',
             'type' => 'required|string',
             'location_id' => 'required|integer',
-            'location' => 'required|string',
             'image' => 'required|string',
             'video' => 'required|string',
             'company_id' => 'required|integer',
-            'company' => 'required|string',
             'needed' => 'nullable|boolean',
             'driverslicense' => 'nullable|boolean',
         ]);
