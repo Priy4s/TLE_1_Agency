@@ -50,12 +50,12 @@
             </div>
             <div>
                 <label for="image" class="block font-medium mb-2">Image URL:</label>
-                <input type="text" name="image" id="image" required class="w-full p-3 border border-gray-300 rounded-md">
+                <input type="text" name="image" id="image"  class="w-full p-3 border border-gray-300 rounded-md">
             </div>
 
             <div>
                 <label for="video" class="block font-medium mb-2">Video URL:</label>
-                <input type="text" name="video" id="video" required class="w-full p-3 border border-gray-300 rounded-md">
+                <input type="text" name="video" id="video"  class="w-full p-3 border border-gray-300 rounded-md">
             </div>
 
             <div>
