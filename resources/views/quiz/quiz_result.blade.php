@@ -13,15 +13,12 @@
 
 @section('content')
     <div class="container">
-        <h1>Your Work Style Results</h1>
-        <div class="result">
-            @foreach ($stylePercentages as $style => $percentage)
-                <div class="result-item">
-                    <h3>{{ $style }}</h3>
-                    <p>{{ round($percentage, 2) }}% fit with this style</p>
-                    <div class="progress-bar" style="width: {{ $percentage }}%"></div>
-                </div>
-            @endforeach
+        <h2>Your Results</h2>
+        <div>
+            <p>Leader: {{ number_format($stylePercentages['Leader'], 2) }}%</p>
+            <p>Supporter: {{ number_format($stylePercentages['Supporter'], 2) }}%</p>
+            <p>Organizer: {{ number_format($stylePercentages['Organizer'], 2) }}%</p>
+            <p>Creative: {{ number_format($stylePercentages['Creative'], 2) }}%</p>
         </div>
     </div>
 @endsection

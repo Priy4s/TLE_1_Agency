@@ -22,7 +22,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
 Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save');
-Route::get('/quiz/result', [QuizController::class, 'showResult'])->name('quiz.result');
+Route::get('/quiz/results', [QuizController::class, 'seeResult'])->name('quiz.result');
+Route::get('/quiz/myResults', [QuizController::class, 'showSavedResults'])->name('quiz.savedResults');
+
+
 
 
 

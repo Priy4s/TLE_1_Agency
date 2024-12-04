@@ -9,6 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
+<h1>Quiz</h1>
 <form method="POST" action="{{ route('quiz.save', ['questionIndex' => $questionIndex]) }}">
     @csrf
     <div class="question">
@@ -16,14 +17,15 @@
 
         @foreach($currentQuestion->options as $option)
             <div>
-                <input type="radio" id="option_{{ $option->id }}" name="answer" value="{{ $option->id }}" required>
-                <label for="option_{{ $option->id }}">{{ $option->option_text }}</label>
+                <input type="radio" id="{{ $option->id }}" name="answer" value="{{ $option->id }}" required>
+                <label for="{{ $option->id }}">{{ $option->option ?? 'No option text available' }}</label>
             </div>
         @endforeach
     </div>
 
-    <button type="submit">Next</button>
-</form>
+    <button type="submit">
+        {{ $questionIndex + 1 < count($questions) ? 'Next' : 'See results' }}
+    </button></form>
 
 </body>
 </html>

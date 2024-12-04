@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\QuizResult;
 use App\Models\QuizSession;
-use Illuminate\Http\Request;
 use App\Models\QuestionOption;
+use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
     public function showQuiz($questionIndex = 0)
     {
+
         $questions = Question::with('options')->get();
         $currentQuestion = $questions[$questionIndex] ?? null;
+
+
+        if (!$currentQuestion) {
+            return redirect()->route('quiz.result');
+        }
+
         return view('quiz.quiz', compact('currentQuestion', 'questionIndex', 'questions'));
     }
 
@@ -24,9 +32,16 @@ class QuizController extends Controller
 
         $answer = $request->input('answer');
 
-        // Save the user's answer to the QuizSession table
-        $user_id = auth()->id(); // Assuming user is logged in
-        $question_id = Question::skip($questionIndex)->first()->id; // Get the current question's ID
+        $user_id = auth()->id();
+
+
+        $question = Question::with('options')->skip($questionIndex)->first();
+        if (!$question) {
+            return redirect()->route('quiz.result')->withErrors('Question not found.');
+        }
+
+        $question_id = $question->id;
+
 
         QuizSession::updateOrCreate(
             ['user_id' => $user_id, 'question_id' => $question_id],
@@ -35,65 +50,51 @@ class QuizController extends Controller
 
         $nextQuestionIndex = $questionIndex + 1;
 
-        // Redirect to the next question or to the result page
         if ($nextQuestionIndex < Question::count()) {
             return redirect()->route('quiz.show', ['questionIndex' => $nextQuestionIndex]);
         } else {
+            return Question::count();
             return redirect()->route('quiz.result');
         }
     }
 
-
-    public function showResult(Request $request)
+    public function seeResult(Request $request)
     {
-        $user = auth()->user(); // Assuming the user is logged in
-        $answers = QuizSession::where('user_id', $user->id)
-            ->with('question') // Assuming you have a relationship between QuizSession and Question
-            ->get();
+        $user = auth()->user();
+        $answers = QuizSession::where('user_id', $user->id)->with('selectedOption')->get();
 
-        // Initialize counts for each style (example: Leadership, Teamwork, etc.)
         $styleScores = [
             'Leader' => 0,
             'Supporter' => 0,
             'Organizer' => 0,
             'Creative' => 0,
-            // Add more styles as needed
         ];
 
-        // Calculate scores based on the answers
         foreach ($answers as $answer) {
-            $question = $answer->question;
-            $userAnswer = $answer->answer;
-
-            switch ($question->id) {
-                case 1: // Question 1: What role do you naturally take in a team?
-                    // Increase score based on the selected answer (assuming the options are mapped to styles)
-                    if ($userAnswer == 'Leader') {
-                        $styleScores['Leader']++;
-                    } elseif ($userAnswer == 'Supporter') {
-                        $styleScores['Supporter']++;
-                    }
-                    break;
-
-                case 2: // Question 2: How do you prefer to approach problem-solving?
-                    if ($userAnswer == 'Creative and out-of-the-box') {
-                        $styleScores['Creative']++;
-                    }
-                    break;
-
-                // Add more cases based on your questions and logic
-                // You will need to add logic for all your questions here
+            $style = $answer->selectedOption->style ?? null;
+            if ($style) {
+                $styleScores[$style]++;
             }
         }
 
-        // Calculate the percentages for each style
-        $totalQuestions = count($answers); // Total number of answered questions
+        $totalAnswers = count($answers);
         $stylePercentages = [];
         foreach ($styleScores as $style => $score) {
-            $stylePercentages[$style] = ($score / $totalQuestions) * 100;
+            $stylePercentages[$style] = ($totalAnswers > 0) ? ($score / $totalAnswers) * 100 : 0;
         }
 
-        // Pass the results to the view
+        QuizResult::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'leader_percentage' => $stylePercentages['Leader'],
+                'supporter_percentage' => $stylePercentages['Supporter'],
+                'organizer_percentage' => $stylePercentages['Organizer'],
+                'creative_percentage' => $stylePercentages['Creative'],
+            ]
+        );
+
         return view('quiz_result', compact('stylePercentages'));
     }
+
+
 }

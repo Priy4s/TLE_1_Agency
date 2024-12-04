@@ -9,6 +9,10 @@ class QuestionOption extends Model
     protected $fillable = ['question_id', 'option'];
     protected $table = 'question_options';
 
+//    public static function find($answer)
+//    {
+//    }
+
     public function question()
     {
         return $this->belongsTo(Question::class, 'question_id');
