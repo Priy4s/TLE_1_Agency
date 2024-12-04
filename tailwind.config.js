@@ -16,6 +16,7 @@ export default {
                 radikal: ['Radikal', 'sans-serif'],
             },
             colors: {
+
             'violet' : '#AA0160',
                 'darkviolet' : '#7C1A51',
             'mossmedium' : '#92AA83',
@@ -26,6 +27,7 @@ export default {
             'cream' : '#FBFCF6',
             'strokethin' : '#DFDFDF',
                 'lightgray' : '#EBEBEB'
+
         }
         },
         },
