@@ -11,7 +11,7 @@
 
     <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
         <h1 class="text-3xl font-semibold text-center mb-6">Create Job Listing</h1>
-        <form action="{{ route('job_listings.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('job_listings.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
             @csrf
 
             <div>

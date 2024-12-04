@@ -36,7 +36,7 @@
                         {{ $job->company ? $job->company->name : 'No company available' }}
 
                         <!-- Rijbewijs-icoon -->
-                        @if($job->driverslicense === 1)
+                        @if($job->drivers_license === 1)
                             <span class="ml-1">
                                 <img src="{{ asset('images/auto.png') }}" alt="Auto Icon" class="h-30 w-36">
                             </span>
