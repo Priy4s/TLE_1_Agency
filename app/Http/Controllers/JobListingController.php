@@ -15,6 +15,18 @@ class JobListingController extends Controller
     public function index(Request $request): View
     {
         $jobListings = JobListing::all();
+        $query = $request->input('query');
+
+        $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where('position', 'like', '%' . $query . '%')
+                ->orWhereHas('company', function ($companyQuery) use ($query) {
+                    $companyQuery->where('name', 'like', '%' . $query . '%');
+                })
+                ->orWhereHas('location', function ($locationQuery) use ($query) {
+                    $locationQuery->where('name', 'like', '%' . $query . '%');
+                });
+        })->get();
+
         return view('jobs_listing.index', compact('jobListings'));
     }
 
