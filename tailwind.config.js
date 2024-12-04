@@ -13,14 +13,17 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                radikal: ['Radikal', 'sans-serif'],
             },
             colors: {
+            'violet' : '#AA0160',
+                'darkviolet' : '#7C1A51',
             'mossmedium' : '#92AA83',
             'mosslight' : '#E2ECC8',
             'mossdark' : '#2E342A',
             'green': '#313D29',
             'white' : '#FFFFFF',
-            'cream' : '#FBFCF6',
+            'cream' : 'FBFCF6',
             'strokethin' : '#DFDFDF'
         }
         },
