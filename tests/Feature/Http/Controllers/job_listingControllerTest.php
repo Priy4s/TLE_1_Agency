@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
- * @see \App\Http\Controllers\job_listingController
+ * @see \App\Http\Controllers\jobListingController
  */
 final class job_listingControllerTest extends TestCase
 {

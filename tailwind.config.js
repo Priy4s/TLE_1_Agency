@@ -13,7 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-                radikal: ['Radikal', 'sans-serif'],
+                radical: ['Radical', 'sans-serif'],
             },
             colors: {
             'violet' : '#AA0160',
@@ -29,6 +29,8 @@ export default {
         }
         },
         },
+
+
 
     plugins: [forms],
 };

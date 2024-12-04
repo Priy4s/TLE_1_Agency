@@ -1,8 +1,4 @@
-<div class="bg-[#313D29] px-[1.5rem] py-[0.5rem] flex items-center justify-between relative">
-    <!-- Eventuele extra inhoud bovenaan hier, zoals een notificatie of extra informatie -->
-</div>
-
-<nav class="bg-[#313D29] rounded-b-full px-[1.5rem] py-[1rem] flex items-center justify-between relative">
+<nav class="bg-white px-[1.5rem] py-[1rem] flex items-center justify-between relative">
     <!-- Logo in de navbar -->
     <div class="flex items-center ml-[1rem]">
         <div class="mt-[-1.5rem] py-[1.1rem]">
@@ -12,15 +8,15 @@
 
     <!-- Hamburger menu, groter en naar links -->
     <div id="hamburger" class="space-y-[0.5rem] ml-[-0.25rem] mt-[-1rem] px-[0.8rem] flex flex-col items-center cursor-pointer">
-        <div class="h-[0.3rem] w-[3rem] bg-white rounded"></div>
-        <div class="h-[0.3rem] w-[3rem] bg-white rounded"></div>
-        <div class="h-[0.3rem] w-[3rem] bg-white rounded"></div>
-        <span class="text-white text-lg font-black mt-[0.5rem]">Menu</span>
+        <div class="h-[0.3rem] w-[3rem] bg-black rounded"></div>
+        <div class="h-[0.3rem] w-[3rem] bg-black rounded"></div>
+        <div class="h-[0.3rem] w-[3rem] bg-black rounded"></div>
+        <span class="text-black text-lg font-black mt-[0.5rem]">Menu</span>
     </div>
 </nav>
 
 <!-- Verberg het menu standaard -->
-<div id="menu" class="fixed inset-0 bg-white flex justify-center items-center z-50">
+<div id="menu" class="fixed inset-0 bg-white flex justify-center items-center z-50 hidden">
     <ul class="text-black text-2xl text-center">
         <!-- Logo in het midden van het menu -->
         <div class="flex justify-center w-full mb-4">
