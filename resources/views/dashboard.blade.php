@@ -1,4 +1,5 @@
 <x-app-layout>
+    @include('layouts.navigation')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
@@ -11,6 +12,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                <a href="{{ route('job_listings.index') }}" class="bg-[#FF2D20] text-white px-4 py-2 rounded-md hover:bg-[#FF2D20]/90 transition">Job Openings</a>
             </div>
         </div>
     </div>

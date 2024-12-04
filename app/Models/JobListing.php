@@ -15,21 +15,20 @@ class JobListing extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
         'position',
         'description',
         'length',
         'hours',
-        'minutes',
         'salary',
         'type',
         'location_id',
-        'location',
         'image',
         'video',
         'company_id',
-        'company',
         'needed',
+        'drivers_license',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -39,7 +38,23 @@ class JobListing extends Model
      */
     protected $casts = [
         'salary' => 'decimal:2',
-        'needed' => 'boolean',
         'created_at' => 'datetime',
+        'drivers_license' => 'boolean',
     ];
+
+    /**
+     * Define the relationship with the Company model.
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);  // assuming company_id is the foreign key
+    }
+
+    /**
+     * Define the relationship with the Location model.
+     */
+    public function location()
+    {
+        return $this->belongsTo(Location::class);  // assuming location_id is the foreign key
+    }
 }

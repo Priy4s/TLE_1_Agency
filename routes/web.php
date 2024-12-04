@@ -1,10 +1,10 @@
-
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JobListingController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JobController;
 
+// Other routes remain the same
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,7 +20,9 @@ Route::middleware('auth')->group(function () {
 });
 require __DIR__ . '/auth.php';
 
-Route::resource('job_listings', App\Http\Controllers\job_listingController::class)->only(['index', 'create']);
-Route::get('/joblistings', [App\Http\Controllers\job_listingController::class, 'index'])->name('job_listings.index');
-
-Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
+// Use only one Route::resource definition for job_listings
+Route::resource('joblistings', JobListingController::class)->names([
+    'index' => 'job_listings.index',
+    'create' => 'job_listings.create',
+    'store' => 'job_listings.store',
+])->middleware('auth');
