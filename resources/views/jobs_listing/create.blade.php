@@ -79,11 +79,10 @@
             </div>
             <div class="flex justify-center">
                 <button type="submit" class="px-6 py-3 bg-[#E2ECC8] text-[#2E342A] font-semibold rounded-lg hover:bg-[#D1E0A9] focus:outline-none focus:ring-2 focus:ring-[#E2ECC8]">
-                    Create Job
+                    Create Job Vacancy
                 </button>
             </div>
         </form>
     </div>
-
 </body>
 </html>

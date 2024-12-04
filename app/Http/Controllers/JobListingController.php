@@ -46,7 +46,7 @@ class JobListingController extends Controller
             'video' => 'string',
             'company_id' => 'required|integer',
             'needed' => 'required|integer',
-            'driverslicense' => 'required|boolean',
+            'drivers_license' => 'required|boolean',
         ]);
         JobListing::create($validatedData);
 
