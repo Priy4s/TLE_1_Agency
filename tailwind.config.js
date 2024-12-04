@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                radical: ['Radical', 'sans-serif'],
             },
             colors: {
             'mossmedium' : '#92AA83',
@@ -25,6 +26,8 @@ export default {
         }
         },
         },
+
+
 
     plugins: [forms],
 };

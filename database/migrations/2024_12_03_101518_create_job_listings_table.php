@@ -12,23 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('job_listings', function (Blueprint $table) {
-            $table->integer('id');
+            $table->id();
             $table->string('position');
             $table->text('description');
             $table->integer('length');
             $table->integer('hours');
-            $table->integer('minutes');
             $table->decimal('salary');
             $table->string('type');
             $table->integer('location_id');
-            $table->string('location');
-            $table->text('image');
-            $table->string('video');
+            $table->text('image')->nullable();
+            $table->string('video')->nullable();
             $table->integer('company_id');
-            $table->string('company');
             $table->boolean('needed');
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->boolean('driver_license')->default(false);
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
         });
     }
 

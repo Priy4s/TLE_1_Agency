@@ -1,4 +1,4 @@
-<nav class="bg-white rounded-b- px-[1.5rem] py-[1rem] flex items-center justify-between relative">
+<nav class="bg-white px-[1.5rem] py-[1rem] flex items-center justify-between relative">
     <!-- Logo in de navbar -->
     <div class="flex items-center ml-[1rem]">
         <div class="mt-[-1.5rem] py-[1.1rem]">
