@@ -11,7 +11,7 @@
 
     <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
         <h1 class="text-3xl font-semibold text-center mb-6">Create Job Listing</h1>
-        <form action="{{ route('job_listings.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('job_listings.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
             @csrf
 
             <div>
@@ -50,12 +50,12 @@
             </div>
             <div>
                 <label for="image" class="block font-medium mb-2">Image URL:</label>
-                <input type="text" name="image" id="image" required class="w-full p-3 border border-gray-300 rounded-md">
+                <input type="text" name="image" id="image"  class="w-full p-3 border border-gray-300 rounded-md">
             </div>
 
             <div>
                 <label for="video" class="block font-medium mb-2">Video URL:</label>
-                <input type="text" name="video" id="video" required class="w-full p-3 border border-gray-300 rounded-md">
+                <input type="text" name="video" id="video"  class="w-full p-3 border border-gray-300 rounded-md">
             </div>
 
             <div>
@@ -63,22 +63,23 @@
                 <input type="number" name="company_id" id="company_id" required class="w-full p-3 border border-gray-300 rounded-md">
             </div>
             <div>
-                <label for="needed" class="flex items-center">
-                    <input type="checkbox" name="needed" value="1" id="needed" class="mr-2">
-                    Needed
-                </label>
+                <label for="needed" class="block font-medium mb-2">Needed:</label>
+                <select name="needed" id="needed" class="w-full p-3 border border-gray-300 rounded-md">
+                    @for ($i = 0; $i <= 10; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
             </div>
-
             <div>
-                <label for="drivers_license" class="flex items-center">
-                    <input type="checkbox" name="drivers_license" value="1" id="drivers_license" class="mr-2">
-                    Driver's License Required
-                </label>
+                <label for="drivers_license" class="block font-medium mb-2">Driver's License Required:</label>
+                <select name="drivers_license" id="drivers_license" class="w-full p-3 border border-gray-300 rounded-md">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
-
             <div class="flex justify-center">
                 <button type="submit" class="px-6 py-3 bg-[#E2ECC8] text-[#2E342A] font-semibold rounded-lg hover:bg-[#D1E0A9] focus:outline-none focus:ring-2 focus:ring-[#E2ECC8]">
-                    Create Job
+                    Create Job Vacancy
                 </button>
                 <a href="{{ route('job_listings.index') }}" class="ml-4 px-6 py-3 bg-gray-300 text-[#2E342A] font-semibold rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300">
                     Back to Job Listings
@@ -86,6 +87,5 @@
             </div>
         </form>
     </div>
-
 </body>
 </html>

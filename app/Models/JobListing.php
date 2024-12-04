@@ -26,7 +26,7 @@ class JobListing extends Model
         'video',
         'company_id',
         'needed',
-        'driverslicense',
+        'drivers_license',
         'created_at',
         'updated_at',
     ];
@@ -38,8 +38,8 @@ class JobListing extends Model
      */
     protected $casts = [
         'salary' => 'decimal:2',
-        'needed' => 'boolean',
         'created_at' => 'datetime',
+        'drivers_license' => 'boolean',
     ];
 
     /**
