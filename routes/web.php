@@ -25,4 +25,4 @@ Route::resource('joblistings', JobListingController::class)->names([
     'index' => 'job_listings.index',
     'create' => 'job_listings.create',
     'store' => 'job_listings.store',
-]);
+])->middleware('auth');
