@@ -23,8 +23,8 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->string('video')->nullable();
             $table->integer('company_id');
-            $table->boolean('needed')->default(false);
-            $table->boolean('driverslicense')->default(false);
+            $table->integer('needed');
+            $table->boolean('drivers_license')->default(false);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
         });

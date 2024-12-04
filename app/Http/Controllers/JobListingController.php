@@ -33,7 +33,6 @@ class JobListingController extends Controller
     // Existing store method
     public function store(Request $request): RedirectResponse
     {
-        // dd($request->all());
         $validatedData = $request->validate([
             'position' => 'required|string',
             'description' => 'required|string',
@@ -42,13 +41,13 @@ class JobListingController extends Controller
             'salary' => 'required|numeric',
             'type' => 'required|string',
             'location_id' => 'required|integer',
-            'image' => 'required|string',
-            'video' => 'required|string',
+            'image' => 'string',
+            'video' => 'string',
             'company_id' => 'required|integer',
-            'needed' => 'nullable|boolean',
-            'driverslicense' => 'nullable|boolean',
+            'needed' => 'required|integer',
+            'drivers_license' => 'required|in:0,1',
         ]);
-        // dd($validatedData);
+        $validatedData['drivers_license'] = (bool) $validatedData['drivers_license'];
         JobListing::create($validatedData);
 
         return redirect()->route('job_listings.index')->with('success', 'Job listing created successfully.');
