@@ -10,7 +10,7 @@
 
         <div class="flex justify-center items-center mb-8"> <!-- Removed min-h-screen here -->
             <div class="max-w-3xl mx-auto">
-                <form action="{{ route('joblistings.index') }}" method="GET" class="flex items-center">
+                <form action="{{ route('job_listings.index') }}" method="GET" class="flex items-center">
                     <input
                         type="text"
                         id="search-query"
