@@ -26,6 +26,12 @@
                 </form>
             </div>
         </div>
+        <div class="flex justify-center mb-8">
+            <a href="{{ route('job_listings.create') }}"
+               class="bg-[#AA0160] text-white py-3.5 px-6 rounded-full hover:bg-[#8D0052] transition font-bold text-xl font-radical">
+                Create Job Listing
+            </a>
+        </div>
 
         <!-- Job Listings -->
         <ul class="space-y-6 mb-[2rem]">
