@@ -20,11 +20,9 @@ return new class extends Migration
             $table->decimal('salary');
             $table->string('type');
             $table->integer('location_id');
-            $table->string('location');
             $table->text('image');
             $table->string('video');
             $table->integer('company_id');
-            $table->string('company');
             $table->boolean('needed')->default(false);
             $table->boolean('driverslicense')->default(false);
             $table->dateTime('created_at');
