@@ -1,0 +1,85 @@
+models:
+  job_listing:
+    id: "integer"
+    position: "string"
+    description: "text"
+    length: "integer"
+    hours: "integer"
+    minutes: "integer"
+    salary: "decimal"
+    type: "string"
+    location_id: "integer"
+    location: "string"
+    image: "text"
+    video: "string"
+    company_id: "integer"
+    company: "string"
+    needed: "boolean"
+    created_at: "datetime"
+
+  Location:
+    id: "integer"
+    name: "string"
+    created_at: "datetime"
+
+  Company:
+    id: "integer"
+    name: "string"
+    description: "text"
+    location_id: "integer"
+    location: "string"
+    image: "text"
+    video: "string"
+    created_at: "datetime"
+
+  profile:
+    id: "integer"
+    user_id: "integer"
+    belongsTo: "user"
+    quiz_result: "integer"
+    created_at: "datetime"
+
+  waitlist:
+    id: "integer"
+    job_id: "integer"
+    belongsTo: "job_listing"
+    user_id: "integer"
+    status: "string"
+    created_at: "datetime"
+
+  requirements:
+    id: "integer"
+    job_id: "integer"
+    belongsTo: "job_listing"
+    drivers_license: "boolean"
+    walking: "boolean"
+    hands: "boolean"
+    standing: "boolean"
+    talking: "boolean"
+    created_at: "datetime"
+
+  job_types:
+    id: "integer"
+    type: "string"
+    created_at: "datetime"
+
+  quiz:
+    id: "integer"
+    question: "string"
+    points: "integer"
+    user_id: "number"
+    belongsTo: "user"
+    created_at: "datetime"
+
+controllers:
+  job_listing:
+    index:
+      query: all
+      render: "jobs_listing.index with: jobs"
+
+store:
+  validate: id, position, description, length, hours, minutes, salary, type, location_id, company_id, needed
+  save: job_listing
+  fire: "NewJob with: job_listing"
+  flash: Job Listing created
+  redirect: job_listings.index
