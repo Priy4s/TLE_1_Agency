@@ -1,0 +1,39 @@
+created:
+    - app/Http/Controllers/job_listingController.php
+    - database/factories/JobListingFactory.php
+    - database/factories/LocationFactory.php
+    - database/factories/CompanyFactory.php
+    - database/factories/ProfileFactory.php
+    - database/factories/WaitlistFactory.php
+    - database/factories/RequirementsFactory.php
+    - database/factories/JobTypesFactory.php
+    - database/factories/QuizFactory.php
+    - database/migrations/2024_12_03_101518_create_job_listings_table.php
+    - database/migrations/2024_12_03_101519_create_locations_table.php
+    - database/migrations/2024_12_03_101520_create_companies_table.php
+    - database/migrations/2024_12_03_101521_create_profiles_table.php
+    - database/migrations/2024_12_03_101522_create_waitlists_table.php
+    - database/migrations/2024_12_03_101523_create_requirements_table.php
+    - database/migrations/2024_12_03_101524_create_job_types_table.php
+    - database/migrations/2024_12_03_101525_create_quizzes_table.php
+    - app/Models/job_listing.php
+    - app/Models/Location.php
+    - app/Models/Company.php
+    - app/Models/profile.php
+    - app/Models/waitlist.php
+    - app/Models/requirements.php
+    - app/Models/job_types.php
+    - app/Models/quiz.php
+    - tests/Feature/Http/Controllers/job_listingControllerTest.php
+    - resources/views/jobs_listing/index.blade.php
+updated:
+    - routes/web.php
+models:
+    job_listing: { id: integer, position: string, description: text, length: integer, hours: integer, minutes: integer, salary: decimal, type: string, location_id: integer, location: string, image: text, video: string, company_id: integer, company: string, needed: boolean, created_at: datetime }
+    Location: { id: integer, name: string, created_at: datetime }
+    Company: { id: integer, name: string, description: text, location_id: integer, location: string, image: text, video: string, created_at: datetime }
+    profile: { id: integer, user_id: integer, belongsTo: user, quiz_result: integer, created_at: datetime }
+    waitlist: { id: integer, job_id: integer, belongsTo: job_listing, user_id: integer, status: string, created_at: datetime }
+    requirements: { id: integer, job_id: integer, belongsTo: job_listing, drivers_license: boolean, walking: boolean, hands: boolean, standing: boolean, talking: boolean, created_at: datetime }
+    job_types: { id: integer, type: string, created_at: datetime }
+    quiz: { id: integer, question: string, points: integer, user_id: number, belongsTo: user, created_at: datetime }
