@@ -21,7 +21,8 @@ export default {
             'green': '#313D29',
             'white' : '#FFFFFF',
             'cream' : '#FBFCF6',
-            'strokethin' : '#DFDFDF'
+            'strokethin' : '#DFDFDF',
+                'darkviolet' : '#7C1A61',
         }
         },
         },

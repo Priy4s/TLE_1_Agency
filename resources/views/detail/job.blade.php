@@ -1,10 +1,9 @@
 @extends('layouts.app')
-
     <div class="bg-[#FBFCF6] text-[#2E342A] min-h-screen p-4">
         <!-- Job Header -->
         <div class="job-header bg-white shadow-md rounded-lg p-6 mb-6">
             <img
-                src="{{ asset('images/pizza_delivery.webp') }}"
+                src="{{ asset('images/post_nl.jpg') }}"
                 alt="{{ $job->posistion }}"
                 class="w-full h-48 object-cover rounded-lg">
             <h1 class="text-3xl font-semibold text-gray-800 mt-4">{{ $job->posistion }}</h1>
@@ -37,5 +36,12 @@
                 Join the waiting list
             </button>
         </div>
+        <div class="text-center">
+            <button class="cta-button bg-[#7C1A51] hover:bg-[#7C1A51] text-[#FFFFFF] py-3 px-6 rounded-lg font-semibold shadow-md">
+                Back to joblistings
+            </button>
+        </div>
+
+
     </div>
 
