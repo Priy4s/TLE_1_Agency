@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 // Other routes remain the same
 Route::get('/', function () {
     return view('welcome');
-});
+}) ->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
