@@ -27,8 +27,17 @@
         <li><a href="{{ route('job_listings.index') }}" class="block py-2 px-4 font-black">Job Openings</a></li>
         <li><a href="#" class="block py-2 px-4 font-black">Profile</a></li>
         <li><a href="#" class="block py-2 px-4 font-black">My Job Openings</a></li>
-        <li><a href="#" class="block py-2 px-4 font-black">Register</a></li>
+        <li><a href="{{ route('register') }}" class="block py-2 px-4 font-black">Register</a></li>
         <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
+
+        <li>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="block w-full py-2 px-4 font-black text-black text-2xl text-center">
+                    Logout
+                </button>
+            </form>
+        </li>
 
         <!-- Sluitknop ("X") net onder de laatste optie -->
         <li id="closeMenu" class="block py-2 px-4 font-black text-black cursor-pointer text-5xl">×</li>
