@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('job_listings.index'));
+        return redirect(route('dashboard'));
     }
 
     /**
@@ -85,4 +85,5 @@ class RegisteredUserController extends Controller
 
         return $username;
     }
+
 }

@@ -2,12 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobListingController;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 // Other routes remain the same
 Route::get('/', function () {
     return view('welcome');
-});
+}) ->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -26,3 +27,5 @@ Route::resource('joblistings', JobListingController::class)->names([
     'create' => 'job_listings.create',
     'store' => 'job_listings.store',
 ])->middleware('auth');
+
+Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
