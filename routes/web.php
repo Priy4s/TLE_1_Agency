@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ require __DIR__ . '/auth.php';
 
 Route::resource('job_listings', App\Http\Controllers\job_listingController::class)->only(['index', 'create']);
 Route::get('/joblistings', [App\Http\Controllers\job_listingController::class, 'index'])->name('job_listings.index');
+
+Route::get('/job/{id}', [JobController::class, 'show']) -> name('job.show');
