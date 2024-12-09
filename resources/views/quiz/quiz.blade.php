@@ -9,23 +9,39 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-<h1>Quiz</h1>
-<form method="POST" action="{{ route('quiz.save', ['questionIndex' => $questionIndex]) }}">
-    @csrf
-    <div class="question">
-        <h2>{{ $currentQuestion->question }}</h2>
 
-        @foreach($currentQuestion->options as $option)
-            <div>
-                <input type="radio" id="{{ $option->id }}" name="answer" value="{{ $option->id }}" required>
-                <label for="{{ $option->id }}">{{ $option->option ?? 'No option text available' }}</label>
-            </div>
-        @endforeach
-    </div>
+    <h1>Question {{ $questionIndex + 1 }}</h1>
+    <p>{{ $currentQuestion->question }}</p>
 
-    <button type="submit">
-        {{ $questionIndex + 1 < count($questions) ? 'Next' : 'See results' }}
-    </button></form>
+    <form action="{{ route('quiz.save', ['questionIndex' => $questionIndex]) }}" method="POST">
+        @csrf
+            <input type="hidden" name="question_id" value="{{ $currentQuestion->id }}">
+            @foreach ($currentQuestion->options as $option)
+                <label>
+                    <input type="radio" name="answer" value="{{ $option->id }}"> {{ $option->option }}
+                </label><br>
+            @endforeach
+
+            <button type="submit">
+                {{ $questionIndex + 1 < count($questions) ? 'Next' : 'See results' }}
+            </button>
+        </form>
+
+
+{{--    <form action="{{ route('quiz.save', $questionIndex) }}" method="POST">--}}
+{{--        @csrf--}}
+{{--        <input type="hidden" name="question_id" value="{{ $currentQuestion->id }}">--}}
+{{--        @foreach ($currentQuestion->options as $option)--}}
+{{--            <label>--}}
+{{--                <input type="radio" name="answer" value="{{ $option->id }}"> {{ $option->option }}--}}
+{{--            </label><br>--}}
+{{--        @endforeach--}}
+
+{{--        <button type="submit">--}}
+{{--            {{ $questionIndex + 1 < count($questions) ? 'Next' : 'See results' }}--}}
+{{--        </button>--}}
+{{--    </form>--}}
+
 
 </body>
 </html>
