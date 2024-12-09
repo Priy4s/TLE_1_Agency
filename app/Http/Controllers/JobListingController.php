@@ -50,7 +50,7 @@ class JobListingController extends Controller
         $validatedData['drivers_license'] = (bool) $validatedData['drivers_license'];
         JobListing::create($validatedData);
 
-        return redirect()->route('job_listings.index')->with('success', 'Job listing created successfully.');
+        return redirect()->route('manager.dashboard')->with('success', 'Job listing created successfully.');
     }
 
     // New create method to show the form
@@ -62,4 +62,22 @@ class JobListingController extends Controller
 
         return view('jobs_listing.create', compact('locations', 'companies'));
     }
+
+    public function managerDashboard(Request $request): View
+    {
+        $query = $request->input('query');
+
+        $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where('position', 'like', '%' . $query . '%')
+                ->orWhereHas('company', function ($companyQuery) use ($query) {
+                    $companyQuery->where('name', 'like', '%' . $query . '%');
+                })
+                ->orWhereHas('location', function ($locationQuery) use ($query) {
+                    $locationQuery->where('name', 'like', '%' . $query . '%');
+                });
+        })->get();
+
+        return view('components.manager.dashboard', compact('jobListings'));
+    }
 }
+

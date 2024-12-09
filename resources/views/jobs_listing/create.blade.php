@@ -81,8 +81,8 @@
                 <button type="submit" class="px-6 py-3 bg-[#E2ECC8] text-[#2E342A] font-semibold rounded-lg hover:bg-[#D1E0A9] focus:outline-none focus:ring-2 focus:ring-[#E2ECC8]">
                     Create Job Vacancy
                 </button>
-                <a href="{{ route('job_listings.index') }}" class="ml-4 px-6 py-3 bg-gray-300 text-[#2E342A] font-semibold rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300">
-                    Back to Job Listings
+                <a href="{{ route('manager.dashboard') }}" class="ml-4 px-6 py-3 bg-gray-300 text-[#2E342A] font-semibold rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                    Back to Manager dashboard
                 </a>
             </div>
         </form>
