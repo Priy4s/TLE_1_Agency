@@ -79,5 +79,6 @@ class JobListingController extends Controller
 
         return view('components.manager.dashboard', compact('jobListings'));
     }
+
 }
 

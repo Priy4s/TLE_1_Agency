@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobListing;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -15,4 +16,12 @@ class JobController extends Controller
 
      return view ('detail.job', compact('job'));
  }
+
+    public function manageDetails($id)
+    {
+        $job = JobListing::find($id);
+
+        return view('components.manager.managedetails', compact('job'));
+    }
+
 }

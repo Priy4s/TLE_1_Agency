@@ -31,3 +31,5 @@ Route::resource('joblistings', JobListingController::class)->names([
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 
 Route::get('/managerdashboard', [JobListingController::class, 'managerDashboard'])->name('manager.dashboard')->middleware('auth');
+Route::get('/joblistings/{id}/manage', [JobController::class, 'manageDetails'])->name('job_listings.manage');
+

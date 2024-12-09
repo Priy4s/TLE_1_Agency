@@ -56,8 +56,8 @@
                             €{{ number_format($job->salary, 2) }} p/m</p>
                     </div>
                     <div class="mt-6 flex justify-center">
-                        <form action="" method="get">
-                            <button type="submit"
+                        <form action="{{ route('job_listings.manage', $job->id) }}" method="GET">
+                        <button type="submit"
                                     class="w-full bg-[#AA0160] text-white py-2 px-6 rounded-full hover:bg-[#8D0052] transition font-bold text-lg">
                                 Manage
                             </button>
