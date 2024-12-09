@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\JobListingController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobListingController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Other routes remain the same

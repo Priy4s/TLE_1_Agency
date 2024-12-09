@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('waitlists', function (Blueprint $table) {
-            $table->integer('id');
-            $table->integer('job_id');
-            $table->string('belongsTo');
-            $table->integer('user_id');
+            $table->id(); // Auto-incrementing primary key
+            $table->unsignedBigInteger('job_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('belongsTo')->nullable();
             $table->string('status');
-            $table->dateTime('created_at');
+            $table->timestamps(); // Voegt 'created_at' en 'updated_at' automatisch toe
         });
     }
+
 
     /**
      * Reverse the migrations.

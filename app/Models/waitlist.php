@@ -12,7 +12,7 @@ class Waitlist extends Model
     /**
      * Specifyy the table name if it's different from the default plural name.
      */
-    protected $table = 'waitlist'; // Custom table name (singular)
+    protected $table = 'waitlists'; // Custom table name (singular)
 
     protected $fillable = [
         'job_id',
