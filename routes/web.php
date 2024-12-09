@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\JobListingController;
-use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 // Other routes remain the same
@@ -19,7 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-require __DIR__ . '/auth.php';
+
+require __DIR__.'/auth.php';
 
 // Use only one Route::resource definition for job_listings
 Route::resource('joblistings', JobListingController::class)->names([
