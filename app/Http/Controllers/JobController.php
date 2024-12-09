@@ -15,8 +15,13 @@ class JobController extends Controller
         $joblistings = JobListing::all();
         $job = $joblistings->firstWhere('id', $id);
 
-        return view('detail.job', compact('job'));
+        // Get the count of users on the waitlist for this job
+        $waitlistCount = Waitlist::where('job_id', $id)->count();
+
+        // Pass the waitlist count to the view
+        return view('detail.job', compact('job', 'waitlistCount'));
     }
+
 
     // Handle joining the waitlist
     public function joinWaitlist(Request $request, $id)

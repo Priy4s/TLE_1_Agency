@@ -22,6 +22,8 @@
         <h1 class="text-3xl font-semibold text-gray-800 mt-4">{{ $job->posistion }}</h1>
         <h2 class="job-type text-lg text-purple-600 font-medium">{{ $job->position }}</h2>
         <p class="text-gray-600 mt-2"><strong>Location:</strong> Rotterdam</p>
+        <!-- Display the count of people on the waitlist -->
+        <p class="text-gray-600 mt-2"><strong>Waiting List Size:</strong> {{ $waitlistCount }} people</p>
     </div>
 
     <!-- Job Details -->
