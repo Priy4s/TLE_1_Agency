@@ -28,6 +28,11 @@ Route::resource('joblistings', JobListingController::class)->names([
     'store' => 'job_listings.store',
 ])->middleware('auth');
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/my-job-listings', [JobListingController::class, 'myJobListings'])->name('job_listings.my');
+});
+
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 
 // Route to join the waitlist

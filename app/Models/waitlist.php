@@ -23,4 +23,8 @@ class Waitlist extends Model
     protected $casts = [
         'created_at' => 'datetime',
     ];
+    public function job()
+    {
+        return $this->belongsTo(JobListing::class, 'job_id');
+    }
 }
