@@ -10,7 +10,7 @@ class Waitlist extends Model
     use HasFactory;
 
     /**
-     * Specify the table name if it's different from the default plural name.
+     * Specifyy the table name if it's different from the default plural name.
      */
     protected $table = 'waitlist'; // Custom table name (singular)
 
