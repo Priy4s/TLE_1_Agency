@@ -36,14 +36,14 @@
 
         <!-- Call to Action Buttons -->
         <div class="text-center flex justify-between gap-4">
-            <button class="cta-button bg-[#E2ECC8] hover:bg-[#D1E0A9] text-[#2E342A] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
-                Hire people
-            </button>
             <a href="{{ route('manager.dashboard') }}">
-                <button class="cta-button bg-[#7C1A51] hover:bg-[#681740] text-[#FFFFFF] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
-                    Back to Manager Dashboard
-                </button>
+            <button class="cta-button bg-[#7C1A51] hover:bg-[#681740] text-[#FFFFFF] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
+                Back to Dashboard
+            </button>
             </a>
+                <button class="cta-button bg-[#E2ECC8] hover:bg-[#D1E0A9] text-[#2E342A] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
+                    Hire people
+                </button>
         </div>
     </div>
 </div>
