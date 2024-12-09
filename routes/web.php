@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
+// Other routes remain the same
 Route::get('/', function () {
     return view('welcome');
-});
+}) ->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -18,20 +18,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
-Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save');
-Route::get('/quiz/results', [QuizController::class, 'viewResult'])->name('quiz.result');
-
-
-//Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
-//Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save');
-//Route::get('/quiz/results', [QuizController::class, 'viewResult'])->name('quiz.result');
-//Route::get('/quiz/results', [QuizController::class, 'showSavedResults'])->name('quiz.result');
-
-
-
-
-
-
 require __DIR__.'/auth.php';
+
+// Use only one Route::resource definition for job_listings
+Route::resource('joblistings', JobListingController::class)->names([
+    'index' => 'job_listings.index',
+    'create' => 'job_listings.create',
+    'store' => 'job_listings.store',
+])->middleware('auth');
+
+Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');

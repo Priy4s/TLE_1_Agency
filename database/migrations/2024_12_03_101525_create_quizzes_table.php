@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('waitlist', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('job_id')->constrained('job_listings');
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('status');
-            $table->timestamps();
+        Schema::create('quizzes', function (Blueprint $table) {
+            $table->integer('id');
+            $table->string('question');
+            $table->integer('points');
+            $table->string('user_id');
+            $table->string('belongsTo');
+            $table->dateTime('created_at');
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('waitlist');
+        Schema::dropIfExists('quizzes');
     }
 };
