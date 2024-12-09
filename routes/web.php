@@ -3,12 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobListingController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 
 // Other routes remain the same
 Route::get('/', function () {
     return view('welcome');
-}) ->name('home');
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,3 +30,8 @@ Route::resource('joblistings', JobListingController::class)->names([
 ])->middleware('auth');
 
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/chat/{user}', [ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/{user}', [ChatController::class, 'store'])->name('chat.store');
+});
