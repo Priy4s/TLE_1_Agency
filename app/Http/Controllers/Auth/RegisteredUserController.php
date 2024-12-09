@@ -55,7 +55,6 @@ class RegisteredUserController extends Controller
 
         return redirect()->route('job_listings.index');
     }
-
     /**
      * Custom validation error messages.
      */

@@ -16,6 +16,7 @@ class ChatController extends Controller
         $this->middleware('auth');
     }
 
+    // Show the chat page with messages
     public function index(User $user)
     {
         $authUserId = Auth::user()->id;  // Retrieve the authenticated user's ID
@@ -37,7 +38,7 @@ class ChatController extends Controller
         return view('chat.index', compact('messages', 'user'));
     }
 
-
+    // Store a new message in the chat
     public function store(Request $request, User $user)
     {
         $authUserId = Auth::user()->id; // Retrieve the authenticated user's ID
