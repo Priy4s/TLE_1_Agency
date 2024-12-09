@@ -10,22 +10,16 @@ class Waitlist extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * Specify the table name if it's different from the default plural name.
      */
+    protected $table = 'waitlist'; // Custom table name (singular)
+
     protected $fillable = [
         'job_id',
-        'belongsTo',
         'user_id',
         'status',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'created_at' => 'datetime',
     ];

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 // Other routes remain the same
 Route::get('/', function () {
     return view('welcome');
-}) ->name('home');
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -19,9 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 require __DIR__ . '/auth.php';
 
-// Use only one Route::resource definition for job_listings
 Route::resource('joblistings', JobListingController::class)->names([
     'index' => 'job_listings.index',
     'create' => 'job_listings.create',
@@ -29,3 +29,6 @@ Route::resource('joblistings', JobListingController::class)->names([
 ])->middleware('auth');
 
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
+
+// Route to join the waitlist
+Route::post('/job/{id}/waitlist', [JobController::class, 'joinWaitlist'])->name('job.joinWaitlist');

@@ -56,9 +56,8 @@ class JobListingController extends Controller
     // New create method to show the form
     public function create(): View
     {
-        // Return a view with the form to create a job listing
-        $locations = Location::all(); // Fetch all locations
-        $companies = Company::all(); // Fetch all companies
+        $locations = Location::all();
+        $companies = Company::all();
 
         return view('jobs_listing.create', compact('locations', 'companies'));
     }
