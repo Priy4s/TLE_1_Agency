@@ -57,9 +57,9 @@
     </div>
 
     <div class="text-center">
-        <a href="{{ route('job_listings.index') }}">
+        <a href="{{ str_contains(url()->previous(), '/my-job-listings') ? route('job_listings.my') : route('job_listings.index') }}">
             <button class="cta-button bg-[#7C1A51] hover:bg-[#7C1A51] text-[#FFFFFF] py-3 px-6 rounded-lg font-semibold shadow-md">
-                Back to Joblistings
+                Back to {{ str_contains(url()->previous(), '/my-job-listings') ? 'My Job Listings' : 'Job Listings' }}
             </button>
         </a>
     </div>
