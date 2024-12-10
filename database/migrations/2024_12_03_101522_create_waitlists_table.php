@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('belongsTo')->nullable();
             $table->string('status');
+            $table->string('process')->default('Need to invite');
             $table->timestamps(); // Voegt 'created_at' en 'updated_at' automatisch toe
         });
     }

@@ -50,3 +50,5 @@ Route::get('/quiz/result', [QuizController::class, 'viewResult'])->name('quiz.re
 
 Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
 Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save');
+
+Route::patch('/waitlist/{id}/update-process', [JobController::class, 'updateProcess'])->name('waitlist.updateProcess');

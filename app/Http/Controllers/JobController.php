@@ -69,7 +69,9 @@ class JobController extends Controller
         $job = JobListing::findOrFail($id);
 
         // Haal alleen de gebruikers die op de wachtlijst staan op, zonder hun persoonlijke gegevens
-        $waitlistUsers = Waitlist::where('job_id', $id)->get();
+        $waitlistUsers = Waitlist::where('job_id', $id)
+            ->with('user') // Laad de gebruikersgegevens
+            ->get();
 
         return view('components.manager.hire-people', compact('job', 'waitlistUsers'));
     }
@@ -95,12 +97,12 @@ class JobController extends Controller
         }
 
 // Update de status van de geselecteerde kandidaten naar 'hired'
-        foreach ($candidatesToHire as $candidate) {
-            if ($candidate->status !== 'hired') {
-                $candidate->update(['status' => 'hired']);
+            foreach ($candidatesToHire as $candidate) {
+                if ($candidate->status !== 'hired') {
+                    $candidate->update(['status' => 'hired']);
+                }
             }
-        }
-        // Stuur de gebruiker terug naar de beheerpagina voor het job
+            // Stuur de gebruiker terug naar de beheerpagina voor het job
         return redirect()->route('job.hire', $job->id)->with('success', "$numCandidates candidate(s) successfully hired.");
     }
 
@@ -121,6 +123,21 @@ class JobController extends Controller
         $waitlistEntry->delete();
 
         return redirect()->back()->with('success', 'You have successfully left the waitlist for this job.');
+    }
+    public function updateProcess(Request $request, $id)
+    {
+        $waitlist = Waitlist::findOrFail($id);
+
+        // Valideer de invoer
+        $request->validate([
+            'process' => 'required|in:Need to invite,Waiting for response,Done',
+        ]);
+
+        // Werk de process-status bij
+        $waitlist->process = $request->input('process');
+        $waitlist->save();
+
+        return redirect()->back()->with('success', 'Process status updated successfully.');
     }
 
 

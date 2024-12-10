@@ -91,15 +91,33 @@
                     <tr class="bg-gray-100 text-gray-800">
                         <th class="px-4 py-2 text-left">Candidate</th>
                         <th class="px-4 py-2 text-left">Status</th>
-                        <th class="px-4 py-2 text-left">Joined At</th>
+                        <th class="px-4 py-2 text-left">Message</th>
+                        <th class="px-4 py-2 text-left">Process</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($waitlistUsers->where('status', 'hired') as $index => $waitlist)
                         <tr>
-                            <td class="border px-4 py-2">Candidate {{ $index + 1 }}</td>
+                            <td class="border px-4 py-2">
+                                Candidate {{ $index + 1 }} - {{ $waitlist->user->username ?? 'Unknown' }}
+                            </td>
                             <td class="border px-4 py-2">{{ $waitlist->status }}</td>
-                            <td class="border px-4 py-2">{{ $waitlist->created_at->format('d-m-Y H:i') }}</td>
+                            <td class="border px-4 py-2 text-center">
+                                <button class="bg-[#E2ECC8] hover:bg-[#D1E0A9] text-black font-bold py-2 px-4 rounded shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 transition duration-300 inline-block">
+                                    Message
+                                </button>
+                            </td>
+                            <td class="border px-4 py-2 text-center">
+                                <form action="{{ route('waitlist.updateProcess', $waitlist->id) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <select name="process" onchange="this.form.submit()" class="w-48 p-2 border rounded-lg mt-4"> <!-- mt-2 toegevoegd -->
+                                        <option value="Need to invite" {{ $waitlist->process === 'Need to invite' ? 'selected' : '' }}>Need to invite</option>
+                                        <option value="Waiting for response" {{ $waitlist->process === 'Waiting for response' ? 'selected' : '' }}>Waiting for response</option>
+                                        <option value="Done" {{ $waitlist->process === 'Done' ? 'selected' : '' }}>Done</option>
+                                    </select>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
