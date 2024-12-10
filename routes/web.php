@@ -22,14 +22,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-Route::get('/quiz/start', [QuizController::class, 'startQuiz'])->name('quiz.start');
-Route::get('/quiz/result', [QuizController::class, 'viewResult'])->name('quiz.result');
-
-Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
-Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save');
-
-
-
 
 Route::resource('joblistings', JobListingController::class)->names([
     'index' => 'job_listings.index',
@@ -48,3 +40,8 @@ Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 Route::post('/job/{id}/waitlist', [JobController::class, 'joinWaitlist'])->name('job.joinWaitlist');
 Route::delete('/job/{id}/waitlist', [JobController::class, 'leaveWaitlist'])->name('job.leaveWaitlist');
 
+Route::get('/quiz/start', [QuizController::class, 'startQuiz'])->name('quiz.start');
+Route::get('/quiz/result', [QuizController::class, 'viewResult'])->name('quiz.result');
+
+Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
+Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save');
