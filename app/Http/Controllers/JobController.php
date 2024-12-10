@@ -56,4 +56,10 @@ class JobController extends Controller
 
         return redirect()->back()->with('success', 'You have successfully joined the waitlist for this job.');
     }
+
+    public function hirePage($id)
+    {
+        $job = JobListing::findOrFail($id);
+        return view('components.manager.hire-people', compact('job'));
+    }
 }
