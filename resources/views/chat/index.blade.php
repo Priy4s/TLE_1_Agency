@@ -14,7 +14,11 @@
                         <div class="w-12 h-12 bg-gray-300 rounded-full mr-4">
                             <!-- Optionally, you can add a user avatar here -->
                         </div>
-                        <span class="text-lg font-medium text-gray-800">{{ $user->username }}</span>
+                        @if ($user->name)
+                            <span class="text-lg font-medium text-gray-800">{{ $user->name }}</span>
+                        @else
+                            <span class="text-lg font-medium text-gray-800">{{ $user->username }}</span>
+                        @endif
                     </div>
 
                     <div class="flex items-center space-x-2">
