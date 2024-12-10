@@ -28,8 +28,8 @@ class JobController extends Controller
             ->where('user_id', $userId)
             ->exists();
 
-        // Pass the waitlist count to the view
-        return view('detail.job', compact('job', 'waitlistCount'));
+        // Pass the waitlist count and user's waitlist status to the view
+        return view('detail.job', compact('job', 'waitlistCount', 'isOnWaitlist'));
     }
 
     public function manageDetails($id)
