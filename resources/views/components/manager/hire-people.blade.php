@@ -82,7 +82,7 @@
 <div id="confirmation-popup" class="hidden fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
     <div class="bg-white shadow-lg rounded-lg p-6 w-96">
         <h2 class="text-xl font-semibold text-gray-800 mb-4">Confirm Hiring</h2>
-        <p id="confirmation-message" class="text-gray-700 mb-4">Are you sure you want to hire these candidates?</p>
+        <p id="confirmation-message" class="text-gray-700 mb-4">Are you sure you want to hire these candidate(s)?</p>
         <div class="flex justify-center gap-4">
             <button onclick="closeConfirmation()" class="bg-[#7C1A51] hover:bg-[#681740] text-white py-2 px-4 rounded-lg">Cancel</button>
             <!-- Confirm button added here -->
