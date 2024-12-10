@@ -26,7 +26,7 @@
         <li><a href="{{ route('home')}}" class="block py-2 px-4 font-black">Home</a></li>
         <li><a href="{{ route('job_listings.index') }}" class="block py-2 px-4 font-black">Job Openings</a></li>
         <li><a href="#" class="block py-2 px-4 font-black">Profile</a></li>
-        <li><a href="#" class="block py-2 px-4 font-black">My Job Openings</a></li>
+        <li><a href="{{ route('job_listings.my') }}" class="block py-2 px-4 font-black">My Job Openings</a></li>
         <li><a href="{{ route('register') }}" class="block py-2 px-4 font-black">Register</a></li>
         <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
 

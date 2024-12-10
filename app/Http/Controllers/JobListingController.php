@@ -8,6 +8,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Company;
 use App\Models\Location;
+use App\Models\Waitlist;
+use Illuminate\Support\Facades\Auth;
 
 class JobListingController extends Controller
 {
@@ -50,35 +52,37 @@ class JobListingController extends Controller
         $validatedData['drivers_license'] = (bool) $validatedData['drivers_license'];
         JobListing::create($validatedData);
 
-        return redirect()->route('manager.dashboard')->with('success', 'Job listing created successfully.');
+        return redirect()->route('job_listings.index')->with('success', 'Job listing created successfully.');
     }
 
     // New create method to show the form
     public function create(): View
     {
-        // Return a view with the form to create a job listing
-        $locations = Location::all(); // Fetch all locations
-        $companies = Company::all(); // Fetch all companies
+        $locations = Location::all();
+        $companies = Company::all();
 
         return view('jobs_listing.create', compact('locations', 'companies'));
     }
-
-    public function managerDashboard(Request $request): View
+    public function myJobListings(): View
     {
-        $query = $request->input('query');
+        $userId = Auth::id();
 
-        $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
-            return $queryBuilder->where('position', 'like', '%' . $query . '%')
-                ->orWhereHas('company', function ($companyQuery) use ($query) {
-                    $companyQuery->where('name', 'like', '%' . $query . '%');
-                })
-                ->orWhereHas('location', function ($locationQuery) use ($query) {
-                    $locationQuery->where('name', 'like', '%' . $query . '%');
-                });
-        })->get();
+        // Get all jobs the authenticated user has joined the waitlist for
+        $jobListings = Waitlist::where('user_id', $userId)
+            ->with('job') // Eager load the related job
+            ->get()
+            ->map(function ($waitlist) {
+                // Add user's position and the waitlist count
+                $waitlist->position = Waitlist::where('job_id', $waitlist->job_id)
+                        ->orderBy('created_at')
+                        ->pluck('user_id')
+                        ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
 
-        return view('components.manager.dashboard', compact('jobListings'));
+                $waitlist->waitlist_count = Waitlist::where('job_id', $waitlist->job_id)->count(); // Total waitlist count
+
+                return $waitlist;
+            });
+
+        return view('jobs_listing.my-job-listings', compact('jobListings'));
     }
-
 }
-
