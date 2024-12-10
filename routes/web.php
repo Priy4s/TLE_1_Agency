@@ -35,5 +35,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 
-// Route to join the waitlist
+// Waitlist routes
 Route::post('/job/{id}/waitlist', [JobController::class, 'joinWaitlist'])->name('job.joinWaitlist');
+Route::delete('/job/{id}/waitlist', [JobController::class, 'leaveWaitlist'])->name('job.leaveWaitlist');
+

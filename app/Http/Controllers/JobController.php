@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobListing;
-use App\Models\Waitlist; // Import the Waitlist model
+use App\Models\Waitlist;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Import Auth to get the logged-in user
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -18,15 +18,19 @@ class JobController extends Controller
         // Get the count of users on the waitlist for this job
         $waitlistCount = Waitlist::where('job_id', $id)->count();
 
-        // Pass the waitlist count to the view
-        return view('detail.job', compact('job', 'waitlistCount'));
-    }
+        // Check if the current user is already on the waitlist for this job
+        $userId = Auth::id();
+        $isOnWaitlist = Waitlist::where('job_id', $id)
+            ->where('user_id', $userId)
+            ->exists();
 
+        // Pass the waitlist count and user's waitlist status to the view
+        return view('detail.job', compact('job', 'waitlistCount', 'isOnWaitlist'));
+    }
 
     // Handle joining the waitlist
     public function joinWaitlist(Request $request, $id)
     {
-        // Get the authenticated user
         $userId = Auth::id();
 
         // Check if the user is already on the waitlist for this job
@@ -42,9 +46,29 @@ class JobController extends Controller
         Waitlist::create([
             'job_id' => $id,
             'user_id' => $userId,
-            'status' => 'in_process', // Default status when a user joins
+            'status' => 'in_process',
         ]);
 
         return redirect()->back()->with('success', 'You have successfully joined the waitlist for this job.');
+    }
+
+    // Handle leaving the waitlist
+    public function leaveWaitlist(Request $request, $id)
+    {
+        $userId = Auth::id();
+
+        // Check if the user is on the waitlist
+        $waitlistEntry = Waitlist::where('job_id', $id)
+            ->where('user_id', $userId)
+            ->first();
+
+        if (!$waitlistEntry) {
+            return redirect()->back()->with('error', 'You are not on the waitlist for this job.');
+        }
+
+        // Remove the user from the waitlist
+        $waitlistEntry->delete();
+
+        return redirect()->back()->with('success', 'You have successfully left the waitlist for this job.');
     }
 }

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 <div class="bg-[#FBFCF6] text-[#2E342A] min-h-screen p-4">
+    <x-navbar-layout></x-navbar-layout>
     <!-- Flash Messages -->
     @if (session('success'))
         <div class="bg-green-500 text-white p-4 rounded-md mb-4">
@@ -24,6 +25,8 @@
         <p class="text-gray-600 mt-2"><strong>Location:</strong> Rotterdam</p>
         <!-- Display the count of people on the waitlist -->
         <p class="text-gray-600 mt-2"><strong>Waiting List Size:</strong> {{ $waitlistCount }} people</p>
+        <p class="text-gray-600 mt-2"><strong>People needed:</strong> {{ $job->needed}} people</p>
+
     </div>
 
     <!-- Job Details -->
@@ -47,17 +50,29 @@
 
     <!-- Call to Action Buttons -->
     <div class="text-center mb-4">
-        <!-- Join the Waitlist Form -->
-        <form action="{{ route('job.joinWaitlist', $job->id) }}" method="POST">
-            @csrf
-            <button type="submit" class="cta-button bg-[#E2ECC8] hover:bg-[#D1E0A9] text-[#2E342A] py-3 px-6 rounded-lg font-semibold shadow-md">
-                Join the waiting list
-            </button>
-        </form>
+        @if ($isOnWaitlist)
+            <!-- Leave Waitlist Form -->
+            <form action="{{ route('job.leaveWaitlist', $job->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="cta-button bg-[#FF6B6B] hover:bg-[#FF4B4B] text-white py-3 px-6 rounded-lg font-semibold shadow-md">
+                    Leave the Waitlist
+                </button>
+            </form>
+        @else
+            <!-- Join Waitlist Form -->
+            <form action="{{ route('job.joinWaitlist', $job->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="cta-button bg-[#E2ECC8] hover:bg-[#D1E0A9] text-[#2E342A] py-3 px-6 rounded-lg font-semibold shadow-md">
+                    Join the Waitlist
+                </button>
+            </form>
+        @endif
     </div>
 
+
     <div class="text-center">
-        <a href="{{ str_contains(url()->previous(), '/my-job-listings') ? route('job_listings.my') : route('job_listings.index') }}">
+        <a href="{{ str_contains(url()->previous(), '/my-job-listings') ? '/my-job-listings' : '/joblistings' }}">
             <button class="cta-button bg-[#7C1A51] hover:bg-[#7C1A51] text-[#FFFFFF] py-3 px-6 rounded-lg font-semibold shadow-md">
                 Back to {{ str_contains(url()->previous(), '/my-job-listings') ? 'My Job Listings' : 'Job Listings' }}
             </button>
