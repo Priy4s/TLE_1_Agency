@@ -51,7 +51,7 @@ class JobController extends Controller
         Waitlist::create([
             'job_id' => $id,
             'user_id' => $userId,
-            'status' => 'in_process', // Default status when a user joins
+            'status' => 'waiting', // Default status when a user joins
         ]);
 
         return redirect()->back()->with('success', 'You have successfully joined the waitlist for this job.');
@@ -66,4 +66,35 @@ class JobController extends Controller
 
         return view('components.manager.hire-people', compact('job', 'waitlistUsers'));
     }
+
+    public function confirmHire(Request $request, $id)
+    {
+        // Haal het specifieke jobrecord op
+        $job = JobListing::findOrFail($id);
+
+        // Haal het aantal geselecteerde kandidaten op van het formulier
+        $numCandidates = $request->input('num_candidates'); // Aantal geselecteerde kandidaten
+
+        // Haal de eerste $numCandidates kandidaten op uit de wachtlijst voor dit specifieke job
+        // Haal de eerste $numCandidates kandidaten op uit de wachtlijst voor dit specifieke job
+        $candidatesToHire = Waitlist::where('job_id', $id)
+            ->where('status', 'waiting') // Alleen de kandidaten met de status "waiting"
+            ->take($numCandidates)
+            ->get();
+
+// Controleer of er voldoende kandidaten zijn om in te huren
+        if ($candidatesToHire->count() < $numCandidates) {
+            return redirect()->back()->with('error', 'Not enough candidates available to hire.');
+        }
+
+// Update de status van de geselecteerde kandidaten naar 'hired'
+        foreach ($candidatesToHire as $candidate) {
+            if ($candidate->status !== 'hired') {
+                $candidate->update(['status' => 'hired']);
+            }
+        }
+        // Stuur de gebruiker terug naar de beheerpagina voor het job
+        return redirect()->route('job.hire', $job->id)->with('success', "$numCandidates candidate(s) successfully hired.");
+    }
+
 }

@@ -40,3 +40,4 @@ Route::post('/job/{id}/waitlist', [JobController::class, 'joinWaitlist'])->name(
 Route::get('/managerdashboard', [JobListingController::class, 'managerDashboard'])->name('manager.dashboard')->middleware('auth');
 Route::get('/joblistings/{id}/manage', [JobController::class, 'manageDetails'])->name('job_listings.manage');
 Route::get('/joblistings/{id}/hire', [JobController::class, 'hirePage'])->name('job.hire')->middleware('auth');
+Route::post('/job/{id}/hire/confirm', [JobController::class, 'confirmHire'])->name('job.confirmHire')->middleware('auth');
