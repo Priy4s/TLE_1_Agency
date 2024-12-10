@@ -24,6 +24,11 @@ class ChatController extends Controller
                 ->from('messages')
                 ->where('sender_id', Auth::id())
                 ->distinct();
+        })->orWhereIn('id', function ($query) {
+            $query->select('sender_id')
+                ->from('messages')
+                ->where('receiver_id', Auth::id())
+                ->distinct();
         })->get();
 
         // Add unread messages count for each user

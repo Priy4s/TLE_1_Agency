@@ -15,9 +15,9 @@
                             <!-- Optionally, you can add a user avatar here -->
                         </div>
                         @if ($user->name)
-                            <span class="text-lg font-medium text-gray-800">{{ $user->name }}</span>
+                            <span class="text-md font-medium text-gray-800">{{ $user->name }}</span>
                         @else
-                            <span class="text-lg font-medium text-gray-800">{{ $user->username }}</span>
+                            <span class="text-md font-medium text-gray-800">{{ $user->username }}</span>
                         @endif
                     </div>
 
