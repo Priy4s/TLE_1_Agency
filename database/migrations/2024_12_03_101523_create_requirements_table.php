@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('requirements', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('job_listing_id')->constrained('job_listings');
+            $table->integer('id');
+            $table->integer('job_id');
+            $table->string('belongsTo');
             $table->boolean('drivers_license');
             $table->boolean('walking');
             $table->boolean('hands');
             $table->boolean('standing');
             $table->boolean('talking');
-            $table->timestamps();
+            $table->dateTime('created_at');
         });
     }
 
