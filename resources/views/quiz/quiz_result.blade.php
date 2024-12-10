@@ -10,10 +10,15 @@
 </head>
 <body>
 
+
     <h1>Your Quiz Results</h1>
-    <p>Leader: {{ $stylePercentages['Leader'] }}%</p>
-    <p>Supporter: {{ $stylePercentages['Supporter'] }}%</p>
-    <p>Organizer: {{ $stylePercentages['Organizer'] }}%</p>
-    <p>Creative: {{ $stylePercentages['Creative'] }}%</p>
+
+    <div>{{ $stylePercentages['Leader'] ?? 0 }}% Leader</div>
+    <div>{{ $stylePercentages['Supporter'] ?? 0 }}% Supporter</div>
+    <div>{{ $stylePercentages['Organizer'] ?? 0 }}% Organizer</div>
+    <div>{{ $stylePercentages['Creative'] ?? 0 }}% Creative</div>
+
+
+
 </body>
 </html>

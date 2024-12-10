@@ -10,6 +10,10 @@
 </head>
 <body>
 
+    <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+        <div class="bg-blue-500 h-4 rounded-full" style="width: {{ $progress }}%;"></div>
+    </div>
+
     <h1>Question {{ $questionIndex + 1 }}</h1>
     <p>{{ $currentQuestion->question }}</p>
 
@@ -26,22 +30,6 @@
                 {{ $questionIndex + 1 < count($questions) ? 'Next' : 'See results' }}
             </button>
         </form>
-
-
-{{--    <form action="{{ route('quiz.save', $questionIndex) }}" method="POST">--}}
-{{--        @csrf--}}
-{{--        <input type="hidden" name="question_id" value="{{ $currentQuestion->id }}">--}}
-{{--        @foreach ($currentQuestion->options as $option)--}}
-{{--            <label>--}}
-{{--                <input type="radio" name="answer" value="{{ $option->id }}"> {{ $option->option }}--}}
-{{--            </label><br>--}}
-{{--        @endforeach--}}
-
-{{--        <button type="submit">--}}
-{{--            {{ $questionIndex + 1 < count($questions) ? 'Next' : 'See results' }}--}}
-{{--        </button>--}}
-{{--    </form>--}}
-
 
 </body>
 </html>

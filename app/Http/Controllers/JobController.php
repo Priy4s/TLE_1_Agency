@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobListing;
 use App\Models\Waitlist;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,12 @@ class JobController extends Controller
 
         // Get the count of users on the waitlist for this job
         $waitlistCount = Waitlist::where('job_id', $id)->count();
+
+        // Check if the current user is already on the waitlist for this job
+        $userId = Auth::id();
+        $isOnWaitlist = Waitlist::where('job_id', $id)
+            ->where('user_id', $userId)
+            ->exists();
 
         // Pass the waitlist count to the view
         return view('detail.job', compact('job', 'waitlistCount'));
@@ -96,5 +103,25 @@ class JobController extends Controller
         // Stuur de gebruiker terug naar de beheerpagina voor het job
         return redirect()->route('job.hire', $job->id)->with('success', "$numCandidates candidate(s) successfully hired.");
     }
+
+    public function leaveWaitlist(Request $request, $id)
+    {
+        $userId = Auth::id();
+
+        // Check if the user is on the waitlist
+        $waitlistEntry = Waitlist::where('job_id', $id)
+            ->where('user_id', $userId)
+            ->first();
+
+        if (!$waitlistEntry) {
+            return redirect()->back()->with('error', 'You are not on the waitlist for this job.');
+        }
+
+        // Remove the user from the waitlist
+        $waitlistEntry->delete();
+
+        return redirect()->back()->with('success', 'You have successfully left the waitlist for this job.');
+    }
+
 
 }
