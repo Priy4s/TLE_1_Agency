@@ -8,7 +8,7 @@
     <main class="flex-grow">
         <h1 class="text-4xl font-semibold mb-6 text-center font-radical">Job Openings</h1>
 
-        <div class="flex justify-center items-center mb-8"> <!-- Removed min-h-screen here -->
+        <div class="flex justify-center items-center mb-8">
             <div class="max-w-3xl mx-auto">
                 <form action="{{ route('job_listings.index') }}" method="GET" class="flex items-center">
                     <input
@@ -26,6 +26,7 @@
                 </form>
             </div>
         </div>
+
         <div class="flex justify-center mb-8">
             <a href="{{ route('job_listings.create') }}"
                class="bg-[#AA0160] text-white py-3.5 px-6 rounded-full hover:bg-[#8D0052] transition font-bold text-xl font-radical">
@@ -41,7 +42,6 @@
                         {{ $job->position }} -
                         {{ $job->company ? $job->company->name : 'No company available' }}
 
-                        <!-- Rijbewijs-icoon -->
                         @if($job->drivers_license === true)
                             <span class="ml-1">
                                 <img src="{{ asset('images/auto.png') }}" alt="Auto Icon" class="h-30 w-36">
@@ -56,7 +56,7 @@
                             €{{ number_format($job->salary, 2) }} p/m</p>
                     </div>
                     <div class="mt-4 flex justify-center">
-                        <form action="" method="get">
+                        <form action="{{ route('job.show', ['id' => $job->id]) }}" method="get">
                             <button type="submit"
                                     class="w-[9rem] bg-[#AA0160] text-white py-2 px-6 rounded-full hover:bg-[#8D0052] transition font-bold text-xl font-radical">
                                 Details
