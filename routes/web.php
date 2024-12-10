@@ -39,4 +39,4 @@ Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 Route::post('/job/{id}/waitlist', [JobController::class, 'joinWaitlist'])->name('job.joinWaitlist');
 Route::get('/managerdashboard', [JobListingController::class, 'managerDashboard'])->name('manager.dashboard')->middleware('auth');
 Route::get('/joblistings/{id}/manage', [JobController::class, 'manageDetails'])->name('job_listings.manage');
-Route::get('/hire/{id}', [JobController::class, 'hirePage'])->name('job.hire')->middleware('auth');
+Route::get('/joblistings/{id}/hire', [JobController::class, 'hirePage'])->name('job.hire')->middleware('auth');

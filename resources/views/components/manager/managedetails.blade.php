@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 <div class="bg-[#FBFCF6] text-[#2E342A] min-h-screen p-8">
     <!-- Main Container -->
     <div class="max-w-6xl mx-auto">
@@ -35,15 +36,15 @@
         </div>
 
         <!-- Call to Action Buttons -->
-        <div class="text-center flex justify-between gap-4">
+        <div class="flex justify-between gap-4 mb-6">
             <a href="{{ route('manager.dashboard') }}">
-            <button class="cta-button bg-[#7C1A51] hover:bg-[#681740] text-[#FFFFFF] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
-                Back to Dashboard
-            </button>
+                <button class="cta-button bg-[#7C1A51] hover:bg-[#681740] text-[#FFFFFF] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
+                    Back to Dashboard
+                </button>
             </a>
             <a href="{{ route('job.hire', ['id' => $job->id]) }}">
                 <button class="cta-button bg-[#E2ECC8] hover:bg-[#D1E0A9] text-[#2E342A] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
-                    Hire people
+                    Hire People
                 </button>
             </a>
         </div>

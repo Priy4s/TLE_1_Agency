@@ -60,6 +60,10 @@ class JobController extends Controller
     public function hirePage($id)
     {
         $job = JobListing::findOrFail($id);
-        return view('components.manager.hire-people', compact('job'));
+
+        // Haal alleen de gebruikers die op de wachtlijst staan op, zonder hun persoonlijke gegevens
+        $waitlistUsers = Waitlist::where('job_id', $id)->get();
+
+        return view('components.manager.hire-people', compact('job', 'waitlistUsers'));
     }
 }
