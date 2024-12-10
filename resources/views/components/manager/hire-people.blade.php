@@ -102,7 +102,7 @@
     function showConfirmation() {
         const numCandidates = document.getElementById('num_candidates').value;
         const confirmationMessage = document.getElementById('confirmation-message');
-        confirmationMessage.textContent = `Are you sure you want to hire ${numCandidates} candidates?`;
+        confirmationMessage.textContent = `Are you sure you want to hire ${numCandidates} candidate(s)?`;
 
         const confirmationPopup = document.getElementById('confirmation-popup');
         confirmationPopup.classList.remove('hidden');
