@@ -57,14 +57,4 @@ rounded-br-none pt-8">
     </div>
 
 
-
-    <div class="flex justify-center pb-8">
-        <a href="{{ route('quiz.show', ['questionIndex' => 0]) }}" class="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition-all">
-            Start the Quiz
-        </a>
-        <a href="{{ route('quiz.result') }}" class="btn btn-primary">View My Results</a>
-
-
-    </div>
-
 </footer>

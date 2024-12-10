@@ -18,10 +18,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/quiz/start', [QuizController::class, 'startQuiz'])->name('quiz.start');
+Route::get('/quiz/result', [QuizController::class, 'viewResult'])->name('quiz.result');
 
 Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
 Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save');
-Route::get('/quiz/results', [QuizController::class, 'viewResult'])->name('quiz.result');
+
 
 
 //Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
