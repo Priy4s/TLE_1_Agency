@@ -1,25 +1,33 @@
 @extends('layouts.app')
 
-<h1 class="text-2xl font-bold mb-4 text-center">Chat with {{ $user->username }}</h1>
+<div class="container mx-auto py-8">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-4">Chats</h2>
 
-<div class="chat-container bg-gray-100 p-4 rounded-lg shadow-md mb-4 mx-auto max-w-3xl">
-    @foreach($messages as $message)
-    @if($message->sender->name)
-        <p class="mb-2"><strong>{{ $message->sender->name }}:</strong> {{ $message->content }}</p>
+    @if($users->isEmpty())
+        <p class="text-lg text-gray-600">No users found to chat with.</p>
     @else
-        <p class="mb-2"><strong>{{ $message->sender->username }}:</strong> {{ $message->content }}</p>
+        <ul class="space-y-4">
+            @foreach ($users as $user)
+                <li class="flex items-center justify-between p-4 bg-white rounded-lg shadow-md hover:bg-gray-50 transition duration-200">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4">
+                            <!-- Optionally, you can add a user avatar here -->
+                        </div>
+                        <span class="text-lg font-medium text-gray-800">{{ $user->username }}</span>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        @if($user->unreadMessagesCount > 0)
+                            <span class="text-xs font-bold text-white bg-red-500 px-2 py-1 rounded-full">
+                                {{ $user->unreadMessagesCount }} unread
+                            </span>
+                        @endif
+                        <a href="{{ route('chat.show', $user->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                            Start Chat
+                        </a>
+                    </div>
+                </li>
+            @endforeach
+        </ul>
     @endif
-    @endforeach
 </div>
-
-<form action="{{ route('chat.store', ['user' => $user->id]) }}" method="POST" class="flex flex-col space-y-4 mx-auto max-w-3xl">
-    @csrf
-    <textarea name="content" rows="3" required class="p-2 border rounded-lg w-full"></textarea>
-    <button type="submit" class="bg-blue-500 text-black py-2 px-4 rounded-lg">Send</button>
-</form>
-
-<script>
-    const chatContainer = document.querySelector('.chat-container');
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-</script>
-

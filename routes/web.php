@@ -31,7 +31,9 @@ Route::resource('joblistings', JobListingController::class)->names([
 
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 
+// In your routes/web.php
 Route::middleware('auth')->group(function () {
-    Route::get('/chat/{user}', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chat.show');
     Route::post('/chat/{user}', [ChatController::class, 'store'])->name('chat.store');
 });
