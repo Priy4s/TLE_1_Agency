@@ -37,3 +37,5 @@ Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 
 // Route to join the waitlist
 Route::post('/job/{id}/waitlist', [JobController::class, 'joinWaitlist'])->name('job.joinWaitlist');
+Route::get('/managerdashboard', [JobListingController::class, 'managerDashboard'])->name('manager.dashboard')->middleware('auth');
+Route::get('/joblistings/{id}/manage', [JobController::class, 'manageDetails'])->name('job_listings.manage');

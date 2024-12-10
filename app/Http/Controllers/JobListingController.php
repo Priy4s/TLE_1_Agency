@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobListing;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Company;
+use App\Models\JobListing;
 use App\Models\Location;
 use App\Models\Waitlist;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class JobListingController extends Controller
@@ -84,5 +84,18 @@ class JobListingController extends Controller
             });
 
         return view('jobs_listing.my-job-listings', compact('jobListings'));
+    }
+
+    public function managerDashboard(Request $request): View
+    {
+        $query = $request->input('query');
+        $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where('position', 'like', '%' . $query . '%')->orWhereHas('company', function ($companyQuery) use ($query) {
+                $companyQuery->where('name', 'like', '%' . $query . '%');
+            })->orWhereHas('location', function ($locationQuery) use ($query) {
+                $locationQuery->where('name', 'like', '%' . $query . '%');
+            });
+        })->get();
+        return view('components.manager.dashboard', compact('jobListings'));
     }
 }

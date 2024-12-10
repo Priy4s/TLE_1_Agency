@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobListing;
-use App\Models\Waitlist; // Import the Waitlist model
+use App\Models\Waitlist;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Import Auth to get the logged-in user
+use Illuminate\Support\Facades\Auth;
+
+// Import the Waitlist model
+// Import Auth to get the logged-in user
 
 class JobController extends Controller
 {
@@ -20,6 +23,12 @@ class JobController extends Controller
 
         // Pass the waitlist count to the view
         return view('detail.job', compact('job', 'waitlistCount'));
+    }
+
+    public function manageDetails($id)
+    {
+        $job = JobListing::find($id);
+        return view('components.manager.managedetails', compact('job'));
     }
 
 
