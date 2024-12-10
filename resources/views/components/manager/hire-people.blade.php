@@ -14,38 +14,40 @@
                 </button>
             </a>
 
-            <!-- "Hire" Button with Dropdown -->
-            <div class="relative">
-                <button onclick="toggleDropdown()" class="bg-[#E2ECC8] hover:bg-[#D1E0A9] text-black text-lg py-3 px-6 rounded-lg font-semibold shadow-md transform transition duration-200 ease-in-out hover:scale-105 focus:outline-none">
-                    Hire People
-                </button>
+            <!-- "Hire" Button with Dropdown (Weergegeven als er kandidaten zijn) -->
+            @if($waitlistUsers->isNotEmpty())
+                <div class="relative">
+                    <button onclick="toggleDropdown()" class="bg-[#E2ECC8] hover:bg-[#D1E0A9] text-black text-lg py-3 px-6 rounded-lg font-semibold shadow-md transform transition duration-200 ease-in-out hover:scale-105 focus:outline-none">
+                        Hire People
+                    </button>
 
-                <!-- Dropdown (Modal) Menu -->
-                <div id="hire-dropdown" class="dropdown-content hidden fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-                    <div class="bg-white shadow-lg rounded-lg p-6 w-96">
-                        <form action="" method="POST" class="space-y-4">
-                            @csrf
-                            <input type="hidden" name="job_id" value="{{ $job->id }}">
-                            <label for="num_candidates" class="text-lg font-medium text-gray-800 block">Select Number of Candidates:</label>
-                            <select name="num_candidates" id="num_candidates" class="block w-full p-2 border rounded-lg">
-                                @php
-                                    $maxCandidates = min(count($waitlistUsers), 5); // Maximaal 5 of het aantal beschikbare kandidaten
-                                @endphp
-                                @for ($i = 1; $i <= $maxCandidates; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                            <div class="flex justify-end gap-4">
-                                <button type="button" onclick="toggleDropdown()" class="bg-gray-500 text-white py-2 px-4 rounded-lg">Cancel</button>
-                                <div class="flex gap-2">
-                                    <button type="submit" class="bg-green-500 hover:bg-green-400 text-white py-2 px-4 rounded-lg">Confirm</button>
-                                    <button type="button" onclick="hireCandidates()" class="bg-blue-500 hover:bg-blue-400 text-white py-2 px-4 rounded-lg">Hire</button>
+                    <!-- Dropdown (Modal) Menu -->
+                    <div id="hire-dropdown" class="dropdown-content hidden fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+                        <div class="bg-white shadow-lg rounded-lg p-6 w-96">
+                            <form action="" method="POST" class="space-y-4">
+                                @csrf
+                                <input type="hidden" name="job_id" value="{{ $job->id }}">
+                                <label for="num_candidates" class="text-lg font-medium text-gray-800 block">Select Number of Candidates:</label>
+                                <select name="num_candidates" id="num_candidates" class="block w-full p-2 border rounded-lg">
+                                    @php
+                                        $maxCandidates = min(count($waitlistUsers), 5); // Maximaal 5 of het aantal beschikbare kandidaten
+                                    @endphp
+                                    @for ($i = 1; $i <= $maxCandidates; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                                <div class="flex justify-between gap-4 mt-4">
+                                    <button type="button" onclick="toggleDropdown()" class="bg-[#7C1A51] hover:bg-[#681740] text-white py-2 px-4 rounded-lg">Cancel</button>
+                                    <div class="flex gap-2">
+                                        <button type="submit" class="bg-green-500 hover:bg-green-400 text-white py-2 px-4 rounded-lg">Confirm</button>
+                                        <button type="button" onclick="showConfirmation()" class="bg-[#E2ECC8] hover:bg-[#D1E0A9] text-black py-2 px-4 rounded-lg">Hire</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
 
         <!-- Kandidaten lijst met nummering -->
@@ -76,6 +78,19 @@
     </div>
 </div>
 
+<!-- Bevestigings Popup -->
+<div id="confirmation-popup" class="hidden fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-96">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Confirm Hiring</h2>
+        <p id="confirmation-message" class="text-gray-700 mb-4">Are you sure you want to hire these candidates?</p>
+        <div class="flex justify-center gap-4">
+            <button onclick="closeConfirmation()" class="bg-[#7C1A51] hover:bg-[#681740] text-white py-2 px-4 rounded-lg">Cancel</button>
+            <!-- Confirm button added here -->
+            <button onclick="confirmHire()" class="bg-[#E2ECC8] hover:bg-[#D1E0A9] text-black py-2 px-4 rounded-lg">Confirm</button>
+        </div>
+    </div>
+</div>
+
 <script>
     // Function to toggle the visibility of the dropdown (popup)
     function toggleDropdown() {
@@ -83,9 +98,26 @@
         dropdown.classList.toggle('hidden');
     }
 
-    // Function to handle the hire action (optional customization)
-    function hireCandidates() {
-        // Add any custom logic for hiring here (e.g., submitting a form or updating data)
+    // Function to show the confirmation popup
+    function showConfirmation() {
+        const numCandidates = document.getElementById('num_candidates').value;
+        const confirmationMessage = document.getElementById('confirmation-message');
+        confirmationMessage.textContent = `Are you sure you want to hire ${numCandidates} candidates?`;
+
+        const confirmationPopup = document.getElementById('confirmation-popup');
+        confirmationPopup.classList.remove('hidden');
+    }
+
+    // Function to close the confirmation popup
+    function closeConfirmation() {
+        const confirmationPopup = document.getElementById('confirmation-popup');
+        confirmationPopup.classList.add('hidden');
+    }
+
+    // Function to handle the hire action after confirmation
+    function confirmHire() {
+        // Voeg hier je custom logic toe voor het aannemen van kandidaten
         alert("Candidates hired!");
+        closeConfirmation();  // Sluit de bevestigingspopup na bevestiging
     }
 </script>
