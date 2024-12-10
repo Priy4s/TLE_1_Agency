@@ -52,7 +52,7 @@ class JobListingController extends Controller
         $validatedData['drivers_license'] = (bool) $validatedData['drivers_license'];
         JobListing::create($validatedData);
 
-        return redirect()->route('job_listings.index')->with('success', 'Job listing created successfully.');
+        return redirect()->route('manager.dashboard')->with('success', 'Job listing created successfully.');
     }
 
     // New create method to show the form
