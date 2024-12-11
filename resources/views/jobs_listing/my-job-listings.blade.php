@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-<div class="bg-[#FBFCF6] text-[#2E342A] min-h-screen p-4">
+<div class="text-[#2E342A] min-h-screen p-4">
     <x-navbar-layout></x-navbar-layout>
 
     <!-- Heading -->
@@ -10,7 +10,7 @@
     <div class="space-y-6">
         @foreach ($jobListings as $waitlist)
             @if ($waitlist->status === 'hired')
-                <div class="bg-gradient-to-r from-yellow-300 via-green-300 to-red-300 p-6 rounded-lg shadow-lg border-4 border-yellow-500 max-w-[22rem] mx-auto">
+                <div class="bg-gradient-to-r from-yellow-300 via-green-300 to-yellow-200 p-6 rounded-lg shadow-lg border-4 border-yellow-500 max-w-[22rem] mx-auto">
                     <h3 class="text-xl font-bold text-gray-800 text-center mb-4">
                         🎉You’ve been selected!🎉
                     </h3>
