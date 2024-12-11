@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class JobController extends Controller
 {
     // Show the job details page
-
-
     public function manageDetails($id)
     {
         $job = JobListing::find($id);
@@ -39,6 +37,7 @@ class JobController extends Controller
     }
 
     // Handle joining the waitlist
+    // Handle joining the waitlist
     public function joinWaitlist(Request $request, $id)
     {
         $userId = Auth::id();
@@ -59,8 +58,10 @@ class JobController extends Controller
             'status' => 'in_process',
         ]);
 
-        return redirect()->back()->with('success', 'You have successfully joined the waitlist for this job.');
+        // Redirect to the confirmation page
+        return redirect()->route('job.confirm');
     }
+
 
     // Handle leaving the waitlist
     public function leaveWaitlist(Request $request, $id)
@@ -81,4 +82,13 @@ class JobController extends Controller
 
         return redirect()->back()->with('success', 'You have successfully left the waitlist for this job.');
     }
+
+    // Show confirmation page after joining the waitlist
+    public function showConfirmation()
+    {
+        // Here, you can pass any relevant data, like a success message, to the view
+        return view('details.confirm');
+    }
 }
+
+

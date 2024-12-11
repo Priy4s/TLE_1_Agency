@@ -6,7 +6,9 @@ use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 
-// Other routes remain the same
+
+Route::get('/job/confirm', [JobController::class, 'showConfirmation'])->name('job.confirm');
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -34,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-job-listings', [JobListingController::class, 'myJobListings'])->name('job_listings.my');
 });
 
+
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 Route::get('/managerdashboard', [JobListingController::class, 'managerDashboard'])->name('manager.dashboard')->middleware('auth');
 Route::get('/joblistings/{id}/manage', [JobController::class, 'manageDetails'])->name('job_listings.manage');
@@ -48,4 +51,3 @@ Route::get('/quiz/result', [QuizController::class, 'viewResult'])->name('quiz.re
 
 Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show');
 Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save');
-
