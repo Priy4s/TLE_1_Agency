@@ -63,25 +63,39 @@ class JobListingController extends Controller
 
         return view('jobs_listing.create', compact('locations', 'companies'));
     }
+
     public function myJobListings(): View
     {
         $userId = Auth::id();
 
         // Get all jobs the authenticated user has joined the waitlist for
-        $jobListings = Waitlist::where('user_id', $userId)
+        $waitlistedJobs = Waitlist::where('user_id', $userId)
             ->with('job') // Eager load the related job
-            ->get()
-            ->map(function ($waitlist) {
-                // Add user's position and the waitlist count
-                $waitlist->position = Waitlist::where('job_id', $waitlist->job_id)
-                        ->orderBy('created_at')
-                        ->pluck('user_id')
-                        ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
+            ->get();
 
-                $waitlist->waitlist_count = Waitlist::where('job_id', $waitlist->job_id)->count(); // Total waitlist count
+        // Separate hired jobs and waiting jobs
+        $hiredJobs = $waitlistedJobs->filter(function ($waitlist) {
+            return $waitlist->status === 'hired';
+        });
 
-                return $waitlist;
-            });
+        $waitingJobs = $waitlistedJobs->filter(function ($waitlist) {
+            return $waitlist->status === 'waiting';
+        })->map(function ($waitlist) {
+            // Add user's position and the waitlist count (only count 'waiting' statuses)
+            $waitlist->position = Waitlist::where('job_id', $waitlist->job_id)
+                    ->where('status', 'waiting') // Filter for 'waiting' status only
+                    ->orderBy('created_at')
+                    ->pluck('user_id')
+                    ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
+
+            $waitlist->waitlist_count = Waitlist::where('job_id', $waitlist->job_id)
+                ->where('status', 'waiting') // Count only users with 'waiting' status
+                ->count(); // Total waitlist count
+
+            return $waitlist;
+        });
+
+        $jobListings = $hiredJobs->merge($waitingJobs); // Hired jobs first, followed by waiting jobs
 
         return view('jobs_listing.my-job-listings', compact('jobListings'));
     }
