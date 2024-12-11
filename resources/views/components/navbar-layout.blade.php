@@ -39,6 +39,13 @@
             </form>
         </li>
 
+        <!-- Knoppen voor lettergrootte en vergroting in het midden -->
+        <div class="flex justify-between items-center space-x-4 mt-4 w-full px-4">
+            <button id="decrease-font" class="text-black text-lg font-black bg-gray-200 p-2 rounded">A-</button>
+            <span id="font-size-display" class="text-black text-lg font-black">Font size: 16px</span>
+            <button id="increase-font" class="text-black text-lg font-black bg-gray-200 p-2 rounded">A+</button>
+        </div>
+
         <!-- Sluitknop ("X") net onder de laatste optie -->
         <li id="closeMenu" class="block py-2 px-4 font-black text-black cursor-pointer text-5xl">×</li>
     </ul>
@@ -63,5 +70,36 @@
         const menu = document.getElementById('menu');
         menu.classList.add('hidden');
         document.body.style.overflow = 'auto'; // Zet scrollen weer aan
+    });
+
+        // Lettergrootte aanpassen
+        const increaseFontButton = document.getElementById('increase-font');
+        const decreaseFontButton = document.getElementById('decrease-font');
+        const fontSizeDisplay = document.getElementById('font-size-display');
+        const defaultFontSize = 16; // Standaard lettergrootte
+        const maxFontSize = 23; // Maximaal toegestane lettergrootte
+        const minFontSize = 10; // Minimale lettergrootte
+        let fontSize = localStorage.getItem('fontSize') ? parseFloat(localStorage.getItem('fontSize')) : defaultFontSize;
+
+        // Stel de huidige lettergrootte in
+        document.documentElement.style.fontSize = `${fontSize}px`;
+        fontSizeDisplay.textContent = `Font size: ${fontSize}px`;
+
+        increaseFontButton.addEventListener('click', function() {
+        if (fontSize < maxFontSize) { // Controleer of de maximale grootte niet is bereikt
+        fontSize += 1; // Verhoog met 1px
+        document.documentElement.style.fontSize = `${fontSize}px`;
+        fontSizeDisplay.textContent = `Font size: ${fontSize}px`; // Toon de nieuwe grootte
+        localStorage.setItem('fontSize', fontSize); // Bewaren in localStorage
+    }
+    });
+
+        decreaseFontButton.addEventListener('click', function() {
+        if (fontSize > minFontSize) { // Minimale fontgrootte
+        fontSize -= 1; // Verklein met 1px
+        document.documentElement.style.fontSize = `${fontSize}px`;
+        fontSizeDisplay.textContent = `Font size: ${fontSize}px`; // Toon de nieuwe grootte
+        localStorage.setItem('fontSize', fontSize); // Bewaren in localStorage
+    }
     });
 </script>
