@@ -14,7 +14,8 @@ rounded-br-none pt-8">
                     <h2 class="footer-h2-for-employers text-yellow font-bold leading-relaxed">For Employers</h2>
                     <ul class="footer-ul-for-employers">
                         <li class="footer-li-for-employers">
-                            <a class="footer-a-for-employers text-strokethin">Create Job Openings</a>
+                            <a href="{{ route('manager.dashboard') }}" class="footer-a-for-employers text-strokethin" style="display: block;">Manager dashboard</a>
+                            <a class="footer-a-for-employers text-strokethin" style="display: block;">Create Job Openings</a>
                         </li>
                     </ul>
                 </div>
