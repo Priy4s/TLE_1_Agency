@@ -5,6 +5,8 @@ use App\Http\Controllers\JobListingController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Http\Request;
 
 // Other routes remain the same
 Route::get('/', function () {
@@ -37,3 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chat.show');
     Route::post('/chat/{user}', [ChatController::class, 'store'])->name('chat.store');
 });
+
+Route::post('/broadcasting/auth', function (Request $request) {
+    return Broadcast::auth($request);
+});
+
+Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
+Route::post('/receive', 'App\Http\Controllers\PusherController@receive');

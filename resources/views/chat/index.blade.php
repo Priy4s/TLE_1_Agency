@@ -24,7 +24,7 @@
                     <div class="flex items-center space-x-2">
                         @if ($user->unreadMessagesCount > 0)
                             <span class="text-xs font-bold text-white bg-red-500 px-2 py-1 rounded-full">
-                                {{ $user->unreadMessagesCount }} unread
+                                {{ $user->unreadMessagesCount }} NEW
                             </span>
                         @endif
                         <a href="{{ route('chat.show', $user->id) }}"
