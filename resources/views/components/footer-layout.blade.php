@@ -14,7 +14,8 @@ rounded-br-none pt-8">
                     <h2 class="footer-h2-for-employers text-yellow font-bold leading-relaxed">For Employers</h2>
                     <ul class="footer-ul-for-employers">
                         <li class="footer-li-for-employers">
-                            <a class="footer-a-for-employers text-strokethin">Create Job Openings</a>
+                            <a href="{{ route('manager.dashboard') }}" class="footer-a-for-employers text-strokethin" style="display: block;">Manager dashboard</a>
+                            <a class="footer-a-for-employers text-strokethin" style="display: block;">Create Job Openings</a>
                         </li>
                     </ul>
                 </div>
@@ -55,4 +56,6 @@ rounded-br-none pt-8">
         <img src="{{ asset('images/logo with slogan.png') }}" alt="Open hiring logo"
         class="w-24 h-24 mr-8 ml-auto">
     </div>
+
+
 </footer>

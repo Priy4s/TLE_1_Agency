@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\JobListing;
-use Illuminate\Http\Request;
+use App\Models\Location;
+use App\Models\Waitlist;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use App\Models\Company;
-use App\Models\Location;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobListingController extends Controller
 {
@@ -50,16 +52,64 @@ class JobListingController extends Controller
         $validatedData['drivers_license'] = (bool) $validatedData['drivers_license'];
         JobListing::create($validatedData);
 
-        return redirect()->route('job_listings.index')->with('success', 'Job listing created successfully.');
+        return redirect()->route('manager.dashboard')->with('success', 'Job listing created successfully.');
     }
 
     // New create method to show the form
     public function create(): View
     {
-        // Return a view with the form to create a job listing
-        $locations = Location::all(); // Fetch all locations
-        $companies = Company::all(); // Fetch all companies
+        $locations = Location::all();
+        $companies = Company::all();
 
         return view('jobs_listing.create', compact('locations', 'companies'));
+    }
+
+    public function myJobListings(): View
+    {
+        $userId = Auth::id();
+
+        // Get all jobs the authenticated user has joined the waitlist for
+        $waitlistedJobs = Waitlist::where('user_id', $userId)
+            ->with('job') // Eager load the related job
+            ->get();
+
+        // Separate hired jobs and waiting jobs
+        $hiredJobs = $waitlistedJobs->filter(function ($waitlist) {
+            return $waitlist->status === 'hired';
+        });
+
+        $waitingJobs = $waitlistedJobs->filter(function ($waitlist) {
+            return $waitlist->status === 'waiting';
+        })->map(function ($waitlist) {
+            // Add user's position and the waitlist count (only count 'waiting' statuses)
+            $waitlist->position = Waitlist::where('job_id', $waitlist->job_id)
+                    ->where('status', 'waiting') // Filter for 'waiting' status only
+                    ->orderBy('created_at')
+                    ->pluck('user_id')
+                    ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
+
+            $waitlist->waitlist_count = Waitlist::where('job_id', $waitlist->job_id)
+                ->where('status', 'waiting') // Count only users with 'waiting' status
+                ->count(); // Total waitlist count
+
+            return $waitlist;
+        });
+
+        $jobListings = $hiredJobs->merge($waitingJobs); // Hired jobs first, followed by waiting jobs
+
+        return view('jobs_listing.my-job-listings', compact('jobListings'));
+    }
+
+    public function managerDashboard(Request $request): View
+    {
+        $query = $request->input('query');
+        $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where('position', 'like', '%' . $query . '%')->orWhereHas('company', function ($companyQuery) use ($query) {
+                $companyQuery->where('name', 'like', '%' . $query . '%');
+            })->orWhereHas('location', function ($locationQuery) use ($query) {
+                $locationQuery->where('name', 'like', '%' . $query . '%');
+            });
+        })->get();
+        return view('components.manager.dashboard', compact('jobListings'));
     }
 }
