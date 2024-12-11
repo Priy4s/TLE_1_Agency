@@ -1,35 +1,39 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
+@extends('layouts.app')
 
-    <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
-        <div class="bg-blue-500 h-4 rounded-full" style="width: {{ $progress }}%;"></div>
+    <x-navbar-layout></x-navbar-layout>
+
+    <img class="rounded-full" src="{{ asset('images/quiz-worker.jpg') }}">
+
+    <h1 class="text-4xl font-semibold mb-8 mt-10 text-center font-radical">Discover You Talent</h1>
+
+    <div class="w-auto bg-gray-300 rounded-full h-6 mb-6 mx-8">
+        <div class="bg-violet h-6 rounded-full" style="width: {{ $progress }}%;"></div>
     </div>
 
-    <h1>Question {{ $questionIndex + 1 }}</h1>
-    <p>{{ $currentQuestion->question }}</p>
+    <h3 class="text-xl leading-none text-gray-800 ml-8 mr-8">Question {{ $questionIndex + 1 }}</h3>
+    <h2 class="text-[1.65rem] leading-tight font-semibold text-black mx-8 mb-3">{{ $currentQuestion->question }}</h2>
 
-    <form action="{{ route('quiz.save', ['questionIndex' => $questionIndex]) }}" method="POST">
+    <form action="{{ route('quiz.save', ['questionIndex' => $questionIndex]) }}" method="POST" class="mx-8">
         @csrf
-            <input type="hidden" name="question_id" value="{{ $currentQuestion->id }}">
-            @foreach ($currentQuestion->options as $option)
-                <label>
-                    <input type="radio" name="answer" value="{{ $option->id }}"> {{ $option->option }}
-                </label><br>
-            @endforeach
+        <input type="hidden" name="question_id" value="{{ $currentQuestion->id }}">
+        @foreach ($currentQuestion->options as $option)
+            <label class="text-[1.4rem] font-medium text-gray-900 ml-4 leading-[3rem] ">
+                <input type="radio" name="answer" value="{{ $option->id }}" class="mb-1.5 h-6 w-6 outline-violet text-violet bg-gray-400 border-none">
+                {{ $option->option }}
+            </label><br>
+        @endforeach
+        <div class="flex justify-between items-center gap-2 my-5">
+{{--        @if ($previousQuestionIndex !== null)--}}
+{{--            <a  class="text-white font-semibold bg-violet rounded-2xl py-3 px-6 w-full">--}}
+{{--                Back--}}
+{{--            </a>--}}
+{{--        @endif--}}
 
-            <button type="submit">
+            <button type="submit" class="bg-violet text-white font-semibold rounded-2xl py-3 px-6 w-full border-b-4 border-darkviolet hover:bg-darkviolet active:bg-violet border-b-2-2">
                 {{ $questionIndex + 1 < count($questions) ? 'Next' : 'See results' }}
             </button>
+        </div>
         </form>
 
-</body>
-</html>
+
+<x-footer-layout></x-footer-layout>

@@ -25,10 +25,19 @@ class QuizController extends Controller
             return redirect()->route('quiz.result');
         }
 
-        $totalQuestions = $questions->count();
-        $progress = ($questionIndex / $totalQuestions) * 100;
+        $user_id = auth()->id();
 
-        return view('quiz.quiz', compact('currentQuestion', 'questionIndex', 'questions', 'progress'));
+        $savedAnswer = QuizData::where('user_id', $user_id)
+            ->where('question_id', $currentQuestion->id)
+            ->value('answer');
+
+        //        $previousQuestionIndex = $questionIndex > 0 ? $questionIndex - 1 : null;
+
+        $totalQuestions = $questions->count();
+        $progress = (($questionIndex + 1) / $totalQuestions) * 100;
+
+        return view('quiz.quiz', compact(
+            'currentQuestion', 'questionIndex', 'questions', 'progress', 'savedAnswer'));
     }
 
     public function saveAnswer(Request $request, $questionIndex)
@@ -39,18 +48,13 @@ class QuizController extends Controller
         ]);
 
         $user_id = auth()->id();
-
-        // Assuming you also want to save the points when saving the answer
         $answer = $request->answer;
-        $stylePoints = $this->getStylePoints($answer); // This function calculates points
 
+        // Save or update the user's answer
         QuizData::updateOrCreate(
             ['user_id' => $user_id, 'question_id' => $request->question_id],
-            ['answer' => $answer, 'leader_percentage' => $stylePoints['Leader'], 'supporter_percentage' => $stylePoints['Supporter']]
+            ['answer' => $answer]
         );
-
-        // Log to check if data is correct
-        Log::info('Answer saved:', ['user_id' => $user_id, 'answer' => $answer, 'stylePoints' => $stylePoints]);
 
         $nextQuestionIndex = $questionIndex + 1;
 
@@ -58,8 +62,16 @@ class QuizController extends Controller
             return redirect()->route('quiz.show', ['questionIndex' => $nextQuestionIndex]);
         }
 
+//
+//        $previousQuestionIndex = $questionIndex > 0 ? $questionIndex - 1 : null;
+//
+//        if ($previousQuestionIndex) {
+//            return redirect()->route('quiz.show', ['questionIndex' => $previousQuestionIndex]);
+//        }
+
         return redirect()->route('quiz.result');
     }
+
 
     private function getStylePoints($answer)
     {
@@ -147,102 +159,3 @@ class QuizController extends Controller
         return view('quiz.quiz_result', compact('stylePercentages'));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-//namespace App\Http\Controllers;
-//
-//use App\Models\Question;
-//use App\Models\QuizResult;
-//use App\Models\QuizSession;
-//use Illuminate\Http\Request;
-//
-//class QuizController extends Controller
-//{
-//    public function showQuiz($questionIndex = 0)
-//    {
-//        $questions = Question::with('options')->get();
-//
-//        $currentQuestion = $questions[$questionIndex] ?? null;
-//
-//        if (!$currentQuestion) {
-//            return redirect()->route('quiz.result');
-//        }
-//
-//        return view('quiz.quiz', compact('currentQuestion', 'questionIndex', 'questions'));
-//    }
-//
-//    public function saveAnswer(Request $request, $questionIndex)
-//    {
-//        $request->validate([
-//            'answer' => 'required',
-//            'question_id' => 'required|exists:questions,id',
-//        ]);
-//
-//        $user_id = auth()->id();
-//
-//        QuizSession::updateOrCreate(
-//            ['user_id' => $user_id, 'question_id' => $request->question_id],
-//            ['answers' => $request->answer]
-//        );
-//
-//        $nextQuestionIndex = $questionIndex + 1;
-//
-//        if ($nextQuestionIndex < Question::count()) {
-//            return redirect()->route('quiz.show', ['questionIndex' => $nextQuestionIndex]);
-//        } else {
-//            return redirect()->route('dashboard');
-//        }
-//    }
-//
-//    public function viewResult()
-//    {
-//        $user_id = auth()->id();
-//
-//        $answers = QuizSession::where('user_id', $user_id)->get();
-//
-//        $styleScores = [
-//            'Leader' => 0,
-//            'Supporter' => 0,
-//            'Organizer' => 0,
-//            'Creative' => 0,
-//        ];
-//
-//
-//        foreach ($answers as $answer) {
-//            $style = $answer->selectedOption->style ?? null;
-//            if ($style) {
-//                $styleScores[$style]++;
-//            }
-//        }
-//
-//        $totalAnswers = count($answers);
-//        $stylePercentages = [];
-//        foreach ($styleScores as $style => $score) {
-//            $stylePercentages[$style] = $totalAnswers > 0 ? ($score / $totalAnswers) * 100 : 0;
-//        }
-//
-//        QuizResult::updateOrCreate(
-//            ['user_id' => $user_id],
-//            [
-//                'leader_percentage' => $stylePercentages['Leader'],
-//                'supporter_percentage' => $stylePercentages['Supporter'],
-//                'organizer_percentage' => $stylePercentages['Organizer'],
-//                'creative_percentage' => $stylePercentages['Creative'],
-//            ]
-//        );
-//
-//        QuizSession::where('user_id', $user_id)->delete();
-//
-//        return view('quiz_result', compact('stylePercentages'));
-//    }
-//}
-
