@@ -8,4 +8,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+    alias: {
+        'laravel-echo': 'laravel-echo/dist/echo.js',
+    },
+},
 });
