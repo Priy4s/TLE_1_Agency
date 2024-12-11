@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    if (auth()->check()) {
+    if (\Illuminate\Support\Facades\Auth::check()) {
         return redirect()->route('job_listings.index'); // Redirect to job listings if logged in
     } else {
         return view('welcome'); // Show welcome page if not logged in
@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', function () {
-    if (auth()->check()) {
+    if (\Illuminate\Support\Facades\Auth::check()) {
         return redirect()->route('job_listings.index'); // Redirect to job listings if logged in
     } else {
         return view('dashboard'); // Show dashboard page if not logged in

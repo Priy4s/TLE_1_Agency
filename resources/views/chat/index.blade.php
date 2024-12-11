@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<x-navbar-layout></x-navbar-layout>
 <div class="container mx-auto py-8 flex flex-col items-center">
     <h2 class="text-3xl font-semibold text-gray-800 mb-4 text-center">Chats</h2>
 
@@ -47,3 +47,6 @@
     </div>
     </ul>
 </div>
+<footer>
+    <x-footer-layout></x-footer-layout>
+</footer>

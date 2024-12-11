@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<x-navbar-layout></x-navbar-layout>
 <h1 class="text-2xl font-bold mb-4 text-center">Chat with {{ $user->username }}</h1>
 
 <div class="chat-container bg-gray-100 p-4 rounded-lg shadow-md mb-4 mx-auto max-w-3xl">
@@ -19,8 +19,7 @@
     <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg">Send</button>
 </form>
 <button onclick="window.location.href='{{ route('chat.index') }}'"
-    class="bg-gray-500 text-white py-2 px-4 rounded-lg mt-4">Back to Chats</button>
-
+    class="bg-gray-500 text-white py-2 px-4 rounded-lg mt-4 mx-auto block text-center">Back to Chats</button>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.10.0/dist/echo.iife.js"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
