@@ -11,22 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class JobController extends Controller
 {
     // Show the job details page
-
-
-    public function manageDetails($id)
-    {
-        $job = JobListing::find($id);
-
-        return view('components.manager.managedetails', compact('job'));
-    }
-
     public function show($id)
     {
         $joblistings = JobListing::all();
         $job = $joblistings->firstWhere('id', $id);
 
-        // Get the count of users on the waitlist for this job
-        $waitlistCount = Waitlist::where('job_id', $id)->count();
+        // Get the count of users on the waitlist with the status 'waiting' for this job
+        $waitlistCount = Waitlist::where('job_id', $id)
+            ->where('status', 'waiting')
+            ->count();
 
         // Check if the current user is already on the waitlist for this job
         $userId = Auth::id();
@@ -36,6 +29,12 @@ class JobController extends Controller
 
         // Pass the waitlist count and user's waitlist status to the view
         return view('detail.job', compact('job', 'waitlistCount', 'isOnWaitlist'));
+    }
+
+    public function manageDetails($id)
+    {
+        $job = JobListing::find($id);
+        return view('components.manager.managedetails', compact('job'));
     }
 
     // Handle joining the waitlist
@@ -56,13 +55,52 @@ class JobController extends Controller
         Waitlist::create([
             'job_id' => $id,
             'user_id' => $userId,
-            'status' => 'in_process',
+            'status' => 'waiting', // Default status when a user joins
         ]);
 
         return redirect()->back()->with('success', 'You have successfully joined the waitlist for this job.');
     }
 
-    // Handle leaving the waitlist
+    public function hirePage($id)
+    {
+        $job = JobListing::findOrFail($id);
+
+        // Get only users on the waitlist for this job, including their user details
+        $waitlistUsers = Waitlist::where('job_id', $id)
+            ->with('user')
+            ->get();
+
+        return view('components.manager.hire-people', compact('job', 'waitlistUsers'));
+    }
+
+    public function confirmHire(Request $request, $id)
+    {
+        $job = JobListing::findOrFail($id);
+
+        // Get the number of candidates to hire
+        $numCandidates = $request->input('num_candidates');
+
+        // Get the first $numCandidates candidates with the status "waiting"
+        $candidatesToHire = Waitlist::where('job_id', $id)
+            ->where('status', 'waiting')
+            ->take($numCandidates)
+            ->get();
+
+        // Check if there are enough candidates to hire
+        if ($candidatesToHire->count() < $numCandidates) {
+            return redirect()->back()->with('error', 'Not enough candidates available to hire.');
+        }
+
+        // Update the status of the selected candidates to 'hired'
+        foreach ($candidatesToHire as $candidate) {
+            if ($candidate->status !== 'hired') {
+                $candidate->update(['status' => 'hired']);
+            }
+        }
+
+        return redirect()->route('job.hire', $job->id)->with('success', "$numCandidates candidate(s) successfully hired.");
+    }
+
     public function leaveWaitlist(Request $request, $id)
     {
         $userId = Auth::id();
@@ -80,5 +118,21 @@ class JobController extends Controller
         $waitlistEntry->delete();
 
         return redirect()->back()->with('success', 'You have successfully left the waitlist for this job.');
+    }
+
+    public function updateProcess(Request $request, $id)
+    {
+        $waitlist = Waitlist::findOrFail($id);
+
+        // Validate the input
+        $request->validate([
+            'process' => 'required|in:Need to invite,Waiting for response,Done',
+        ]);
+
+        // Update the process status
+        $waitlist->process = $request->input('process');
+        $waitlist->save();
+
+        return redirect()->back()->with('success', 'Process status updated successfully.');
     }
 }
