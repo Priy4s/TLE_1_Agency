@@ -58,7 +58,9 @@
             @if($waitlistUsers->where('status', 'waiting')->isEmpty())
                 <p class="text-gray-500">No candidates waiting for hiring.</p>
             @else
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Waiting Candidates</h2>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    Waiting Candidates ({{ $waitlistUsers->where('status', 'waiting')->count() }})
+                </h2>
                 <table class="table-auto w-full">
                     <thead>
                     <tr class="bg-gray-100 text-gray-800">
@@ -85,7 +87,7 @@
             @if($waitlistUsers->where('status', 'hired')->isEmpty())
                 <p class="text-gray-500">No hired candidates yet.</p>
             @else
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Hired Candidates</h2>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Hired Candidates ({{ $waitlistUsers->where('status', 'hired')->count() }})</h2>
                 <table class="table-auto w-full">
                     <thead>
                     <tr class="bg-gray-100 text-gray-800">
