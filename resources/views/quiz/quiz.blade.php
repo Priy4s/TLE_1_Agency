@@ -11,16 +11,16 @@
     </div>
 
     <h3 class="text-xl leading-none text-gray-800 ml-8 mr-8">Question {{ $questionIndex + 1 }}</h3>
-    <h2 class="text-[1.65rem] leading-tight font-semibold text-black mx-8 mb-3">{{ $currentQuestion->question }}</h2>
+    <h2 class="text-[1.65rem] leading-tight font-semibold text-black mx-8 mb-5">{{ $currentQuestion->question }}</h2>
 
     <form action="{{ route('quiz.save', ['questionIndex' => $questionIndex]) }}" method="POST" class="mx-8">
         @csrf
         <input type="hidden" name="question_id" value="{{ $currentQuestion->id }}">
         @foreach ($currentQuestion->options as $option)
-            <label class="text-[1.4rem] font-medium text-gray-900 ml-4 leading-[3rem] ">
-                <input type="radio" name="answer" value="{{ $option->id }}" class="mb-1.5 h-6 w-6 outline-violet text-violet bg-gray-400 border-none">
-                {{ $option->option }}
-            </label><br>
+            <label class="flex items-start text-[1.4rem] font-medium text-gray-900 mb-5">
+                <input type="radio" name="answer" value="{{ $option->id }}" class="h-6 w-6 outline-violet text-violet bg-gray-400 border-none mr-3 ">
+                <span class="leading-[1.8rem]">{{ $option->option }}</span>
+            </label>
         @endforeach
         <div class="flex justify-between items-center gap-2 my-5">
 {{--        @if ($previousQuestionIndex !== null)--}}
