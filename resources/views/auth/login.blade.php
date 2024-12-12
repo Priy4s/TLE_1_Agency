@@ -2,7 +2,9 @@
     :root,
     html,
     body {
-        color-scheme: light !important;}
+        color-scheme: light !important;
+        background-color: white;
+    }
 </style>
 
 <x-guest-layout>
@@ -36,9 +38,9 @@
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me"
                        type="checkbox"
-                       class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800 scale-125"
+                       class="rounded 0 border-gray-300  text-indigo-600 shadow-sm focus:ring-indigo-500 scale-125"
                        name="remember">
-                <span class="ms-2 text-[1.125rem] text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                <span class="ms-2 text-[1.125rem] text-gray-600">{{ __('Remember me') }}</span>
             </label>
         </div>
 
@@ -53,7 +55,7 @@
         <div class="flex justify-center mt-4">
             @if (Route::has('password.request'))
                 <a href="{{ route('password.request') }}"
-                   class="text-[1.125rem] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 underline focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                   class="text-[1.125rem] text-gray-600 d hover:text-gray-900  underline focus:outline-none focus:ring-2 focus:ring-indigo-500 ">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
