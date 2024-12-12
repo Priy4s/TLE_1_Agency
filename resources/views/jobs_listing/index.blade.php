@@ -6,7 +6,7 @@
 
     <!-- Main Content -->
     <main class="flex-grow">
-        <h1 class="text-4xl font-semibold mb-6 text-center font-radical">Job Openings</h1>
+        <h1 class="text-4xl font-semibold mb-4 text-center font-radical">Job Openings</h1>
         <div class="flex justify-center items-center mb-8 w-full">
             <form action="{{ route('job_listings.index') }}" method="GET" class="flex justify-center w-full max-w-lg">
                 <div class="flex w-full max-w-[20rem] max-h-[12rem]">
@@ -29,7 +29,7 @@
         <!-- Job Listings -->
         <ul class="space-y-6 mb-[2rem]">
             @foreach($jobListings as $job)
-                <li class="bg-white shadow-md rounded-lg p-[1rem] max-w-[20rem] w-full border border-black mx-auto font-radical">
+                <li class="bg-white shadow-md rounded-[16px] px-[1rem] pt-[1rem] max-w-[20rem] w-full border border-black mx-auto font-radical">
                     <h3 class="text-2xl font-semibold text-gray-800 flex items-center">
                         {{ $job->position }} -
                         {{ $job->company ? $job->company->name : 'No company available' }}
@@ -40,7 +40,7 @@
                             </span>
                         @endif
                     </h3>
-                    <div class="mt-4 border-t border-black pt-[1rem]">
+                    <div class="mt-4 border-green border-t-2 pt-[1rem]">
                         <p class="text-xl font-medium text-gray-700"><strong>Location:</strong>
                             {{ $job->location ? $job->location->name : 'No location available' }}
                         </p>
@@ -50,7 +50,7 @@
                     <div class="mt-4 flex justify-center">
                         <form action="{{ route('job.show', ['id' => $job->id]) }}" method="get">
                             <button type="submit"
-                                    class="w-[9rem] bg-[#AA0160] text-white py-2 px-6 rounded-full hover:bg-[#8D0052] transition font-bold text-xl font-radical">
+                                    class="w-[9rem] bg-violet text-white py-2 px-6 rounded-full hover:bg-darkviolet transition font-bold text-xl font-radical">
                                 Details
                             </button>
                         </form>
