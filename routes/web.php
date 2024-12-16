@@ -52,21 +52,27 @@ Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show')->middl
 // Route to join the waitlist
 Route::post('/job/{id}/waitlist', [JobController::class, 'joinWaitlist'])->name('job.joinWaitlist')->middleware('auth');
 Route::delete('/job/{id}/waitlist', [JobController::class, 'leaveWaitlist'])->name('job.leaveWaitlist')->middleware('auth');
+
 Route::get('/managerdashboard', [JobListingController::class, 'managerDashboard'])->name('manager.dashboard')->middleware('auth');
 Route::get('/joblistings/{id}/manage', [JobController::class, 'manageDetails'])->name('job_listings.manage')->middleware('auth');
 Route::get('/joblistings/{id}/hire', [JobController::class, 'hirePage'])->name('job.hire')->middleware('auth');
 Route::post('/job/{id}/hire/confirm', [JobController::class, 'confirmHire'])->name('job.confirmHire')->middleware('auth');
+
 Route::get('/quiz/start', [QuizController::class, 'startQuiz'])->name('quiz.start')->middleware('auth');
 Route::get('/quiz/result', [QuizController::class, 'viewResult'])->name('quiz.result')->middleware('auth');
 Route::get('/quiz/{questionIndex?}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware('auth');
 Route::post('/quiz/{questionIndex}', [QuizController::class, 'saveAnswer'])->name('quiz.save')->middleware('auth');
+
 Route::patch('/waitlist/{id}/update-process', [JobController::class, 'updateProcess'])->name('waitlist.updateProcess')->middleware('auth');
+
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
+
 Route::middleware('auth')->group(function () {
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
     Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chat.show');
     Route::post('/chat/{user}', [ChatController::class, 'store'])->name('chat.store');
 });
+
 Route::post('/broadcasting/auth', function (Request $request) {
     return Broadcast::auth($request);
 });
