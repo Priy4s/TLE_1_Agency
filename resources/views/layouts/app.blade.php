@@ -13,3 +13,6 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/js/text-to-speech.js', 'resources/js/text-to-speech.js'])
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+

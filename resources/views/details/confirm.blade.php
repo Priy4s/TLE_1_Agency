@@ -4,7 +4,15 @@
     <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-6 sm:p-8 md:max-w-2xl lg:max-w-3xl">
         <!-- Welkomstsectie -->
         <div class="text-center mb-6">
-            <h1 class="text-2xl sm:text-3xl font-bold text-[#30332C]">Congratulations! You're One Step Closer!</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-[#30332C]">
+                <span
+                    class="speaker-icon ml-5"
+                    aria-label="Click to hear what's next after getting signing up"
+                    role="button"
+                    tabindex="0"
+                    data-text="{{ "Congratulations! You're One Step Closer! You're now on the waiting list and closer than ever to your next job opportunity. Stay tuned! You're on the waitlist You have successfully signed up. Here's what happens next: 1, It can take some time. 2, If you're number 1, the employer will message you about your start date. 3, Start working!" }}">
+    </span>
+                Congratulations! You're One Step Closer!</h1>
             <p class="text-base sm:text-lg text-gray-600 mt-2">You're now on the waiting list and closer than ever to your next job opportunity. Stay tuned!</p>
         </div>
 

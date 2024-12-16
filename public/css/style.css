@@ -1,0 +1,21 @@
+.speaker-icon {
+    background: #AA0160;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    background-image: url('../images/speaker-icon-3.png'); /* Relative path from the CSS file */
+    background-size: 85%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    /*margin-left: 10px;*/
+    margin-bottom: -2px;
+    /*padding: 30px;*/
+    border-radius: 100%;
+}
+
+.speaker-icon:focus,
+.speaker-icon:hover {
+    outline: 2px solid #000;
+    transform: scale(1.1);
+}
