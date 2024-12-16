@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class JobListingController extends Controller
 {
-    // Existing index method
     public function index(Request $request): View
     {
         $jobListings = JobListing::all();
@@ -32,7 +31,6 @@ class JobListingController extends Controller
         return view('jobs_listing.index', compact('jobListings'));
     }
 
-    // Existing store method
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
@@ -43,20 +41,32 @@ class JobListingController extends Controller
             'salary' => 'required|numeric',
             'type' => 'required|string',
             'location_id' => 'required|integer',
-            'image' => 'string',
-            'video' => 'string',
-            'company_id' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'video' => 'nullable|video|mimes:mp4,mov,avi,wmv,flv|max:2048',
             'needed' => 'required|integer',
             'drivers_license' => 'required|in:0,1',
             'starting_date' => 'required|date',
         ]);
+
         $validatedData['drivers_license'] = (bool) $validatedData['drivers_license'];
+
+        $validatedData['company_id'] = Auth::user()->company_id;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('job_images', 'public');
+            $validatedData['image'] = $imagePath;
+        }
+
+        if ($request->hasFile('video')) {
+            $videoPath = $request->file('video')->store('job_videos', 'public');
+            $validatedData['video'] = $videoPath;
+        }
+
         JobListing::create($validatedData);
 
         return redirect()->route('manager.dashboard')->with('success', 'Job listing created successfully.');
     }
 
-    // New create method to show the form
     public function create(): View
     {
         $locations = Location::all();
@@ -69,12 +79,10 @@ class JobListingController extends Controller
     {
         $userId = Auth::id();
 
-        // Get all jobs the authenticated user has joined the waitlist for
         $waitlistedJobs = Waitlist::where('user_id', $userId)
-            ->with('job') // Eager load the related job
+            ->with('job')
             ->get();
 
-        // Separate hired jobs and waiting jobs
         $hiredJobs = $waitlistedJobs->filter(function ($waitlist) {
             return $waitlist->status === 'hired';
         });
@@ -82,21 +90,20 @@ class JobListingController extends Controller
         $waitingJobs = $waitlistedJobs->filter(function ($waitlist) {
             return $waitlist->status === 'waiting';
         })->map(function ($waitlist) {
-            // Add user's position and the waitlist count (only count 'waiting' statuses)
             $waitlist->position = Waitlist::where('job_id', $waitlist->job_id)
-                ->where('status', 'waiting') // Filter for 'waiting' status only
+                ->where('status', 'waiting')
                 ->orderBy('created_at')
                 ->pluck('user_id')
-                ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
+                ->search($waitlist->user_id) + 1;
 
             $waitlist->waitlist_count = Waitlist::where('job_id', $waitlist->job_id)
-                ->where('status', 'waiting') // Count only users with 'waiting' status
-                ->count(); // Total waitlist count
+                ->where('status', 'waiting')
+                ->count();
 
             return $waitlist;
         });
 
-        $jobListings = $hiredJobs->merge($waitingJobs); // Hired jobs first, followed by waiting jobs
+        $jobListings = $hiredJobs->merge($waitingJobs);
 
         return view('jobs_listing.my-job-listings', compact('jobListings'));
     }

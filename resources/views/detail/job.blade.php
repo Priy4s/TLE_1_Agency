@@ -18,8 +18,8 @@
 
     <!-- Job Header -->
     <div class="">
-        <img src="{{ asset('images/post_nl.jpg') }}" alt="{{ $job->position }}"
-            class="w-full h-48 object-cover rounded-full">
+        <img src="{{ asset('storage/' . $job->image) }}" alt="{{ $job->position }}"
+            class="col-span-1 w-full h-48 object-cover rounded-lg">
         <h1 class="text-4xl font-semibold text-gray-800 mt-4 ml-3">{{ $job->position }}</h1>
         <div class="flex justify-between items-center mt-2 mx-3">
             <div class="text-center">

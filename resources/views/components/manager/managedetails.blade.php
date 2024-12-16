@@ -5,7 +5,7 @@
     <div class="max-w-6xl mx-auto">
         <!-- Job Header -->
         <div class="job-header bg-white shadow-md rounded-lg p-6 mb-6 grid grid-cols-3 gap-6">
-            <img src="{{ asset('images/post_nl.jpg') }}" alt="{{ $job->position }}"
+            <img src="{{ asset('storage/' . $job->image) }}" alt="{{ $job->position }}"
                 class="col-span-1 w-full h-48 object-cover rounded-lg">
             <div class="col-span-2">
                 <h1 class="text-5xl font-semibold text-gray-800">{{ $job->position }}</h1>

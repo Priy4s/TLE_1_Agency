@@ -53,26 +53,21 @@
             </div>
 
             <div>
-                <label for="location_id" class="block font-medium mb-2">Location ID:</label>
-                <input type="number" name="location_id" id="location_id" required
-                    class="w-full p-3 border border-gray-300 rounded-md">
+                <label for="location_id" class="block font-medium mb-2">Location:</label>
+                <select name="location_id" id="location_id" class="w-full p-3 border border-gray-300 rounded-md">
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div>
-                <label for="image" class="block font-medium mb-2">Image URL:</label>
-                <input type="text" name="image" id="image"
-                    class="w-full p-3 border border-gray-300 rounded-md">
-            </div>
-
-            <div>
-                <label for="video" class="block font-medium mb-2">Video URL:</label>
-                <input type="text" name="video" id="video"
-                    class="w-full p-3 border border-gray-300 rounded-md">
+                <label for="image">Upload Image:</label>
+                <input type="file" name="image" id="image" accept="image/*">
             </div>
 
             <div>
-                <label for="company_id" class="block font-medium mb-2">Company ID:</label>
-                <input type="number" name="company_id" id="company_id" required
-                    class="w-full p-3 border border-gray-300 rounded-md">
+                <label for="video" class="block font-medium mb-2">Upload video:</label>
+                <input type="file" name="video" id="video" accept="video/*">
             </div>
             <div>
                 <label for="needed" class="block font-medium mb-2">Needed:</label>
