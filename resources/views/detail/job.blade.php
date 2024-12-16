@@ -23,7 +23,7 @@
         <h1 class="text-4xl font-semibold text-gray-800 mt-4 ml-3">{{ $job->position }}</h1>
         <div class="flex justify-between items-center mt-2 mx-3">
             <div class="text-center">
-                <p class="font-extrabold">Rotterdam</p>
+                <p class="font-extrabold"> {{ $job->location ? $job->location->name : 'No location available' }}</p>
                 <p class="">Location</p>
             </div>
             <div class="text-center">

@@ -47,6 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class); // This assumes 'company_id' is the foreign key in the 'users' table
+    }
+
     public function sentMessages()
     {
         return $this->hasMany(Message::class, 'sender_id');

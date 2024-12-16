@@ -8,6 +8,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CompanyController;
 
 
 Route::get('/job/confirm', [JobController::class, 'showConfirmation'])->name('job.confirm');
@@ -75,12 +76,12 @@ Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
-        return view('companyprofile.index');
-    })->name('company.profile');
+        return view('company.index');
+    });
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile/create', function () {
-        return view('companyprofile.create');
-    })->name('company.create');
-});
+
+Route::resource('company', CompanyController::class)->names([
+    'create' => 'company.create',
+    'store' => 'company.store',
+])->middleware('auth');
