@@ -1,7 +1,10 @@
 <footer class="bg-green md: text-base rounded-tl-[20px] rounded-tr-[20px] rounded-bl-none
 rounded-br-none pt-8">
     <div class="pl-4 pr-4">
+
         <nav class="footer-top space-small-top space-bottom grid grid-cols-2 gap-y-8">
+
+            @if(auth()->check() && auth()->user()->role == 'applicant')
                 <div class="footer-section-for-job-seekers col-row-1 col-cols-1 px-3">
                     <h2 class="footer-h2-for-job-seekers text-yellow font-bold leading-relaxed">For Job Seekers</h2>
                     <ul class="footer-ul-for-job-seekers">
@@ -10,6 +13,8 @@ rounded-br-none pt-8">
                         </li>
                     </ul>
                 </div>
+            @endif
+
             @if(auth()->check() && auth()->user()->role == 'admin')
                 <div class="footer-section-for-employers col-row-1 col-cols-2 px-3 ">
                     <h2 class="footer-h2-for-employers text-yellow font-bold leading-relaxed">For Employers</h2>
