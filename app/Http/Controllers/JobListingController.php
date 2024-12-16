@@ -16,6 +16,13 @@ class JobListingController extends Controller
     // Existing index method
     public function index(Request $request): View
     {
+        if (Auth::user()->role === 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('components.manager.dashboard', ['jobListings' => $jobListings]);
+        }
+
         $jobListings = JobListing::all();
         $query = $request->input('query');
 
@@ -58,6 +65,13 @@ class JobListingController extends Controller
     // New create method to show the form
     public function create(): View
     {
+        if (Auth::user()->role !== 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('jobs_listing.index', ['jobListings' => $jobListings]);
+        }
+
         $locations = Location::all();
         $companies = Company::all();
 
@@ -66,6 +80,13 @@ class JobListingController extends Controller
 
     public function myJobListings(): View
     {
+        if (Auth::user()->role === 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('components.manager.dashboard', ['jobListings' => $jobListings]);
+        }
+
         $userId = Auth::id();
 
         // Get all jobs the authenticated user has joined the waitlist for
@@ -103,7 +124,10 @@ class JobListingController extends Controller
     public function managerDashboard(Request $request): View
     {
         if (Auth::user()->role !== 'admin') {
-            return \view('welcome');
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('jobs_listing.index', ['jobListings' => $jobListings]);
         }
 
         $query = $request->input('query');

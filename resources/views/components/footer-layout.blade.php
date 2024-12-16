@@ -10,6 +10,7 @@ rounded-br-none pt-8">
                         </li>
                     </ul>
                 </div>
+            @if(auth()->check() && auth()->user()->role == 'admin')
                 <div class="footer-section-for-employers col-row-1 col-cols-2 px-3 ">
                     <h2 class="footer-h2-for-employers text-yellow font-bold leading-relaxed">For Employers</h2>
                     <ul class="footer-ul-for-employers">
@@ -19,6 +20,7 @@ rounded-br-none pt-8">
                         </li>
                     </ul>
                 </div>
+            @endif
                 <div class="footer-section-about-open-hiring col-row-2 col-cols-1 px-3 ">
                     <h2 class="footer-h2-about-open-hiring text-yellow font-bold leading-relaxed">About Open Hiring</h2>
                     <ul class="footer-ul-about-open-hiring">
