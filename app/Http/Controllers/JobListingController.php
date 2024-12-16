@@ -48,6 +48,7 @@ class JobListingController extends Controller
             'company_id' => 'required|integer',
             'needed' => 'required|integer',
             'drivers_license' => 'required|in:0,1',
+            'starting_date' => 'required|date',
         ]);
         $validatedData['drivers_license'] = (bool) $validatedData['drivers_license'];
         JobListing::create($validatedData);
@@ -83,10 +84,10 @@ class JobListingController extends Controller
         })->map(function ($waitlist) {
             // Add user's position and the waitlist count (only count 'waiting' statuses)
             $waitlist->position = Waitlist::where('job_id', $waitlist->job_id)
-                    ->where('status', 'waiting') // Filter for 'waiting' status only
-                    ->orderBy('created_at')
-                    ->pluck('user_id')
-                    ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
+                ->where('status', 'waiting') // Filter for 'waiting' status only
+                ->orderBy('created_at')
+                ->pluck('user_id')
+                ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
 
             $waitlist->waitlist_count = Waitlist::where('job_id', $waitlist->job_id)
                 ->where('status', 'waiting') // Count only users with 'waiting' status

@@ -5,9 +5,7 @@
     <div class="max-w-6xl mx-auto">
         <!-- Job Header -->
         <div class="job-header bg-white shadow-md rounded-lg p-6 mb-6 grid grid-cols-3 gap-6">
-            <img
-                src="{{ asset('images/post_nl.jpg') }}"
-                alt="{{ $job->position }}"
+            <img src="{{ asset('images/post_nl.jpg') }}" alt="{{ $job->position }}"
                 class="col-span-1 w-full h-48 object-cover rounded-lg">
             <div class="col-span-2">
                 <h1 class="text-5xl font-semibold text-gray-800">{{ $job->position }}</h1>
@@ -26,6 +24,7 @@
                 <p><strong>Length:</strong> {{ $job->length }}</p>
                 <p><strong>Hours:</strong> {{ $job->hours }}</p>
                 <p><strong>Avg. Salary:</strong> € {{ $job->avg_salary }}</p>
+                <p><strong>Starting Date:</strong> {{ $job->starting_date }}</p>
             </div>
         </div>
 
@@ -38,12 +37,14 @@
         <!-- Call to Action Buttons -->
         <div class="flex justify-between gap-4 mb-6">
             <a href="{{ route('manager.dashboard') }}">
-                <button class="cta-button bg-[#7C1A51] hover:bg-[#681740] text-[#FFFFFF] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
+                <button
+                    class="cta-button bg-[#7C1A51] hover:bg-[#681740] text-[#FFFFFF] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
                     Back to Dashboard
                 </button>
             </a>
             <a href="{{ route('job.hire', ['id' => $job->id]) }}">
-                <button class="cta-button bg-[#E2ECC8] hover:bg-[#D1E0A9] text-[#2E342A] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
+                <button
+                    class="cta-button bg-[#E2ECC8] hover:bg-[#D1E0A9] text-[#2E342A] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
                     Hire People
                 </button>
             </a>
