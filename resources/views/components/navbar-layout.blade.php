@@ -25,6 +25,7 @@
 
         @if(auth()->check() && auth()->user()->role == 'admin')
             <li><a href="{{ route('home')}}" class="block py-2 px-4 font-black">Home</a></li>
+            <li><a href="{{ route('manager.dashboard')}}" class="block py-2 px-4 font-black">Manager Dashboard</a></li>
             <li><a href="{{ route('job_listings.create')}}" class="block py-2 px-4 font-black">Create Job Listing</a></li>
             <li><a href="{{route('chat.index')}}" class="block py-2 px-4 font-black">Chats</a></li>
             <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
