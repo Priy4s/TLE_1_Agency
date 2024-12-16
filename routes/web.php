@@ -72,3 +72,15 @@ Route::post('/broadcasting/auth', function (Request $request) {
 });
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', function () {
+        return view('companyprofile.index');
+    })->name('company.profile');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/create', function () {
+        return view('companyprofile.create');
+    })->name('company.create');
+});
