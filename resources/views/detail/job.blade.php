@@ -21,7 +21,7 @@
         <img
             src="{{ asset('images/post_nl.jpg') }}"
             alt="{{ $job->position }}"
-            class="w-full h-48 object-cover rounded-full">
+            class="w-full h-48 object-cover">
         <h1 class="text-4xl font-semibold text-gray-800 mt-4 ml-3">{{ $job->position }}</h1>
         <div class="flex justify-between items-center mt-2 mx-3">
             <div class="text-center">

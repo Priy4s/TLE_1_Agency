@@ -1,6 +1,32 @@
 @extends('layouts.app')
 
-<div class="text-[#2E342A] min-h-screen p-4">
+<style>
+    .animated-bg {
+        position: relative;
+        width: 100%;
+        height: 40%;
+        overflow: hidden;
+        border-radius: 16px;
+        /*background-color: #E2ECC8; !* Updated background color *!*/
+    }
+
+    .animated-bg canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    .animated-bg-content {
+        position: relative;
+        z-index: 1;
+        padding: 1rem;
+    }
+</style>
+
+<div class="text-black min-h-screen p-4">
     <x-navbar-layout></x-navbar-layout>
 
     <!-- Heading -->
@@ -10,16 +36,19 @@
     <div class="space-y-6">
         @foreach ($jobListings as $waitlist)
             @if ($waitlist->status === 'hired')
-                <div class="bg-yellow p-6 rounded-lg shadow-lg border-4 border-yellow-500 max-w-[22rem] mx-auto">
-                    <h3 class="text-xl font-bold text-gray-800 text-center mb-4">
-                        🎉You’ve been selected!🎉
-                    </h3>
-                    <p class="text-center font-semibold text-gray-700 mb-2">
-                        {{ $waitlist->job->position }} - {{ $waitlist->job->company->name ?? 'No company available' }}
-                    </p>
-                    <p class="text-center text-gray-800">
-                        The employer will message you to agree on a starting date!
-                    </p>
+                <div class="animated-bg p-6 rounded-[16px] border-2 border-green shadow-lg max-w-[22rem] mx-auto">
+                    <canvas class="bg-animation"></canvas>
+                    <div class="animated-bg-content">
+                        <h3 class="text-2xl font-bold text-black text-center mb-4">
+                            You’ve been selected!🎉
+                        </h3>
+                        <p class="text-center font-semibold text-black mb-2 text-xl">
+                            {{ $waitlist->job->position }} - {{ $waitlist->job->company->name ?? 'No company available' }}
+                        </p>
+                        <p class="text-center text-black font-bold">
+                            The employer will message you to agree on a starting date!
+                        </p>
+                    </div>
                 </div>
 
             @else
@@ -46,3 +75,92 @@
     </div>
 
 </div>
+
+<x-footer-layout></x-footer-layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const animatedContainers = document.querySelectorAll(".animated-bg");
+
+        animatedContainers.forEach((container) => {
+            const canvas = container.querySelector(".bg-animation");
+            const ctx = canvas.getContext("2d");
+
+            // Ensure canvas matches container size
+            const setCanvasSize = () => {
+                canvas.width = container.offsetWidth;
+                canvas.height = container.offsetHeight;
+            };
+
+            setCanvasSize();
+
+            const bubbles = [];
+            const maxBubbles = 30;
+
+            class Bubble {
+                constructor(x, y, radius, speedX, speedY, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.radius = radius;
+                    this.speedX = speedX;
+                    this.speedY = speedY;
+                    this.color = color;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color; // Set bubble color
+                    ctx.fill();
+                    ctx.closePath();
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    // Handle bubbles moving out of bounds
+                    if (this.x - this.radius > canvas.width) this.x = -this.radius;
+                    if (this.x + this.radius < 0) this.x = canvas.width + this.radius;
+                    if (this.y - this.radius > canvas.height) this.y = -this.radius;
+                    if (this.y + this.radius < 0) this.y = canvas.height + this.radius;
+                }
+            }
+
+            const createBubbles = () => {
+                const colors = ["#e3b2cd", "#d4e3ce", "#eae7bd"]; // Bubble colors
+                for (let i = 0; i < maxBubbles; i++) {
+                    const radius = Math.random() * 10 + 5; // Random radius between 5-15
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    const speedX = (Math.random() - 0.5) * 2; // Random speed (-1 to 1)
+                    const speedY = (Math.random() - 0.5) * 2;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    bubbles.push(new Bubble(x, y, radius, speedX, speedY, color));
+                }
+            };
+
+            const animate = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+                // Update and draw all bubbles
+                bubbles.forEach((bubble) => {
+                    bubble.update();
+                    bubble.draw();
+                });
+
+                requestAnimationFrame(animate); // Keep animating
+            };
+
+            createBubbles(); // Initialize bubbles
+            animate(); // Start animation
+
+            // Resize canvas dynamically
+            window.addEventListener("resize", () => {
+                setCanvasSize();
+                bubbles.length = 0; // Clear and recreate bubbles
+                createBubbles();
+            });
+        });
+    });
+</script>

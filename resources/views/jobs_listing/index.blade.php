@@ -30,13 +30,13 @@
         <ul class="space-y-6 mb-[2rem]">
             @foreach($jobListings as $job)
                 <li class="bg-white shadow-md rounded-[16px] px-[1rem] pt-[1rem] max-w-[20rem] w-full border border-black mx-auto font-radical">
-                    <h3 class="text-2xl font-semibold text-gray-800 flex items-center">
+                    <h3 class="text-2xl font-bold text-gray-800 flex items-center">
                         {{ $job->position }} -
                         {{ $job->company ? $job->company->name : 'No company available' }}
 
                         @if($job->drivers_license === true)
                             <span class="ml-1">
-                                <img src="{{ asset('images/auto.png') }}" alt="Auto Icon" class="h-30 w-36">
+                                <img src="{{ asset('images/auto.png') }}" alt="Auto Icon" class="h-30 w-32">
                             </span>
                         @endif
                     </h3>
@@ -50,7 +50,7 @@
                     <div class="mt-4 flex justify-center">
                         <form action="{{ route('job.show', ['id' => $job->id]) }}" method="get">
                             <button type="submit"
-                                    class="w-[9rem] bg-violet text-white py-2 px-6 rounded-full hover:bg-darkviolet transition font-bold text-xl font-radical">
+                                    class="w-[11rem] bg-violet text-white py-2 px-6 rounded-full hover:bg-darkviolet transition font-bold text-xl font-radical">
                                 Details
                             </button>
                         </form>
