@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@auth
-    @if(auth()->user()->role === 'admin')
 <div class="flex flex-col min-h-screen overflow-hidden">
     <!-- Navbar -->
     <x-navbar-layout></x-navbar-layout>
@@ -75,8 +73,3 @@
         <x-footer-layout></x-footer-layout>
     </footer>
 </div>
-
-    @else
-        <p>No Permission</p>
-    @endif
-@endauth

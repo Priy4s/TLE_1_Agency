@@ -33,6 +33,10 @@ class JobController extends Controller
 
     public function manageDetails($id)
     {
+        if (Auth::user()->role !== 'admin') {
+            return \view('welcome');
+        }
+
         $job = JobListing::find($id);
         return view('components.manager.managedetails', compact('job'));
     }
@@ -64,6 +68,11 @@ class JobController extends Controller
 
     public function hirePage($id)
     {
+
+        if (Auth::user()->role !== 'admin') {
+            return \view('welcome');
+        }
+
         $job = JobListing::findOrFail($id);
 
         // Get only users on the waitlist for this job, including their user details

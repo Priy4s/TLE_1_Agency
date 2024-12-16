@@ -102,14 +102,22 @@ class JobListingController extends Controller
 
     public function managerDashboard(Request $request): View
     {
+        if (Auth::user()->role !== 'admin') {
+            return \view('welcome');
+        }
+
         $query = $request->input('query');
         $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
-            return $queryBuilder->where('position', 'like', '%' . $query . '%')->orWhereHas('company', function ($companyQuery) use ($query) {
-                $companyQuery->where('name', 'like', '%' . $query . '%');
-            })->orWhereHas('location', function ($locationQuery) use ($query) {
-                $locationQuery->where('name', 'like', '%' . $query . '%');
-            });
+            return $queryBuilder->where('position', 'like', '%' . $query . '%')
+                ->orWhereHas('company', function ($companyQuery) use ($query) {
+                    $companyQuery->where('name', 'like', '%' . $query . '%');
+                })
+                ->orWhereHas('location', function ($locationQuery) use ($query) {
+                    $locationQuery->where('name', 'like', '%' . $query . '%');
+                });
         })->get();
+
         return view('components.manager.dashboard', compact('jobListings'));
     }
+
 }

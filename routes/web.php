@@ -68,13 +68,13 @@ Route::patch('/waitlist/{id}/update-process', [JobController::class, 'updateProc
 Route::get('/job/{id}', [JobController::class, 'show'])->name('job.show');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
-    Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chat.show');
-    Route::post('/chat/{user}', [ChatController::class, 'store'])->name('chat.store');
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index')->middleware('auth');
+    Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chat.show')->middleware('auth');
+    Route::post('/chat/{user}', [ChatController::class, 'store'])->name('chat.store')->middleware('auth');
 });
 
 Route::post('/broadcasting/auth', function (Request $request) {
     return Broadcast::auth($request);
-});
-Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
-Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
+})->middleware('auth');
+Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast')->middleware('auth');
+Route::post('/receive', 'App\Http\Controllers\PusherController@receive')->middleware('auth');
