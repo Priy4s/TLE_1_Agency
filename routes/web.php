@@ -42,13 +42,14 @@ Route::resource('joblistings', JobListingController::class)->names([
     'store' => 'job_listings.store',
 ])->middleware('auth');
 
-Route::get('joblistings/create', function () {
+Route::get('joblistings/create', [JobListingController::class, 'create'], function () {
     if (\Illuminate\Support\Facades\Auth::user()->company_id) {
-        return redirect()->route('job_listings.create');
+        return view('jobs_listing.create');
     } else {
         return redirect()->route('company.create');
     }
-})->middleware('auth')->name('job_listings.create');
+})->middleware('auth')->name('jobs_listing.create');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/my-job-listings', [JobListingController::class, 'myJobListings'])->name('job_listings.my');
