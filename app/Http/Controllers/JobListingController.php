@@ -16,27 +16,45 @@ class JobListingController extends Controller
     public function index(Request $request): View
     {
         if (Auth::user()->role === 'admin') {
-            // Haal de joblistings op
-            $jobListings = JobListing::all(); // Let op de naam: $jobListings
-
+            // Fetch all job listings if the user is an admin
+            $jobListings = JobListing::all();
             return view('components.manager.dashboard', ['jobListings' => $jobListings]);
         }
 
-        $jobListings = JobListing::all();
+        // Get the search query and sort parameters from the request
         $query = $request->input('query');
+        $sort = $request->input('sort'); // The sorting parameter: "salary_asc" or "salary_desc"
 
-        $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
-            return $queryBuilder->where('position', 'like', '%' . $query . '%')
+        // Start the query builder for JobListings
+        $jobListings = JobListing::query();
+
+        // Apply search filter if there is a query input
+        if ($query) {
+            $jobListings = $jobListings->where('position', 'like', '%' . $query . '%')
                 ->orWhereHas('company', function ($companyQuery) use ($query) {
                     $companyQuery->where('name', 'like', '%' . $query . '%');
                 })
                 ->orWhereHas('location', function ($locationQuery) use ($query) {
                     $locationQuery->where('name', 'like', '%' . $query . '%');
                 });
-        })->get();
+        }
 
+        // Apply sorting by salary if the 'sort' parameter is present
+        if ($sort === 'salary_asc') {
+            $jobListings = $jobListings->orderBy('salary', 'asc');
+        } elseif ($sort === 'salary_desc') {
+            $jobListings = $jobListings->orderBy('salary', 'desc');
+        }
+
+        // Execute the query to get the results
+        $jobListings = $jobListings->get();
+
+        // Return the view with the job listings
         return view('jobs_listing.index', compact('jobListings'));
     }
+
+
+
 
     public function store(Request $request): RedirectResponse
     {

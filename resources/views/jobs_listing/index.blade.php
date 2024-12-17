@@ -13,11 +13,14 @@
                 role="button"
                 tabindex="0"
                 data-text="{{ "Job Openings" }}">
-    </span>
+            </span>
         </h1>
-        <div class="flex justify-center items-center mb-8 w-full">
-            <form action="{{ route('job_listings.index') }}" method="GET" class="flex justify-center w-full max-w-lg">
-                <div class="flex w-full max-w-[20rem] max-h-[12rem]">
+
+        <!-- Search and Sort Section -->
+        <div class="flex justify-center items-center mb-8 w-full h-full">
+            <form action="{{ route('job_listings.index') }}" method="GET" class="flex flex-col justify-center items-center w-full max-w-lg" id="search-sort-form">
+                <!-- Search Field -->
+                <div class="flex w-full max-w-[20rem] max-h-[12rem] mb-4">
                     <input
                         type="text"
                         id="search-query"
@@ -30,6 +33,15 @@
                             class="flex-1 ml-[-1px] bg-[#AA0160] text-white py-[1rem] px-[1.25rem] rounded-r-full hover:bg-[#8D0052] transition font-bold text-[1.1rem]">
                         Search
                     </button>
+                </div>
+
+                <!-- Sort Dropdown Underneath Search Field -->
+                <div class="mt-4 w-full max-w-[20rem]">
+                    <select name="sort" class="py-2 px-4 w-full bg-gray-200 text-gray-800 border border-[#AA0160] rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#AA0160] transition-all duration-200 ease-in-out" id="sort-dropdown">
+                        <option value="" disabled selected class="text-gray-500">Sort by Salary</option>
+                        <option value="salary_asc" {{ request('sort') === 'salary_asc' ? 'selected' : '' }} class="bg-white hover:bg-[#f3f3f3] transition-all">Salary Ascending</option>
+                        <option value="salary_desc" {{ request('sort') === 'salary_desc' ? 'selected' : '' }} class="bg-white hover:bg-[#f3f3f3] transition-all">Salary Descending</option>
+                    </select>
                 </div>
             </form>
         </div>
@@ -44,8 +56,8 @@
 
                         @if($job->drivers_license === true)
                             <span class="ml-1">
-                <img src="{{ asset('images/auto.png') }}" alt="Auto Icon" class="h-30 w-32">
-            </span>
+                                <img src="{{ asset('images/auto.png') }}" alt="Auto Icon" class="h-30 w-32">
+                            </span>
                         @endif
                     </h3>
 
@@ -55,9 +67,8 @@
                         aria-label="Click to hear the job title read aloud"
                         role="button"
                         tabindex="0"
-                        data-text="{{ $job->position }} at {{ $job->company ? $job->company->name : 'No company available' }}"
-                    >
-    </span>
+                        data-text="{{ $job->position }} at {{ $job->company ? $job->company->name : 'No company available' }}">
+                    </span>
 
                     <div class="mt-4 border-green border-t-2 pt-[1rem]">
                         <p class="text-xl font-medium text-gray-700"><strong>Location:</strong>
@@ -86,3 +97,11 @@
         <x-footer-layout></x-footer-layout>
     </footer>
 </div>
+
+<!-- JavaScript to auto-submit form when sorting option changes -->
+<script>
+    document.getElementById('sort-dropdown').addEventListener('change', function() {
+        // Submit the form when the sorting option is changed
+        document.getElementById('search-sort-form').submit();
+    });
+</script>
