@@ -7,7 +7,6 @@
         height: 17rem;
         overflow: hidden;
         border-radius: 16px;
-        /*background-color: #E2ECC8;*/
     }
 
     .animated-bg canvas {
@@ -31,7 +30,15 @@
     <x-navbar-layout></x-navbar-layout>
 
     <!-- Heading -->
-    <h1 class="text-4xl font-semibold text-center mb-6">My Job Listings</h1>
+    <h1 class="text-4xl font-semibold text-center mb-6">My Job Listings
+        <span
+            class="speaker-icon"
+            aria-label="Click to hear the header"
+            role="button"
+            tabindex="0"
+            data-text="My job listings">
+        </span>
+    </h1>
 
     <div class="flex justify-center space-x-4">
         <button id="filter-all" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-lg hover:bg-[#1B1F19] transition font-bold">
@@ -51,8 +58,18 @@
     <div class="space-y-6">
         @foreach ($jobListings as $waitlist)
             @if ($waitlist->status === 'hired')
-                <div class="animated-bg p-6 rounded-[16px] border-2 border-green shadow-lg max-w-[22rem] mx-auto">
+                <div class="animated-bg p-6 rounded-[16px] border-2 border-green shadow-lg max-w-[22rem] mx-auto relative">
                     <canvas class="bg-animation"></canvas>
+
+                    <!-- Speaker Icon Positioned in Top Right -->
+                    <span
+                        class="speaker-icon absolute top-2 right-2 cursor-pointer"
+                        aria-label="Click to hear the status of this job listing"
+                        role="button"
+                        tabindex="0"
+                        data-text="You’ve been selected for {{ $waitlist->job->position }} - {{ $waitlist->job->company->name ?? 'No company available' }}! The employer will message you to agree on a starting date!">
+                    </span>
+
                     <div class="animated-bg-content">
                         <h3 class="text-2xl font-bold text-black text-center mb-4">
                             You’ve been selected!🎉
@@ -67,7 +84,17 @@
                 </div>
 
             @else
-                <div class="bg-white shadow-md rounded-[16px] p-4 w-[90%] mx-[5%] border-2 border-green">
+                <div class="bg-white shadow-md rounded-[16px] p-4 w-[90%] mx-[5%] border-2 border-green relative">
+
+                    <!-- Speaker Icon Positioned in Top Right -->
+                    <span
+                        class="speaker-icon absolute top-2 right-2 cursor-pointer"
+                        aria-label="Click to hear the status of this job listing"
+                        role="button"
+                        tabindex="0"
+                        data-text="{{ $waitlist->job->position }} at {{ $waitlist->job->company->name ?? 'No company available' }}. Your position is {{ $waitlist->position }}. Total waitlist is {{ $waitlist->waitlist_count }}.">
+                    </span>
+
                     <h3 class="text-2xl font-semibold text-gray-800">
                         {{ $waitlist->job->position }} - {{ $waitlist->job->company->name ?? 'No company available' }}
                     </h3>
@@ -88,10 +115,10 @@
             @endif
         @endforeach
     </div>
-
 </div>
 
 <x-footer-layout></x-footer-layout>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

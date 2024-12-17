@@ -19,8 +19,16 @@
     <!-- Job Header -->
     <div class="">
         <img src="{{ asset('storage/' . $job->image) }}" alt="{{ $job->position }}"
-            class="col-span-1 w-full h-48 object-cover rounded-lg">
-        <h1 class="text-4xl font-semibold text-gray-800 mt-4 ml-3">{{ $job->position }}</h1>
+             class="col-span-1 w-full h-48 object-cover rounded-lg">
+        <h1 class="text-4xl font-semibold text-gray-800 mt-4 ml-3">
+            <span
+                class="speaker-icon"
+                aria-label="Click to hear the job title, location, waitlist, and needed people read aloud"
+                role="button"
+                tabindex="0"
+                data-text="{{ $job->position }}. Location, {{ $job->location ? $job->location->name : 'No location available' }}. People waiting, {{ $waitlistCount }}. People needed, {{ $job->needed }}">
+            </span>
+            {{ $job->position }}</h1>
         <div class="flex justify-between items-center mt-2 mx-3">
             <div class="text-center">
                 <p class="font-extrabold"> {{ $job->location ? $job->location->name : 'Unavailable' }}</p>
@@ -39,7 +47,15 @@
 
     <!-- Job Details -->
     <div class="job-details mb-6">
-        <h3 class="text-3xl mt-5 font-bold mb-3 ml-1">Job Details</h3>
+        <h3 class="text-3xl mt-5 font-bold mb-3 ml-1">
+            <span
+                class="speaker-icon ml-2"
+                aria-label="Click to hear the job details read aloud"
+                role="button"
+                tabindex="0"
+                data-text="Job details. Salary: €{{ number_format($job->salary, 2) }} per month, Job length: {{ $job->length ?? 'Not specified' }}, Job hours: {{ $job->hours ?? 'Not specified' }}, Job type: {{ $job->type ?? 'Not specified' }}">
+                    </span>
+            Job Details</h3>
         <div class="grid grid-cols-2 gap-4 text-[1.1rem] bg-mosslight border-b-4 border-r-4 border-mossmedium rounded-[16px] py-3 pl-12">
             <p><span class="font-black pr-2">Salary:</span> €{{ $job->salary }}</p>
             <p><span class="font-black pr-2">Length:</span> {{ $job->length }}</p>
@@ -53,7 +69,15 @@
 
     <!-- Job Information -->
     <div class="job-info mb-6 ml-1">
-        <h3 class="text-3xl mt-5 font-bold mb-3">Job Information</h3>
+        <h3 class="text-3xl mt-5 font-bold mb-3">
+            <span
+                class="speaker-icon ml-2"
+                aria-label="Click to hear the job description read aloud"
+                role="button"
+                tabindex="0"
+                data-text="Job information: {{ $job->description }}">
+                    </span>
+            Job Information</h3>
         <p class="text-gray-700 text-sm">{{ $job->description }}</p>
     </div>
 
@@ -62,13 +86,13 @@
         @if ($isOnWaitlist)
             <!-- Leave Waitlist Form -->
             <button type="button" onclick="openLeaveModal()"
-                class="cta-button bg-green hover:bg-mossdark text-white py-3 px-6 rounded-lg font-semibold shadow-md">
+                    class="cta-button bg-green hover:bg-mossdark text-white py-3 px-6 rounded-lg font-semibold shadow-md">
                 Leave the Waitlist
             </button>
         @else
             <!-- Button to Open Join Modal -->
             <button type="button" onclick="openJoinModal()"
-                class="cta-button bg-mosslight hover:bg-mossmedium text-black py-3 px-6 rounded-lg font-semibold shadow-md">
+                    class="cta-button bg-mosslight hover:bg-mossmedium text-black py-3 px-6 rounded-lg font-semibold shadow-md">
                 Join the waiting list
             </button>
         @endif
@@ -87,17 +111,17 @@
         <div class="bg-mosslight rounded-lg shadow-lg p-6 w-96 relative">
             <!-- Sluitknop -->
             <button onclick="closeJoinModal()"
-                class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-4xl font-bold">&times;</button>
+                    class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-4xl font-bold">&times;</button>
 
             <h2 class="text-2xl font-bold mt-3 mb-4 text-center text-black">Join the waiting list for {{ $job->position }}</h2>
 
 
-{{--            <div class="mb-6 text-[#000000]-700">--}}
-{{--                <p><strong>Salary:</strong> €{{ $job->salary }}</p>--}}
-{{--                <p><strong>Length:</strong> {{ $job->length }} months</p>--}}
-{{--                <p><strong>Hours:</strong> {{ $job->hours }} p/w</p>--}}
-{{--                <p><strong>Type:</strong> {{ $job->type }}</p>--}}
-{{--            </div>--}}
+            {{--            <div class="mb-6 text-[#000000]-700">--}}
+            {{--                <p><strong>Salary:</strong> €{{ $job->salary }}</p>--}}
+            {{--                <p><strong>Length:</strong> {{ $job->length }} months</p>--}}
+            {{--                <p><strong>Hours:</strong> {{ $job->hours }} p/w</p>--}}
+            {{--                <p><strong>Type:</strong> {{ $job->type }}</p>--}}
+            {{--            </div>--}}
 
             <div class="grid grid-cols-2 gap-4 text-[1.1rem] bg-mosslight py-3 pl-12">
                 <p><span class="font-black pr-2">Salary:</span> €{{ $job->salary }}</p>
@@ -128,7 +152,7 @@
         <div class="bg-mosslight rounded-lg shadow-lg p-6 w-96 relative">
             <!-- Sluitknop -->
             <button onclick="closeLeaveModal()"
-                class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-4xl font-bold">&times;</button>
+                    class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-4xl font-bold">&times;</button>
 
             <h2 class="text-2xl font-bold mt-3 mb-4 text-center text-black">Leave the waitlist for  {{ $job->position }}?</h2>
 

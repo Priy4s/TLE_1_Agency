@@ -10,7 +10,15 @@
         <div class="bg-violet h-6 rounded-full" style="width: {{ $progress }}%;"></div>
     </div>
 
-    <h3 class="text-xl leading-none text-gray-800 ml-8 mr-8">Question {{ $questionIndex + 1 }}</h3>
+    <h3 class="text-xl leading-none text-gray-800 ml-8 mr-8">
+        <span
+            class="speaker-icon"
+            aria-label="Click to hear the question and options"
+            role="button"
+            tabindex="0"
+            data-text="Question {{ $questionIndex + 1 }}. {{ $currentQuestion->question }}. 1, {{ $currentQuestion->options->get(0)->option }}. 2, {{ $currentQuestion->options->get(1)->option }}. 3, {{ $currentQuestion->options->get(2)->option }}. 4, {{ $currentQuestion->options->get(3)->option }}">
+            </span>
+        Question {{ $questionIndex + 1 }}</h3>
     <h2 class="text-[1.65rem] leading-tight font-semibold text-black mx-8 mb-5">{{ $currentQuestion->question }}</h2>
 
     <form action="{{ route('quiz.save', ['questionIndex' => $questionIndex]) }}" method="POST" class="mx-8">
