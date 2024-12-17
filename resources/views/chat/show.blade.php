@@ -3,7 +3,7 @@
 <div class="flex flex-col justify-center align-middle items-center">
     <h1 class="text-2xl font-bold mb-4 text-center">Chat with {{ $user->username }}</h1>
 
-<div class="chat-container bg-gray-100 p-4 rounded-lg shadow-md mb-4 mx-auto max-w-3xl">
+<div class="chat-container bg-gray-100 p-4 rounded-lg shadow-md mb-4 mx-[5%] w-[90%]">
     @foreach ($messages as $message)
         <div class="chat-message flex items-center mb-2">
             @if ($message->sender->name)
