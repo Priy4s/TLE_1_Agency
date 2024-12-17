@@ -15,7 +15,7 @@
 
 <x-navbar-layout></x-navbar-layout>
 
-<img class="rounded-full w-[90%] mx-[5%]" src="{{ asset('images/quiz-worker.jpg') }}">
+<img class="w-[90%] mx-[5%]" src="{{ asset('images/quiz-worker.jpg') }}">
 
 <h1 class="text-4xl font-semibold mb-5 mt-10 text-center font-radical">Your Talents</h1>
 

@@ -40,11 +40,20 @@
                 </li>
             @endforeach
     @endif
+
+ @if(auth()->check() && auth()->user()->role == 'admin')
     <div class="mt-8 flex justify-center">
-        <a href="{{ route('home') }}" class="text-white bg-blue-600 hover:bg-blue-800 font-medium py-2 px-4 rounded">
-            Back to Home
+        <a href="{{ route('manager.dashboard') }}" class="text-white bg-blue-600 hover:bg-blue-800 font-medium py-2 px-4 rounded">
+            Back to Dashboard
         </a>
     </div>
+                @else
+                <div class="mt-8 flex justify-center">
+                    <a href="{{ route('job_listings.index') }}" class="text-white bg-blue-600 hover:bg-blue-800 font-medium py-2 px-4 rounded">
+                        Back to Job Openings
+                    </a>
+                </div>
+                @endif
     </ul>
 </div>
 <footer>

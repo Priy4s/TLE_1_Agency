@@ -29,6 +29,7 @@ class JobListing extends Model
         'drivers_license',
         'created_at',
         'updated_at',
+        'starting_date',
     ];
 
     /**
