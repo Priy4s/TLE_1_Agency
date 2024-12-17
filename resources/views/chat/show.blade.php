@@ -4,13 +4,26 @@
 
 <div class="chat-container bg-gray-100 p-4 rounded-lg shadow-md mb-4 mx-auto max-w-3xl">
     @foreach ($messages as $message)
-        @if ($message->sender->name)
-            <p class="mb-2"><strong>{{ $message->sender->name }}:</strong> {{ $message->content }}</p>
-        @else
-            <p class="mb-2"><strong>{{ $message->sender->username }}:</strong> {{ $message->content }}</p>
-        @endif
+        <div class="chat-message flex items-center mb-2">
+            @if ($message->sender->name)
+                <p class="flex-1"><strong>{{ $message->sender->name }}:</strong> {{ $message->content }}</p>
+            @else
+                <p class="flex-1"><strong>{{ $message->sender->username }}:</strong> {{ $message->content }}</p>
+            @endif
+
+            <!-- Speaker icon to read the message aloud -->
+            <span
+                class="speaker-icon cursor-pointer ml-2"
+                aria-label="Click to hear this chat message"
+                role="button"
+                tabindex="0"
+                data-text="{{ $message->content }}"
+            >
+            </span>
+        </div>
     @endforeach
 </div>
+
 
 <!-- Chat form to send messages -->
 <form id="chat-form" class="flex flex-col space-y-4 mx-auto max-w-3xl">
