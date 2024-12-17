@@ -39,10 +39,16 @@ require __DIR__ . '/auth.php';
 
 Route::resource('joblistings', JobListingController::class)->names([
     'index' => 'job_listings.index',
-    'create' => 'job_listings.create',
     'store' => 'job_listings.store',
 ])->middleware('auth');
 
+Route::get('joblistings/create', function () {
+    if (\Illuminate\Support\Facades\Auth::user()->company_id) {
+        return redirect()->route('job_listings.create');
+    } else {
+        return redirect()->route('company.create');
+    }
+})->middleware('auth')->name('job_listings.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/my-job-listings', [JobListingController::class, 'myJobListings'])->name('job_listings.my');
@@ -79,7 +85,6 @@ Route::post('/broadcasting/auth', function (Request $request) {
 })->middleware('auth');
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast')->middleware('auth');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive')->middleware('auth');
-});
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
 
@@ -94,4 +99,3 @@ Route::resource('company', CompanyController::class)->names([
     'create' => 'company.create',
     'store' => 'company.store',
 ])->middleware('auth');
-
