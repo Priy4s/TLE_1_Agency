@@ -15,6 +15,13 @@ class JobListingController extends Controller
 {
     public function index(Request $request): View
     {
+        if (Auth::user()->role === 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('components.manager.dashboard', ['jobListings' => $jobListings]);
+        }
+
         $jobListings = JobListing::all();
         $query = $request->input('query');
 
@@ -69,6 +76,13 @@ class JobListingController extends Controller
 
     public function create(): View
     {
+        if (Auth::user()->role !== 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('jobs_listing.index', ['jobListings' => $jobListings]);
+        }
+
         $locations = Location::all();
         $companies = Company::all();
 
@@ -77,6 +91,13 @@ class JobListingController extends Controller
 
     public function myJobListings(): View
     {
+        if (Auth::user()->role === 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('components.manager.dashboard', ['jobListings' => $jobListings]);
+        }
+
         $userId = Auth::id();
 
         $waitlistedJobs = Waitlist::where('user_id', $userId)
@@ -111,14 +132,25 @@ class JobListingController extends Controller
 
     public function managerDashboard(Request $request): View
     {
+        if (Auth::user()->role !== 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('jobs_listing.index', ['jobListings' => $jobListings]);
+        }
+
         $query = $request->input('query');
         $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
-            return $queryBuilder->where('position', 'like', '%' . $query . '%')->orWhereHas('company', function ($companyQuery) use ($query) {
-                $companyQuery->where('name', 'like', '%' . $query . '%');
-            })->orWhereHas('location', function ($locationQuery) use ($query) {
-                $locationQuery->where('name', 'like', '%' . $query . '%');
-            });
+            return $queryBuilder->where('position', 'like', '%' . $query . '%')
+                ->orWhereHas('company', function ($companyQuery) use ($query) {
+                    $companyQuery->where('name', 'like', '%' . $query . '%');
+                })
+                ->orWhereHas('location', function ($locationQuery) use ($query) {
+                    $locationQuery->where('name', 'like', '%' . $query . '%');
+                });
         })->get();
+
         return view('components.manager.dashboard', compact('jobListings'));
     }
+
 }
