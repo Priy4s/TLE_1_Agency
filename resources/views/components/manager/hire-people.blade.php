@@ -110,7 +110,8 @@
                         @foreach ($waitlistUsers->where('status', 'hired') as $index => $waitlist)
                             <tr>
                                 <td class="border px-4 py-2">
-                                    Candidate {{ $index + 1 }} - {{ $waitlist->user->username ?? 'Unknown' }}
+                                    Candidate {{ $index + 1 }} -
+                                    {{ $waitlist->user->name ?? $waitlist->user->username ?? 'Unknown' }}
                                 </td>
                                 <td class="border px-4 py-2">{{ $waitlist->status }}</td>
                                 <td class="border px-4 py-2 text-center">

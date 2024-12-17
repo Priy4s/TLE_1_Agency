@@ -13,6 +13,7 @@
         <div class="h-[0.3rem] w-[3rem] bg-black rounded"></div>
         <span class="text-black text-lg font-black mt-[0.5rem]">Menu</span>
     </div>
+
 </nav>
 
 <!-- Verberg het menu standaard -->
@@ -23,13 +24,12 @@
             <img src="{{ asset('images/ohlogo.png') }}" alt="Open Hiring Logo" class="h-[6rem]">
         </div>
 
-        <li><a href="{{ route('home')}}" class="block py-2 px-4 font-black">Home</a></li>
-        <li><a href="{{ route('job_listings.index') }}" class="block py-2 px-4 font-black">Job Openings</a></li>
-        <li><a href="{{ route('quiz.start') }}" class="block py-2 px-4 font-black">Talent Discovery</a></li>
-        <li><a href="{{ route('job_listings.my') }}" class="block py-2 px-4 font-black">My Job Openings</a></li>
-        <li><a href="{{route('chat.index')}}" class="block py-2 px-4 font-black">Chats</a></li>
-        <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
-
+       @if(auth()->check() && auth()->user()->role == 'admin')
+            <li><a href="{{ route('home')}}" class="block py-2 px-4 font-black">Home</a></li>
+            <li><a href="{{ route('manager.dashboard')}}" class="block py-2 px-4 font-black">Manager Dashboard</a></li>
+            <li><a href="{{ route('job_listings.create')}}" class="block py-2 px-4 font-black">Create Job Listing</a></li>
+            <li><a href="{{route('chat.index')}}" class="block py-2 px-4 font-black">Chats</a></li>
+            <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
         <li>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -38,6 +38,23 @@
                 </button>
             </form>
         </li>
+        @else
+            <li><a href="{{ route('home')}}" class="block py-2 px-4 font-black">Home</a></li>
+            <li><a href="{{ route('job_listings.index') }}" class="block py-2 px-4 font-black">Job Openings</a></li>
+            <li><a href="{{ route('quiz.start') }}" class="block py-2 px-4 font-black">Talent Discovery</a></li>
+            <li><a href="{{ route('job_listings.my') }}" class="block py-2 px-4 font-black">My Job Openings</a></li>
+            <li><a href="{{route('chat.index')}}" class="block py-2 px-4 font-black">Chats</a></li>
+            <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
+
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="block w-full py-2 px-4 font-black text-black text-2xl text-center">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        @endif
 
         <!-- Knoppen voor lettergrootte en vergroting in het midden -->
         <div class="flex justify-between items-center space-x-4 mt-4 w-full px-4">
