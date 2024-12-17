@@ -91,10 +91,11 @@ class JobListingController extends Controller
             return $waitlist->status === 'waiting';
         })->map(function ($waitlist) {
             $waitlist->position = Waitlist::where('job_id', $waitlist->job_id)
-                ->where('status', 'waiting')
+                ->where('status', 'waiting') // Filter for 'waiting' status only
                 ->orderBy('created_at')
                 ->pluck('user_id')
-                ->search($waitlist->user_id) + 1;
+                ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
+
 
             $waitlist->waitlist_count = Waitlist::where('job_id', $waitlist->job_id)
                 ->where('status', 'waiting')
