@@ -85,61 +85,81 @@
 
     <!-- Join Modal -->
     <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-[#91AA83] rounded-lg shadow-lg p-6 w-96 relative">
+        <div class="bg-mosslight rounded-lg shadow-lg p-6 w-96 relative">
             <!-- Sluitknop -->
             <button onclick="closeJoinModal()"
                     class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-4xl font-bold">&times;</button>
 
-            <h2 class="text-xl font-bold mb-4 text-center">Join the waiting list for {{ $job->position }}</h2>
-            <div class="mb-6 text-[#000000]-700">
-                <p><strong>Salary:</strong> €{{ $job->salary }}</p>
-                <p><strong>Length:</strong> {{ $job->length }} months</p>
-                <p><strong>Hours:</strong> {{ $job->hours }} p/w</p>
-                <p><strong>Type:</strong> {{ $job->type }}</p>
+            <h2 class="text-2xl font-bold mt-3 mb-4 text-center text-black">Join the waiting list for {{ $job->position }}</h2>
+
+
+{{--            <div class="mb-6 text-[#000000]-700">--}}
+{{--                <p><strong>Salary:</strong> €{{ $job->salary }}</p>--}}
+{{--                <p><strong>Length:</strong> {{ $job->length }} months</p>--}}
+{{--                <p><strong>Hours:</strong> {{ $job->hours }} p/w</p>--}}
+{{--                <p><strong>Type:</strong> {{ $job->type }}</p>--}}
+{{--            </div>--}}
+
+            <div class="grid grid-cols-2 gap-4 text-[1.1rem] bg-mosslight py-3 pl-12">
+                <p><span class="font-black pr-2">Salary:</span> €{{ $job->salary }}</p>
+                <p><span class="font-black pr-2">Length:</span> {{ $job->length }}</p>
+                <p><span class="font-black pr-2">Job:</span> {{ $job->position }}</p>
+                <p><span class="font-black pr-2">Hours:</span> {{ $job->hours }}</p>
+                <p><span class="font-black pr-2">Type:</span> {{ $job->type }}</p>
+                <p><span class="font-black pr-2">Avg.(€):</span> €{{ $job->avg_salary }}</p>
             </div>
 
-            <div class="flex justify-between mt-4">
+
+            <div class="flex justify-between mt-4 h-10">
                 <!-- Ja knop -->
-                <form action="{{ route('job.joinWaitlist', $job->id) }}" method="POST">
+                <form action="{{ route('job.joinWaitlist', $job->id) }}" method="POST" class="h-full">
                     @csrf
-                    <button type="submit" class="hover:opacity-90 text-white py-2 px-4 rounded focus:outline-none"
-                            style="background-color: #AA0160;">Yes, join the waitlist</button>
+                    <button type="submit" class="bg-green text-white h-full px-6 rounded hover:bg-mossdark">Yes, join the waitlist</button>
                 </form>
 
                 <!-- Nee knop -->
                 <button onclick="closeJoinModal()"
-                        class="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded border border-black focus:outline-none">No</button>
+                        class="text-white bg-violet leading-none rounded h-full px-6 hover:bg- violet">No</button>
             </div>
         </div>
     </div>
 
     <!-- Leave Modal -->
     <div id="leaveModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-[#91AA83] rounded-lg shadow-lg p-6 w-96 relative">
+        <div class="bg-mosslight rounded-lg shadow-lg p-6 w-96 relative">
             <!-- Sluitknop -->
             <button onclick="closeLeaveModal()"
                     class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-4xl font-bold">&times;</button>
 
-            <h2 class="text-xl font-bold mb-4 text-center">Leave the waitlist for  {{ $job->position }}?</h2>
-            <div class="mb-6 text-[#000000]-700">
-                <p><strong>Salary:</strong> €{{ $job->salary }}</p>
-                <p><strong>Length:</strong> {{ $job->length }} months</p>
-                <p><strong>Hours:</strong> {{ $job->hours }} p/w</p>
-                <p><strong>Type:</strong> {{ $job->type }}</p>
+            <h2 class="text-2xl font-bold mt-3 mb-4 text-center text-black">Leave the waitlist for  {{ $job->position }}?</h2>
+
+            {{--            <div class="mb-6 text-[#000000]-700">--}}
+            {{--                <p><strong>Salary:</strong> €{{ $job->salary }}</p>--}}
+            {{--                <p><strong>Length:</strong> {{ $job->length }} months</p>--}}
+            {{--                <p><strong>Hours:</strong> {{ $job->hours }} p/w</p>--}}
+            {{--                <p><strong>Type:</strong> {{ $job->type }}</p>--}}
+            {{--            </div>--}}
+
+            <div class="grid grid-cols-2 gap-4 text-[1.1rem] bg-mosslight py-3 pl-12">
+                <p><span class="font-black pr-2">Salary:</span> €{{ $job->salary }}</p>
+                <p><span class="font-black pr-2">Length:</span> {{ $job->length }}</p>
+                <p><span class="font-black pr-2">Job:</span> {{ $job->position }}</p>
+                <p><span class="font-black pr-2">Hours:</span> {{ $job->hours }}</p>
+                <p><span class="font-black pr-2">Type:</span> {{ $job->type }}</p>
+                <p><span class="font-black pr-2">Avg.(€):</span> €{{ $job->avg_salary }}</p>
             </div>
 
-            <div class="flex justify-between mt-4">
+            <div class="flex justify-between mt-4 h-10">
                 <!-- Ja knop -->
-                <form action="{{ route('job.leaveWaitlist', $job->id) }}" method="POST">
+                <form action="{{ route('job.leaveWaitlist', $job->id) }}" method="POST" class="h-full">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="hover:opacity-90 text-white py-2 px-4 rounded focus:outline-none"
-                            style="background-color: #AA0160;">Yes, leave the waitlist</button>
+                    <button type="submit" class="bg-green text-white h-full px-6 rounded hover:bg-mossdark">Yes, leave the waitlist</button>
                 </form>
 
                 <!-- Nee knop -->
                 <button onclick="closeLeaveModal()"
-                        class="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded border border-black focus:outline-none">No</button>
+                        class="text-white bg-violet leading-none rounded h-full px-6 hover:bg- violet">No</button>
             </div>
         </div>
     </div>
