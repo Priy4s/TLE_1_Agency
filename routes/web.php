@@ -79,7 +79,6 @@ Route::post('/broadcasting/auth', function (Request $request) {
 })->middleware('auth');
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast')->middleware('auth');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive')->middleware('auth');
-});
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
 
@@ -94,4 +93,3 @@ Route::resource('company', CompanyController::class)->names([
     'create' => 'company.create',
     'store' => 'company.store',
 ])->middleware('auth');
-
