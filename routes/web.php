@@ -39,9 +39,16 @@ require __DIR__ . '/auth.php';
 
 Route::resource('joblistings', JobListingController::class)->names([
     'index' => 'job_listings.index',
-    'create' => 'job_listings.create',
     'store' => 'job_listings.store',
 ])->middleware('auth');
+
+Route::get('joblistings/create', [JobListingController::class, 'create'], function () {
+    if (\Illuminate\Support\Facades\Auth::user()->company_id) {
+        return view('jobs_listing.create');
+    } else {
+        return redirect()->route('company.create');
+    }
+})->middleware('auth')->name('jobs_listing.create');
 
 
 Route::middleware('auth')->group(function () {
@@ -93,4 +100,3 @@ Route::resource('company', CompanyController::class)->names([
     'create' => 'company.create',
     'store' => 'company.store',
 ])->middleware('auth');
-
