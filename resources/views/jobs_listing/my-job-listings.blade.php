@@ -34,13 +34,13 @@
     <h1 class="text-4xl font-semibold text-center mb-6">My Job Listings</h1>
 
     <div class="flex justify-center space-x-4">
-        <button id="filter-all" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-full hover:bg-[#1B1F19] transition font-bold">
+        <button id="filter-all" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-lg hover:bg-[#1B1F19] transition font-bold">
             Show All
         </button>
-        <button id="filter-hired" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-full hover:bg-[#1B1F19] transition font-bold">
+        <button id="filter-hired" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-lg hover:bg-[#1B1F19] transition font-bold">
             Hired
         </button>
-        <button id="filter-open" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-full hover:bg-[#1B1F19] transition font-bold">
+        <button id="filter-open" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-lg hover:bg-[#1B1F19] transition font-bold">
             Still Open
         </button>
     </div>
@@ -79,7 +79,7 @@
 
                     <div class="mt-4 flex justify-center">
                         <form action="{{ route('job.show', ['id' => $waitlist->job->id]) }}" method="get">
-                            <button type="submit" class="cta-button bg-[#AA0160] text-white py-2 px-6 rounded-full hover:bg-[#8D0052] transition font-bold">
+                            <button type="submit" class="cta-button bg-[#AA0160] text-white py-2 px-6 rounded-lg hover:bg-[#8D0052] transition font-bold">
                                 See Details
                             </button>
                         </form>

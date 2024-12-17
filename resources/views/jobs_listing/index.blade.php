@@ -15,11 +15,11 @@
                         id="search-query"
                         name="query"
                         placeholder="Search Jobs..."
-                        class="flex-2 py-[1rem] px-[0.75rem] rounded-l-full bg-gray-200 text-gray-800 placeholder-gray-500 placeholder:text-[1.1rem] placeholder:font-medium focus:outline-none border-none w-[80%]"
+                        class="flex-2 py-[1rem] px-[0.75rem] rounded-l-lg bg-gray-200 text-gray-800 placeholder-gray-500 placeholder:text-[1.1rem] placeholder:font-medium focus:outline-none border-none w-[80%]"
                         value="{{ request('query') }}"
                     >
                     <button type="submit"
-                            class="flex-1 ml-[-1px] bg-[#AA0160] text-white py-[1rem] px-[1.25rem] rounded-r-full hover:bg-[#8D0052] transition font-bold text-[1.1rem]">
+                            class="flex-1 ml-[-1px] bg-[#AA0160] text-white py-[1rem] px-[1.25rem] rounded-r-lg hover:bg-[#8D0052] transition font-bold text-[1.1rem]">
                         Search
                     </button>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="mt-4 flex justify-center">
                         <form action="{{ route('job.show', ['id' => $job->id]) }}" method="get">
                             <button type="submit"
-                                    class="w-[11rem] bg-violet text-white py-2 px-6 rounded-full hover:bg-darkviolet transition font-bold text-xl font-radical">
+                                    class="w-[11rem] bg-violet text-white py-2 px-6 rounded-lg hover:bg-darkviolet transition font-bold text-xl font-radical">
                                 Details
                             </button>
                         </form>

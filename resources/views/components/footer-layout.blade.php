@@ -1,5 +1,5 @@
 <footer class="bg-green md: text-base rounded-tl-[20px] rounded-tr-[20px] rounded-bl-none
-rounded-br-none pt-8">
+rounded-br-none pt-8 mt-4">
     <div class="pl-4 pr-4">
 
         <nav class="footer-top space-small-top space-bottom grid grid-cols-2 gap-y-8">
