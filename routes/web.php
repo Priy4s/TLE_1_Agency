@@ -36,9 +36,9 @@ Route::resource('joblistings', JobListingController::class)->names([
     'store' => 'job_listings.store',
 ])->middleware('auth');
 
-Route::get('joblistings/create', [JobListingController::class, 'create'], function () {
-    if (\Illuminate\Support\Facades\Auth::user()->company_id) {
-        return view('jobs_listing.create');
+Route::get('joblistings/create', function () {
+    if (\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->company_id) {
+        return app(JobListingController::class)->create();
     } else {
         return redirect()->route('company.create');
     }
