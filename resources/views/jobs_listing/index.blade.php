@@ -20,13 +20,13 @@
         <div class="flex justify-center items-center mb-8 w-full h-full">
             <form action="{{ route('job_listings.index') }}" method="GET" class="flex flex-col justify-center items-center w-full max-w-lg" id="search-sort-form">
                 <!-- Search Field -->
-                <div class="flex w-full max-w-[20rem] max-h-[12rem] mb-4">
+                <div class="flex w-full max-w-[20rem] max-h-[12rem] mb-4 border-1 rounded-lg">
                     <input
                         type="text"
                         id="search-query"
                         name="query"
                         placeholder="Search Jobs..."
-                        class="flex-2 py-[1rem] px-[0.75rem] rounded-l-lg bg-gray-200 text-gray-800 placeholder-gray-500 placeholder:text-[1.1rem] placeholder:font-medium focus:outline-none border-none w-[80%]"
+                        class="flex-2 py-[1rem] px-[0.75rem] rounded-l-lg bg-gray-200 text-gray-800 placeholder-gray-800 placeholder:text-[1.1rem] placeholder:font-medium focus:outline-none border-none w-[80%]"
                         value="{{ request('query') }}"
                     >
                     <button type="submit"
@@ -38,12 +38,11 @@
                 <!-- Sort Dropdown Underneath Search Field -->
                 <div class="mt-4 w-full max-w-[20rem]">
                     <label for="sort-dropdown" class="sr-only">Sort job listings by salary</label>
-                    <select name="sort" class="py-2 px-4 w-full bg-gray-200 text-gray-800 border border-[#AA0160] rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#AA0160] transition-all duration-200 ease-in-out" id="sort-dropdown" aria-labelledby="sort-dropdown">
+                    <select name="sort" class="py-2 px-4 w-full bg-gray-200 text-gray-800 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#AA0160] transition-all duration-200 ease-in-out" id="sort-dropdown">
                         <option value="" disabled selected class="text-gray-500">Sort by Salary</option>
                         <option value="salary_asc" {{ request('sort') === 'salary_asc' ? 'selected' : '' }} class="bg-white hover:bg-[#f3f3f3] transition-all">Salary Ascending</option>
                         <option value="salary_desc" {{ request('sort') === 'salary_desc' ? 'selected' : '' }} class="bg-white hover:bg-[#f3f3f3] transition-all">Salary Descending</option>
                     </select>
-
                 </div>
             </form>
         </div>
