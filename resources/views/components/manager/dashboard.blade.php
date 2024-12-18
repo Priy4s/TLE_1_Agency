@@ -29,7 +29,12 @@
                 class="bg-[#AA0160] text-white py-4 px-8 rounded-full hover:bg-[#8D0052] transition font-bold text-lg font-radical">
                 Create Job Listing
             </a>
+            <a href="{{ route('company.index') }}"
+                class="bg-[#AA0160] text-white py-4 px-8 rounded-full hover:bg-[#8D0052] transition font-bold text-lg font-radical ml-4">
+                View My Profile
+            </a>
         </div>
+
 
         <!-- Job Listings -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-10">
