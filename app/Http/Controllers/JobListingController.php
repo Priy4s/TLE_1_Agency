@@ -111,7 +111,7 @@ class JobListingController extends Controller
             ->get();
 
         $hiredJobs = $waitlistedJobs->filter(function ($waitlist) {
-            return $waitlist->status === 'hired';
+            return $waitlist->status === 'selected';
         });
 
         $waitingJobs = $waitlistedJobs->filter(function ($waitlist) {

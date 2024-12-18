@@ -57,7 +57,7 @@
     <!-- Job Listings -->
     <div class="space-y-6">
         @foreach ($jobListings as $waitlist)
-            @if ($waitlist->status === 'hired')
+            @if ($waitlist->status === 'selected')
                 <div class="animated-bg p-6 rounded-[16px] border-2 border-green shadow-lg max-w-[22rem] mx-auto relative">
                     <canvas class="bg-animation"></canvas>
 
@@ -128,7 +128,7 @@
         const filterListings = (status) => {
             jobListings.forEach((listing) => {
                 const isHired = listing.classList.contains("animated-bg");
-                if (status === "hired" && isHired) {
+                if (status === "selected" && isHired) {
                     listing.style.display = "block";
                 } else if (status === "open" && !isHired) {
                     listing.style.display = "block";
