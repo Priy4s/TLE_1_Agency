@@ -13,12 +13,18 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @vite(['resources/js/text-to-speech.js', 'resources/js/text-to-speech.js'])
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/js/text-to-speech.js', 'resources/js/text-to-speech.js'])
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-    </head>
-    <body>
+</head>
+
+<body>
+    @if (auth()->user()->role === 'admin')
+        return false;
+    @else
         <x-language-element></x-language-element>
-    </body>
+    @endif
+</body>
+
 </html>
