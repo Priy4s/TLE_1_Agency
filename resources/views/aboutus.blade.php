@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@extends('layouts.app')
+<!-- Navbar -->
+<x-navbar-layout></x-navbar-layout>
+
 <body>
 <!-- Header met navigatie -->
 <header class="bg-light py-3">
     <div class="container d-flex justify-content-between align-items-center">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" height="40">
-        <button class="btn btn-dark">Menu</button>
+        <img src="{{ asset('images/about.webp') }}" alt="Logo" height="40">
     </div>
 </header>
 
@@ -22,12 +16,8 @@
         <div class="col-12 text-center mb-4">
             <h1 class="fw-bold">Everyone can join</h1>
             <p>
-                Everyone deserves a fair chance at a job. Open Hiring is about focusing on potential,
-                not judgment. It helps companies and job seekers to connect in an honest and inclusive way.
+                Everyone deserves a fair chance at a job. That’s what Open Hiring is all about. It’s not about whether someone has a diploma, a smooth talk, or loads of experience it’s about whether they want to work and are able to do so. Companies hiring through Open Hiring don’t conduct job interviews, eliminating biases from the process. Job seekers decide for themselves if they are suitable for a position. This way, we make the job market fairer and help people get back to work quickly.
             </p>
-        </div>
-        <div class="col-12">
-            <img src="{{ asset('images/about-us.jpg') }}" alt="Team Image" class="img-fluid mb-4 rounded">
         </div>
     </div>
 
@@ -58,19 +48,7 @@
 </section>
 
 <!-- Footer -->
-<footer class="bg-dark text-white py-4">
-    <div class="container text-center">
-        <p>For Job Seekers | For Employers</p>
-        <p>About Open Hiring | Privacy Policy</p>
-        <div>
-            <a href="#" class="text-white me-2">LinkedIn</a>
-            <a href="#" class="text-white me-2">Facebook</a>
-            <a href="#" class="text-white">Instagram</a>
-        </div>
-    </div>
-</footer>
+<x-footer-layout></x-footer-layout>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

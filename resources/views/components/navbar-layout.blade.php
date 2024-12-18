@@ -46,7 +46,7 @@
             <li><a href="{{ route('quiz.start') }}" class="block py-2 px-4 font-black">Talent Discovery</a></li>
             <li><a href="{{ route('job_listings.my') }}" class="block py-2 px-4 font-black">My Job Openings</a></li>
             <li><a href="{{ route('chat.index') }}" class="block py-2 px-4 font-black">Chats</a></li>
-            <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
+            <li><a href="{{ route('about') }}" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
 
             <li>
                 <form method="POST" action="{{ route('logout') }}">
