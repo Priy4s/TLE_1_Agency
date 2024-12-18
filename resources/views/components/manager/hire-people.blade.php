@@ -2,7 +2,7 @@
 
 <div class="bg-[#FBFCF6] text-[#2E342A] min-h-screen p-8">
     <div class="max-w-6xl mx-auto">
-        <h1 class="text-4xl font-semibold text-gray-800 mb-6">Hire People for {{ $job->position }}</h1>
+        <h1 class="text-4xl font-semibold text-gray-800 mb-6">Select People for {{ $job->position }}</h1>
 
         <p class="text-gray-700 text-xl mb-4">Select candidates for "{{ $job->position }}".</p>
 
@@ -25,7 +25,7 @@
                 <div class="relative">
                     <button onclick="toggleDropdown()"
                         class="bg-[#E2ECC8] hover:bg-[#D1E0A9] text-black text-lg py-3 px-6 rounded-lg font-semibold shadow-md transform transition duration-200 ease-in-out hover:scale-105 focus:outline-none">
-                        Hire People
+                        Select People
                     </button>
 
                     <!-- Dropdown (Modal) Menu -->
@@ -50,7 +50,7 @@
                                         <button type="submit"
                                             class="bg-green-500 hover:bg-green-400 text-white py-2 px-4 rounded-lg">Confirm</button>
                                         <button type="button" onclick="showConfirmation()"
-                                            class="bg-[#E2ECC8] hover:bg-[#D1E0A9] text-black py-2 px-4 rounded-lg">Hire</button>
+                                            class="bg-[#E2ECC8] hover:bg-[#D1E0A9] text-black py-2 px-4 rounded-lg">Select</button>
                                     </div>
                                 </div>
                             </form>
@@ -64,7 +64,7 @@
         <!-- Wachtende Kandidaten -->
         <div class="waiting-candidates bg-white shadow-md rounded-lg p-6 mb-6">
             @if ($waitlistUsers->where('status', 'waiting')->isEmpty())
-                <p class="text-gray-500">No candidates waiting for hiring.</p>
+                <p class="text-gray-500">No candidates waiting for selecting.</p>
             @else
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">
                     Waiting Candidates ({{ $waitlistUsers->where('status', 'waiting')->count() }})
@@ -93,9 +93,9 @@
         <!-- Hired Kandidaten -->
         <div class="hired-candidates bg-white shadow-md rounded-lg p-6">
             @if ($waitlistUsers->where('status', 'hired')->isEmpty())
-                <p class="text-gray-500">No hired candidates yet.</p>
+                <p class="text-gray-500">No selected candidates yet.</p>
             @else
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Hired Candidates
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Selected Candidates
                     ({{ $waitlistUsers->where('status', 'hired')->count() }})</h2>
                 <table class="table-auto w-full">
                     <thead>
@@ -107,7 +107,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($waitlistUsers->where('status', 'hired') as $index => $waitlist)
+                        @foreach ($waitlistUsers->where('status', 'selected') as $index => $waitlist)
                             <tr>
                                 <td class="border px-4 py-2">
                                     Candidate {{ $index + 1 }} -
@@ -149,8 +149,8 @@
 <!-- Bevestigings Popup -->
 <div id="confirmation-popup" class="hidden fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
     <div class="bg-white shadow-lg rounded-lg p-6 w-96">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Confirm Hiring</h2>
-        <p id="confirmation-message" class="text-gray-700 mb-4">Are you sure you want to hire these candidate(s)?</p>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Confirm Selecting</h2>
+        <p id="confirmation-message" class="text-gray-700 mb-4">Are you sure you want to select these candidate(s)?</p>
         <div class="flex justify-center gap-4">
             <button onclick="closeConfirmation()"
                 class="bg-[#7C1A51] hover:bg-[#681740] text-white py-2 px-4 rounded-lg">Cancel</button>
@@ -171,7 +171,7 @@
     function showConfirmation() {
         const numCandidates = document.getElementById('num_candidates').value;
         const confirmationMessage = document.getElementById('confirmation-message');
-        confirmationMessage.textContent = `Are you sure you want to hire ${numCandidates} candidate(s)?`;
+        confirmationMessage.textContent = `Are you sure you want to select ${numCandidates} candidate(s)?`;
 
         const confirmationPopup = document.getElementById('confirmation-popup');
         confirmationPopup.classList.remove('hidden');
