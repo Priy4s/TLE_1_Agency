@@ -9,6 +9,8 @@ use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\PageController;
+
 
 
 Route::get('/job/confirm', [JobController::class, 'showConfirmation'])->name('job.confirm');
@@ -20,6 +22,11 @@ Route::get('/', function () {
         return view('welcome'); // Show welcome page if not logged in
     }
 })->name('home');
+
+
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/about-us', [PageController::class, 'about'])->name('about');
+
 
 Route::get('/dashboard', function () {
     if (\Illuminate\Support\Facades\Auth::check()) {
@@ -79,7 +86,7 @@ Route::post('/broadcasting/auth', function (Request $request) {
 })->middleware('auth');
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast')->middleware('auth');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive')->middleware('auth');
-});
+//});
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
 
