@@ -20,9 +20,7 @@
 </head>
 
 <body>
-    @if (auth()->user()->role === 'admin')
-        return false;
-    @else
+    @if (!auth()->check() || auth()->user()->role !== 'admin')
         <x-language-element></x-language-element>
     @endif
 </body>
