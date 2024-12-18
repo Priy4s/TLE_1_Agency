@@ -7,7 +7,8 @@
     </div>
 
     <!-- Hamburger menu, groter en naar links -->
-    <div id="hamburger" class="space-y-[0.5rem] ml-[-0.25rem] mt-[-1rem] px-[0.8rem] flex flex-col items-center cursor-pointer">
+    <div id="hamburger"
+        class="space-y-[0.5rem] ml-[-0.25rem] mt-[-1rem] px-[0.8rem] flex flex-col items-center cursor-pointer">
         <div class="h-[0.3rem] w-[3rem] bg-black rounded"></div>
         <div class="h-[0.3rem] w-[3rem] bg-black rounded"></div>
         <div class="h-[0.3rem] w-[3rem] bg-black rounded"></div>
@@ -15,6 +16,7 @@
     </div>
 
 </nav>
+
 <!-- Verberg het menu standaard -->
 <div id="menu" class="fixed inset-0 bg-white flex justify-center items-center z-50 hidden">
     <ul class="text-black text-2xl text-center">
@@ -23,26 +25,27 @@
             <img src="{{ asset('images/ohlogo.png') }}" alt="Open Hiring Logo" class="h-[6rem]">
         </div>
 
-        @if(auth()->check() && auth()->user()->role == 'admin')
-            <li><a href="{{ route('home')}}" class="block py-2 px-4 font-black">Home</a></li>
-            <li><a href="{{ route('manager.dashboard')}}" class="block py-2 px-4 font-black">Manager Dashboard</a></li>
-            <li><a href="{{ route('job_listings.create')}}" class="block py-2 px-4 font-black">Create Job Listing</a></li>
-            <li><a href="{{route('chat.index')}}" class="block py-2 px-4 font-black">Chats</a></li>
+        @if (auth()->check() && auth()->user()->role == 'admin')
+            <li><a href="{{ route('home') }}" class="block py-2 px-4 font-black">Home</a></li>
+            <li><a href="{{ route('manager.dashboard') }}" class="block py-2 px-4 font-black">Manager Dashboard</a></li>
+            <li><a href="{{ route('jobs_listing.create') }}" class="block py-2 px-4 font-black">Create Job Listing</a>
+            </li>
+            <li><a href="{{ route('chat.index') }}" class="block py-2 px-4 font-black">Chats</a></li>
             <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
-        <li>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="block w-full py-2 px-4 font-black text-black text-2xl text-center">
-                    Logout
-                </button>
-            </form>
-        </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="block w-full py-2 px-4 font-black text-black text-2xl text-center">
+                        Logout
+                    </button>
+                </form>
+            </li>
         @else
-            <li><a href="{{ route('home')}}" class="block py-2 px-4 font-black">Home</a></li>
+            <li><a href="{{ route('home') }}" class="block py-2 px-4 font-black">Home</a></li>
             <li><a href="{{ route('job_listings.index') }}" class="block py-2 px-4 font-black">Job Openings</a></li>
-            <li><a href="{{ route('quiz.start') }}" class="block py-2 px-4 font-black">Quiz</a></li>
+            <li><a href="{{ route('quiz.start') }}" class="block py-2 px-4 font-black">Talent Discovery</a></li>
             <li><a href="{{ route('job_listings.my') }}" class="block py-2 px-4 font-black">My Job Openings</a></li>
-            <li><a href="{{route('chat.index')}}" class="block py-2 px-4 font-black">Chats</a></li>
+            <li><a href="{{ route('chat.index') }}" class="block py-2 px-4 font-black">Chats</a></li>
             <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
 
             <li>
@@ -66,6 +69,7 @@
         <li id="closeMenu" class="block py-2 px-4 font-black text-black cursor-pointer text-5xl">×</li>
     </ul>
 </div>
+
 <script>
     // JavaScript om het menu zichtbaar/verborgen te maken
     document.getElementById('hamburger').addEventListener('click', function() {
@@ -87,34 +91,34 @@
         document.body.style.overflow = 'auto'; // Zet scrollen weer aan
     });
 
-        // Lettergrootte aanpassen
-        const increaseFontButton = document.getElementById('increase-font');
-        const decreaseFontButton = document.getElementById('decrease-font');
-        const fontSizeDisplay = document.getElementById('font-size-display');
-        const defaultFontSize = 16; // Standaard lettergrootte
-        const maxFontSize = 23; // Maximaal toegestane lettergrootte
-        const minFontSize = 10; // Minimale lettergrootte
-        let fontSize = localStorage.getItem('fontSize') ? parseFloat(localStorage.getItem('fontSize')) : defaultFontSize;
+    // Lettergrootte aanpassen
+    const increaseFontButton = document.getElementById('increase-font');
+    const decreaseFontButton = document.getElementById('decrease-font');
+    const fontSizeDisplay = document.getElementById('font-size-display');
+    const defaultFontSize = 16; // Standaard lettergrootte
+    const maxFontSize = 23; // Maximaal toegestane lettergrootte
+    const minFontSize = 10; // Minimale lettergrootte
+    let fontSize = localStorage.getItem('fontSize') ? parseFloat(localStorage.getItem('fontSize')) : defaultFontSize;
 
-        // Stel de huidige lettergrootte in
-        document.documentElement.style.fontSize = `${fontSize}px`;
-        fontSizeDisplay.textContent = `Font size: ${fontSize}px`;
+    // Stel de huidige lettergrootte in
+    document.documentElement.style.fontSize = `${fontSize}px`;
+    fontSizeDisplay.textContent = `Font size: ${fontSize}px`;
 
-        increaseFontButton.addEventListener('click', function() {
+    increaseFontButton.addEventListener('click', function() {
         if (fontSize < maxFontSize) { // Controleer of de maximale grootte niet is bereikt
-        fontSize += 1; // Verhoog met 1px
-        document.documentElement.style.fontSize = `${fontSize}px`;
-        fontSizeDisplay.textContent = `Font size: ${fontSize}px`; // Toon de nieuwe grootte
-        localStorage.setItem('fontSize', fontSize); // Bewaren in localStorage
-    }
+            fontSize += 1; // Verhoog met 1px
+            document.documentElement.style.fontSize = `${fontSize}px`;
+            fontSizeDisplay.textContent = `Font size: ${fontSize}px`; // Toon de nieuwe grootte
+            localStorage.setItem('fontSize', fontSize); // Bewaren in localStorage
+        }
     });
 
-        decreaseFontButton.addEventListener('click', function() {
+    decreaseFontButton.addEventListener('click', function() {
         if (fontSize > minFontSize) { // Minimale fontgrootte
-        fontSize -= 1; // Verklein met 1px
-        document.documentElement.style.fontSize = `${fontSize}px`;
-        fontSizeDisplay.textContent = `Font size: ${fontSize}px`; // Toon de nieuwe grootte
-        localStorage.setItem('fontSize', fontSize); // Bewaren in localStorage
-    }
+            fontSize -= 1; // Verklein met 1px
+            document.documentElement.style.fontSize = `${fontSize}px`;
+            fontSizeDisplay.textContent = `Font size: ${fontSize}px`; // Toon de nieuwe grootte
+            localStorage.setItem('fontSize', fontSize); // Bewaren in localStorage
+        }
     });
 </script>

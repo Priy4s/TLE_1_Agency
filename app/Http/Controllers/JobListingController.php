@@ -15,14 +15,22 @@ class JobListingController extends Controller
 {
     public function index(Request $request): View
     {
-        if (Auth::user()->role === 'admin') {
-            // Haal de joblistings op
-            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // If the user is an admin, only show job listings for their company
+        if ($user->role === 'admin') {
+            if (!$user->company_id) {
+                abort(403, 'No company is assigned to this admin.');
+            }
+
+            // Only get job listings that match the user's company_id
+            $jobListings = JobListing::where('company_id', $user->company_id)->get();
 
             return view('components.manager.dashboard', ['jobListings' => $jobListings]);
         }
 
-        $jobListings = JobListing::all();
+        // If the user is not an admin, handle the query search logic
         $query = $request->input('query');
 
         $jobListings = JobListing::when($query, function ($queryBuilder) use ($query) {
@@ -37,6 +45,7 @@ class JobListingController extends Controller
 
         return view('jobs_listing.index', compact('jobListings'));
     }
+
 
     public function store(Request $request): RedirectResponse
     {
@@ -112,10 +121,11 @@ class JobListingController extends Controller
             return $waitlist->status === 'waiting';
         })->map(function ($waitlist) {
             $waitlist->position = Waitlist::where('job_id', $waitlist->job_id)
-                ->where('status', 'waiting')
+                ->where('status', 'waiting') // Filter for 'waiting' status only
                 ->orderBy('created_at')
                 ->pluck('user_id')
-                ->search($waitlist->user_id) + 1;
+                ->search($waitlist->user_id) + 1; // Position in waitlist (1-indexed)
+
 
             $waitlist->waitlist_count = Waitlist::where('job_id', $waitlist->job_id)
                 ->where('status', 'waiting')
@@ -151,5 +161,4 @@ class JobListingController extends Controller
 
         return view('components.manager.dashboard', compact('jobListings'));
     }
-
 }

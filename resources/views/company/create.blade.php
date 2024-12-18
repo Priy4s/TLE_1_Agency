@@ -6,13 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Company</title>
 </head>
 
 <body class="bg-[#FBFCF6] text-[#2E342A] p-4">
 
     <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-        <h1 class="text-3xl font-semibold text-center mb-6">Create Job Listing</h1>
+        <h1 class="text-3xl font-semibold text-center mb-6">Create Company</h1>
         <form action="{{ route('company.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
             @csrf
             <div>

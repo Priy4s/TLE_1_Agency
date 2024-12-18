@@ -36,19 +36,20 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 require __DIR__ . '/auth.php';
 
 Route::resource('joblistings', JobListingController::class)->names([
     'index' => 'job_listings.index',
-    'create' => 'job_listings.create',
     'store' => 'job_listings.store',
 ])->middleware('auth');
+
+Route::get('joblistings/create', [JobListingController::class, 'create'], function () {
+    if (\Illuminate\Support\Facades\Auth::user()->company_id) {
+        return view('jobs_listing.create');
+    } else {
+        return redirect()->route('company.create');
+    }
+})->middleware('auth')->name('jobs_listing.create');
 
 
 Route::middleware('auth')->group(function () {
@@ -86,15 +87,11 @@ Route::post('/broadcasting/auth', function (Request $request) {
 })->middleware('auth');
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast')->middleware('auth');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive')->middleware('auth');
-//});
 Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
 Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', function () {
-        return view('company.index');
-    });
-});
+
+Route::get('/profile', [CompanyController::class, 'index'])->middleware('auth')->name('company.index');
 
 
 Route::resource('company', CompanyController::class)->names([
@@ -102,3 +99,4 @@ Route::resource('company', CompanyController::class)->names([
     'store' => 'company.store',
 ])->middleware('auth');
 
+Route::post('company/addMember', [CompanyController::class, 'addMember'])->name('company.addMember')->middleware('auth');
