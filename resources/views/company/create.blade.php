@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Company</title>
 </head>
 
 <body class="bg-[#FBFCF6] text-[#2E342A] p-4">
