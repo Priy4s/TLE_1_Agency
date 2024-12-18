@@ -31,7 +31,7 @@
             <li><a href="{{ route('jobs_listing.create') }}" class="block py-2 px-4 font-black">Create Job Listing</a>
             </li>
             <li><a href="{{ route('chat.index') }}" class="block py-2 px-4 font-black">Chats</a></li>
-            <li><a href="#" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
+            <li><a href="{{ route('about') }}" class="block py-2 px-4 font-black">About Open Hiring</a></li>
             <li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -40,13 +40,14 @@
                     </button>
                 </form>
             </li>
-        @else
+        @endif
+        @if (auth()->check() && auth()->user()->role == 'applicant')
             <li><a href="{{ route('home') }}" class="block py-2 px-4 font-black">Home</a></li>
             <li><a href="{{ route('job_listings.index') }}" class="block py-2 px-4 font-black">Job Openings</a></li>
             <li><a href="{{ route('quiz.start') }}" class="block py-2 px-4 font-black">Talent Discovery</a></li>
             <li><a href="{{ route('job_listings.my') }}" class="block py-2 px-4 font-black">My Job Openings</a></li>
             <li><a href="{{ route('chat.index') }}" class="block py-2 px-4 font-black">Chats</a></li>
-            <li><a href="{{ route('about') }}" class="block py-2 px-4 font-black">Over Open Hiring</a></li>
+            <li><a href="{{ route('about') }}" class="block py-2 px-4 font-black">About Open Hiring</a></li>
 
             <li>
                 <form method="POST" action="{{ route('logout') }}">
@@ -55,7 +56,12 @@
                         Logout
                     </button>
                 </form>
-            </li>
+            </li
+
+        @elseif (!auth()->check())
+            <li><a href="{{ route('home') }}" class="block py-2 px-4 font-black">Home</a></li>
+            <li><a href="{{ route('about') }}" class="block py-2 px-4 font-black">About Open Hiring</a></li>
+            <li><a href="{{ route('login') }}" class="block py-2 px-4 font-black">Login</a></li>
         @endif
 
         <!-- Knoppen voor lettergrootte en vergroting in het midden -->
