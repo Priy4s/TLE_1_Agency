@@ -13,6 +13,13 @@ class JobController extends Controller
     // Show the job details page
     public function show($id)
     {
+        if (Auth::user()->role === 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('components.manager.dashboard', ['jobListings' => $jobListings]);
+        }
+
         $joblistings = JobListing::all();
         $job = $joblistings->firstWhere('id', $id);
 
@@ -33,6 +40,13 @@ class JobController extends Controller
 
     public function manageDetails($id)
     {
+        if (Auth::user()->role !== 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('jobs_listing.index', ['jobListings' => $jobListings]);
+        }
+
         $job = JobListing::find($id);
         return view('components.manager.managedetails', compact('job'));
     }
@@ -64,6 +78,13 @@ class JobController extends Controller
 
     public function hirePage($id)
     {
+        if (Auth::user()->role !== 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('jobs_listing.index', ['jobListings' => $jobListings]);
+        }
+
         $job = JobListing::findOrFail($id);
 
         // Get only users on the waitlist for this job, including their user details
@@ -76,6 +97,13 @@ class JobController extends Controller
 
     public function confirmHire(Request $request, $id)
     {
+        if (Auth::user()->role !== 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('jobs_listing.index', ['jobListings' => $jobListings]);
+        }
+
         $job = JobListing::findOrFail($id);
 
         // Get the number of candidates to hire
@@ -94,12 +122,12 @@ class JobController extends Controller
 
         // Update the status of the selected candidates to 'hired'
         foreach ($candidatesToHire as $candidate) {
-            if ($candidate->status !== 'hired') {
-                $candidate->update(['status' => 'hired']);
+            if ($candidate->status !== 'selected') {
+                $candidate->update(['status' => 'selected']);
             }
         }
 
-        return redirect()->route('job.hire', $job->id)->with('success', "$numCandidates candidate(s) successfully hired.");
+        return redirect()->route('job.hire', $job->id)->with('success', "$numCandidates candidate(s) successfully selected.");
     }
 
     public function leaveWaitlist(Request $request, $id)
@@ -140,6 +168,13 @@ class JobController extends Controller
     // Show confirmation page after joining the waitlist
     public function showConfirmation()
     {
+        if (Auth::user()->role === 'admin') {
+            // Haal de joblistings op
+            $jobListings = JobListing::all(); // Let op de naam: $jobListings
+
+            return view('components.manager.dashboard', ['jobListings' => $jobListings]);
+        }
+
         // Here, you can pass any relevant data, like a success message, to the view
         return view('details.confirm');
     }

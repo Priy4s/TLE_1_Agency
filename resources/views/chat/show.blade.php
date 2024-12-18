@@ -1,28 +1,45 @@
 @extends('layouts.app')
 <x-navbar-layout></x-navbar-layout>
-<h1 class="text-2xl font-bold mb-4 text-center">Chat with {{ $user->username }}</h1>
+<div class="flex flex-col justify-center align-middle items-center">
+    <h1 class="text-2xl font-bold mb-4 text-center">Chat with {{ $user->username }}</h1>
 
-<div class="chat-container bg-gray-100 p-4 rounded-lg shadow-md mb-4 mx-auto max-w-3xl">
+<div class="chat-container bg-gray-100 p-4 rounded-lg shadow-md mb-4 mx-[5%] w-[90%]">
     @foreach ($messages as $message)
-        @if ($message->sender->name)
-            <p class="mb-2"><strong>{{ $message->sender->name }}:</strong> {{ $message->content }}</p>
-        @else
-            <p class="mb-2"><strong>{{ $message->sender->username }}:</strong> {{ $message->content }}</p>
-        @endif
+        <div class="chat-message flex items-center mb-2">
+            @if ($message->sender->name)
+                <p class="flex-1"><strong>{{ $message->sender->name }}:</strong> {{ $message->content }}</p>
+            @else
+                <p class="flex-1"><strong>{{ $message->sender->username }}:</strong> {{ $message->content }}</p>
+            @endif
+
+            <!-- Speaker icon to read the message aloud -->
+            <span
+                class="speaker-icon cursor-pointer ml-2"
+                aria-label="Click to hear this chat message"
+                role="button"
+                tabindex="0"
+                data-text="{{ $message->content }}"
+            >
+            </span>
+        </div>
     @endforeach
 </div>
 
+</div>
+
 <!-- Chat form to send messages -->
-<form id="chat-form" class="flex flex-col space-y-4 mx-auto max-w-3xl">
+<form id="chat-form" class="flex flex-col space-y-4 items-center">
     @csrf
-    <textarea id="message-content" name="content" rows="3" required class="p-2 border rounded-lg w-full"></textarea>
-    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg">Send</button>
+    <textarea id="message-content" name="content" rows="3" required class="p-2 border rounded-lg w-[90%]"></textarea>
+    <button type="submit" class="bg-green text-white py-3 w-[35%] rounded-lg hover:bg-mossdark">Send</button>
 </form>
 <button onclick="window.location.href='{{ route('chat.index') }}'"
-    class="bg-gray-500 text-white py-2 px-4 rounded-lg mt-4 mx-auto block text-center">Back to Chats</button>
+        class="bg-violet text-white py-3 w-[35%] rounded-lg mt-4 mx-auto block text-center hover:bg- violet">Back to Chats</button>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.10.0/dist/echo.iife.js"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+<x-footer-layout></x-footer-layout>
 
 <script>
     Pusher.logToConsole = true;

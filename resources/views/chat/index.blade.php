@@ -9,7 +9,7 @@
         <ul class="space-y-4 w-full">
             @foreach ($users as $user)
                 <li
-                    class="flex items-center justify-between p-4 bg-white rounded-lg shadow-md hover:bg-gray-50 transition duration-200">
+                    class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-md w-[90%] mx-[5%] hover:bg-gray-150 transition duration-200">
                     <div class="flex items-center">
                         <div class="w-12 h-12 bg-gray-300 rounded-full mr-4">
                             <!-- Optionally, you can add a user avatar here -->
@@ -28,7 +28,7 @@
                             </span>
                         @endif
                         <a href="{{ route('chat.show', $user->id) }}"
-                            class="text-black hover:text-gray-800 font-medium flex items-center">
+                            class="text-black hover:text-gray-800 font-medium flex items-center underline">
                             Start Chat
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black hover:text-gray-800 ml-1"
                                 viewBox="0 0 20 20" fill="currentColor">
@@ -40,13 +40,27 @@
                 </li>
             @endforeach
     @endif
+
+ @if(auth()->check() && auth()->user()->role == 'admin')
     <div class="mt-8 flex justify-center">
-        <a href="{{ route('home') }}" class="text-white bg-blue-600 hover:bg-blue-800 font-medium py-2 px-4 rounded">
-            Back to Home
+        <a href="{{ route('manager.dashboard') }}" class="cta-button bg-violet hover:bg- violet text-white py-3 px-6 rounded-lg font-semibold shadow-md">
+            Back to Dashboard
         </a>
     </div>
+                @else
+                <div class="mt-8 flex justify-center">
+                    <a href="{{ route('job_listings.index') }}" class="cta-button bg-violet hover:bg- violet text-white py-3 px-6 rounded-lg font-semibold shadow-md">
+                        Back to Job Openings
+                    </a>
+                </div>
+                @endif
     </ul>
 </div>
+<p class="mx-[5%] my-4 text-md bg-mosslight border-b-4 border-r-4 border-mossmedium rounded-[16px] py-4 px-12 flex items-center pb-[-5px] text-left leading-tight">
+    &#x1F6C8 When you start chatting with someone, your name will appear if you've provided
+    one. But don't worry—you're already hired! This is Open Hiring, where we focus
+    on opportunities, not interviews.</p>
+
 <footer>
     <x-footer-layout></x-footer-layout>
 </footer>
