@@ -45,7 +45,7 @@
             Show All
         </button>
         <button id="filter-hired" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-lg hover:bg-[#1B1F19] transition font-bold">
-            Hired
+            Selected
         </button>
         <button id="filter-open" class="filter-button bg-[#39462F] text-white py-2 px-6 rounded-lg hover:bg-[#1B1F19] transition font-bold">
             Still Open

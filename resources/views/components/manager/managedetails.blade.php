@@ -45,7 +45,7 @@
             <a href="{{ route('job.hire', ['id' => $job->id]) }}">
                 <button
                     class="cta-button bg-[#E2ECC8] hover:bg-[#D1E0A9] text-[#2E342A] text-lg py-3 px-6 rounded-lg font-semibold shadow-md">
-                    Hire People
+                    Select People
                 </button>
             </a>
         </div>

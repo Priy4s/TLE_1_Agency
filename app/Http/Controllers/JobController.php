@@ -122,12 +122,12 @@ class JobController extends Controller
 
         // Update the status of the selected candidates to 'hired'
         foreach ($candidatesToHire as $candidate) {
-            if ($candidate->status !== 'hired') {
-                $candidate->update(['status' => 'hired']);
+            if ($candidate->status !== 'selected') {
+                $candidate->update(['status' => 'selected']);
             }
         }
 
-        return redirect()->route('job.hire', $job->id)->with('success', "$numCandidates candidate(s) successfully hired.");
+        return redirect()->route('job.hire', $job->id)->with('success', "$numCandidates candidate(s) successfully selected.");
     }
 
     public function leaveWaitlist(Request $request, $id)
