@@ -92,11 +92,11 @@
 
         <!-- Hired Kandidaten -->
         <div class="hired-candidates bg-white shadow-md rounded-lg p-6">
-            @if ($waitlistUsers->where('status', 'hired')->isEmpty())
+            @if ($waitlistUsers->where('status', 'selected')->isEmpty())
                 <p class="text-gray-500">No selected candidates yet.</p>
             @else
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Selected Candidates
-                    ({{ $waitlistUsers->where('status', 'hired')->count() }})</h2>
+                    ({{ $waitlistUsers->where('status', 'selected')->count() }})</h2>
                 <table class="table-auto w-full">
                     <thead>
                         <tr class="bg-gray-100 text-gray-800">
@@ -111,7 +111,7 @@
                             <tr>
                                 <td class="border px-4 py-2">
                                     Candidate {{ $index + 1 }} -
-                                    {{ $waitlist->user->name ?? $waitlist->user->username ?? 'Unknown' }}
+                                    {{ $waitlist->user->name ?? ($waitlist->user->username ?? 'Unknown') }}
                                 </td>
                                 <td class="border px-4 py-2">{{ $waitlist->status }}</td>
                                 <td class="border px-4 py-2 text-center">
