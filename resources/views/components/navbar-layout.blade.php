@@ -26,7 +26,6 @@
         </div>
 
         @if (auth()->check() && auth()->user()->role == 'admin')
-            <li><a href="{{ route('home') }}" class="block py-2 px-4 font-black">Home</a></li>
             <li><a href="{{ route('manager.dashboard') }}" class="block py-2 px-4 font-black">Manager Dashboard</a></li>
             <li><a href="{{ route('jobs_listing.create') }}" class="block py-2 px-4 font-black">Create Job Listing</a>
             </li>
