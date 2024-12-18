@@ -21,9 +21,12 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = Company::all();
-
-        return view('company.index', compact('companies'));
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            $companies = Company::all();
+            return view('company.index', compact('companies'));
+        }
+        return redirect()->route('home');
     }
 
     public function store(Request $request)
@@ -79,5 +82,35 @@ class CompanyController extends Controller
         $companies = Company::all();
 
         return view('company.create', compact('locations', 'companies'));
+    }
+
+    public function addMember(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        // Find the user by their email
+        $user = User::where('email', $validatedData['email'])->first();
+
+        if ($user) {
+            // Get the currently authenticated user
+            $authUser = Auth::user();
+
+            if ($authUser) {
+                // Set the company_id of the found user to the company_id of the authenticated user
+                $user->company_id = $authUser->company_id;
+                $user->save();  // Save the user with the new company_id
+
+                return redirect()->route('manager.dashboard')->with('success', 'Member added successfully.');
+            } else {
+                // Handle the case when there is no authenticated user
+                return redirect()->route('login')->with('error', 'You must be logged in to add a member.');
+            }
+        } else {
+            // Handle the case when the user with the provided email is not found
+            return redirect()->back()->with('error', 'User with the provided email not found.');
+        }
     }
 }

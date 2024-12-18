@@ -17,6 +17,12 @@
     <div class="flex flex-col items-center justify-center min-h-screen px-4 py-8">
         @if (Auth::check())
             <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+                @if (Auth::user()->company && Auth::user()->company->image)
+                    <div class="flex justify-center mb-4">
+                        <img src="{{ asset('storage/' . Auth::user()->company->image) }}" alt="Company Picture"
+                            class="w-32 h-32 rounded-full object-cover">
+                    </div>
+                @endif
                 <h1 class="text-2xl font-bold text-gray-900 text-center mb-4">
                     {{ Auth::user()->name ?? Auth::user()->username }}
                 </h1>
@@ -29,6 +35,20 @@
                         <h2 class="text-lg font-semibold text-green-600 mb-2">
                             Company: {{ Auth::user()->company->name }}
                         </h2>
+                    </div>
+                    <div class="mt-6">
+                        <form action="{{ route('company.addMember') }}" method="POST"
+                            class="flex flex-col items-center">
+                            @csrf
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Add Member by
+                                Email:</label>
+                            <input type="email" name="email" id="email" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 mb-4">
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                                Add Member
+                            </button>
+                        </form>
                     </div>
                 @else
                     <p class="text-center text-red-500 mb-4">
