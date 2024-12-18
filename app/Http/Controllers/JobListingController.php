@@ -20,9 +20,6 @@ class JobListingController extends Controller
 
         // If the user is an admin, only show job listings for their company
         if ($user->role === 'admin') {
-            if (!$user->company_id) {
-                abort(403, 'No company is assigned to this admin.');
-            }
 
             // Only get job listings that match the user's company_id
             $jobListings = JobListing::where('company_id', $user->company_id)->get();
