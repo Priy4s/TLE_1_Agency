@@ -37,11 +37,13 @@
 
                 <!-- Sort Dropdown Underneath Search Field -->
                 <div class="mt-4 w-full max-w-[20rem]">
-                    <select name="sort" class="py-2 px-4 w-full bg-gray-200 text-gray-800 border border-[#AA0160] rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#AA0160] transition-all duration-200 ease-in-out" id="sort-dropdown">
+                    <label for="sort-dropdown" class="sr-only">Sort job listings by salary</label>
+                    <select name="sort" class="py-2 px-4 w-full bg-gray-200 text-gray-800 border border-[#AA0160] rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#AA0160] transition-all duration-200 ease-in-out" id="sort-dropdown" aria-labelledby="sort-dropdown">
                         <option value="" disabled selected class="text-gray-500">Sort by Salary</option>
                         <option value="salary_asc" {{ request('sort') === 'salary_asc' ? 'selected' : '' }} class="bg-white hover:bg-[#f3f3f3] transition-all">Salary Ascending</option>
                         <option value="salary_desc" {{ request('sort') === 'salary_desc' ? 'selected' : '' }} class="bg-white hover:bg-[#f3f3f3] transition-all">Salary Descending</option>
                     </select>
+
                 </div>
             </form>
         </div>

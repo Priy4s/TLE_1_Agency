@@ -1,21 +1,8 @@
 @extends('layouts.app')
 
-    <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @vite(['resources/js/text-to-speech.js', 'resources/js/text-to-speech.js'])
-</head>
-<body>
-
 <x-navbar-layout></x-navbar-layout>
 
-<img class="w-[90%] mx-[5%]" src="{{ asset('images/quiz-worker.jpg') }}">
+<img class="w-[90%] mx-[5%]" alt="A woman sitting at a desk" src="{{ asset('images/quiz-worker.jpg') }}">
 
 <h1 class="text-4xl font-semibold mb-5 mt-10 text-center font-radical">Your Talents</h1>
 
