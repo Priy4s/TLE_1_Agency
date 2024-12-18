@@ -13,8 +13,7 @@
 
         <p class="text-3xl text-black mt-7 font-bold">Work wherever you want</h1>
         <p class="mt-4 text-black text-left pl-3">
-            Open Hiring geeft iedereen een eerlijke kans op werk. Geen sollicitatie, geen vragen—gewoon starten met één druk op de knop.
-            Niet je diploma, maar jouw inzet telt!
+            Open Hiring gives everyone a fair chance at employment. No applications, no questions—just start with the press of a button. It's not your diploma, but your commitment that counts!
         </p>
         <a href="{{ route('job_listings.index') }}" class="mt-6 inline-block bg-violet text-white font-bold py-2 px-6 rounded-lg text-xl hover:bg- via- violet">
             View Job Openings
